@@ -1,5 +1,5 @@
 import { HttpException } from "@nestjs/common";
-import bcrypt from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 import { PASSWORD_SALT_ROUND } from "../../constant/config";
 
 const crypt = {
