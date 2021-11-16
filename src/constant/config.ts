@@ -19,7 +19,7 @@ export const TWILIO_PHONE_NUM = process.env.TWILIO_PHONE_NUM;
 export const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID || "ACb7c6c11a12c9e0492ba68ff0c6984e8c";
 export const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN || "default";
 
-export const REDIS_HOST = process.env.REDIS_HOST;
+export const REDIS_HOST = process.env.REDIS_HOST || "phasesci-cache-uat.redis.cache.windows.net";
 export const REDIS_PORT = process.env.REDIS_PORT;
 export const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
 
