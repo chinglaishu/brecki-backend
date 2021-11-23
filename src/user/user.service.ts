@@ -13,7 +13,7 @@ import { Friend } from 'src/utils/base/base.entity';
 import * as moment from "moment-timezone";
 import { ApplicationException } from 'src/core/exception/exception.model';
 import { AppErrorCode } from 'src/core/exception/exceptioncode.enum';
-import uuid from "uuid";
+import * as uuid from "uuid";
 import {generateDigitNumber} from "../auth/helper/helper";
 
 @Injectable()

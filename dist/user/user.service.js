@@ -26,7 +26,7 @@ const base_entity_1 = require("../utils/base/base.entity");
 const moment = require("moment-timezone");
 const exception_model_1 = require("../core/exception/exception.model");
 const exceptioncode_enum_1 = require("../core/exception/exceptioncode.enum");
-const uuid_1 = require("uuid");
+const uuid = require("uuid");
 const helper_2 = require("../auth/helper/helper");
 let UserService = class UserService extends base_service_1.BaseService {
     constructor(model) {
@@ -37,7 +37,7 @@ let UserService = class UserService extends base_service_1.BaseService {
         if (createUserDto.password) {
             createUserDto.password = await crypt_1.default.hashPassword(createUserDto.password);
         }
-        const id = uuid_1.default.v4();
+        const id = uuid.v4();
         const firebaseEmail = `${id}@gmail.com`;
         const firebasePassword = (0, helper_2.generateDigitNumber)(8);
         createUserDto = Object.assign(Object.assign({}, createUserDto), { id, firebaseEmail, firebasePassword });
