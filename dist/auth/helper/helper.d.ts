@@ -1,4 +1,5 @@
 import { User } from "src/user/entities/user.entity";
+export declare const generateDigitNumber: (digit: number) => string;
 declare const authHelper: {
     setCodeForUser(cache: any, useKey: string, ttl?: number): Promise<string>;
     checkIfCodeValid(cache: any, useKey: string, code: string, isDelete?: boolean): Promise<true>;

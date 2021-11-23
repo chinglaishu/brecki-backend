@@ -28,6 +28,7 @@ const lang_decorator_1 = require("../core/decorator/lang.decorator");
 const config_1 = require("../constant/config");
 const create_user_dto_1 = require("../user/dto/create-user.dto");
 const cache_1 = require("../core/cache/cache");
+const message_1 = require("../constant/message");
 let AuthController = class AuthController {
     constructor(service, userService, configService) {
         this.service = service;
@@ -57,10 +58,14 @@ let AuthController = class AuthController {
         await this.service.sendCode(cache_1.redisClient, user.id, phone, this.configService, lang);
         return true;
     }
+    async checkUserNameAvailable(username, lang) {
+        await this.userService.countAndError({ username }, message_1.ErrMessage.usernameExist[lang]);
+        return true;
+    }
     async signup(signupDto, lang) {
-        const { phone } = signupDto;
+        const { phone, code } = signupDto;
+        await helper_1.default.checkIfCodeValid(cache_1.redisClient, phone, code, true);
         const user = await this.service.signup(signupDto, this.userService);
-        await this.service.sendCode(cache_1.redisClient, phone, phone, this.configService, lang);
         const token = jwt_strategy_1.default.signByUser(user, config_1.ACCESS_TOKEN_EXPIRE_TIME);
         const refreshToken = await this.service.generateRefreshToken(user);
         return { user, token, refreshToken };
@@ -143,6 +148,15 @@ __decorate([
     __metadata("design:paramtypes", [auth_dto_1.ForgetPasswordRequestDto, String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgetPasswordToken", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)("check-username-available/:username"),
+    __param(0, (0, common_1.Param)('username')),
+    __param(1, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "checkUserNameAvailable", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Post)("signup"),

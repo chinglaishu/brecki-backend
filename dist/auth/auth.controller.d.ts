@@ -16,6 +16,7 @@ export declare class AuthController {
     }>;
     signupRequest(smsRequestDto: SMSRequestDto, lang: LANGUAGE): Promise<boolean>;
     forgetPasswordToken(body: ForgetPasswordRequestDto, lang: LANGUAGE): Promise<boolean>;
+    checkUserNameAvailable(username: string, lang: LANGUAGE): Promise<boolean>;
     signup(signupDto: SignupDto, lang: LANGUAGE): Promise<{
         user: import("src/user/entities/user.entity").UserDocument;
         token: any;

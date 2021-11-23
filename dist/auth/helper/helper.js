@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateDigitNumber = void 0;
 const common_1 = require("@nestjs/common");
 const constant_1 = require("../../constant/constant");
 const cache_1 = require("../../core/cache/cache");
@@ -12,9 +13,10 @@ const generateDigitNumber = (digit) => {
     }
     return String(result);
 };
+exports.generateDigitNumber = generateDigitNumber;
 const authHelper = {
     async setCodeForUser(cache, useKey, ttl = constant_1.DEFAULT_TTL) {
-        const code = generateDigitNumber(6);
+        const code = (0, exports.generateDigitNumber)(6);
         await cache_1.redisHelper.setRedisKey(cache, useKey, code, ttl);
         console.log(`code: ${code}`);
         return code;

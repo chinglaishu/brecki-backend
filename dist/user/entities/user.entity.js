@@ -41,6 +41,10 @@ __decorate([
 ], User.prototype, "personalInfo", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
+    __metadata("design:type", base_entity_1.Target)
+], User.prototype, "target", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", Array)
 ], User.prototype, "friends", void 0);
 __decorate([
@@ -55,6 +59,14 @@ __decorate([
     (0, mongoose_1.Prop)({ index: { unique: true, sparse: true } }),
     __metadata("design:type", String)
 ], User.prototype, "socialId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ index: { unique: true, sparse: true } }),
+    __metadata("design:type", String)
+], User.prototype, "firebaseEmail", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], User.prototype, "firebasePassword", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

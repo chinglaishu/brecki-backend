@@ -8,6 +8,7 @@ export declare class SignupDto {
     username: string;
     password: string;
     phone: string;
+    code: string;
 }
 export declare class SMSRequestDto {
     phone: string;

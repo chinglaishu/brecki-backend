@@ -7,4 +7,8 @@ export declare const ErrMessage: {
         en: string;
         zh: string;
     };
+    usernameExist: {
+        en: string;
+        zh: string;
+    };
 };
