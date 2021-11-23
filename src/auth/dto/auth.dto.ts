@@ -22,6 +22,9 @@ export class SignupDto {
 
   @IsString()
   phone: string;
+
+  @IsString()
+  code: string;
 }
 
 export class SMSRequestDto {

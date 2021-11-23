@@ -13,6 +13,8 @@ import { Friend } from 'src/utils/base/base.entity';
 import * as moment from "moment-timezone";
 import { ApplicationException } from 'src/core/exception/exception.model';
 import { AppErrorCode } from 'src/core/exception/exceptioncode.enum';
+import uuid from "uuid";
+import {generateDigitNumber} from "../auth/helper/helper";
 
 @Injectable()
 export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserFilterOption> {
@@ -26,12 +28,17 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     if (createUserDto.password) {
       createUserDto.password = await crypt.hashPassword(createUserDto.password);
     }
+    const id = uuid.v4();
+    const firebaseEmail = `${id}@gmail.com`;
+    const firebasePassword = generateDigitNumber(8);
+    createUserDto = {...createUserDto, id, firebaseEmail, firebasePassword}; 
+
     return await this.model.create(createUserDto);
   }
 
   async checkIsIdOfUser(user: User, id: string) {
     if (user.id !== id && user.roleNum !== ROLE_NUM.ADMIN) {
-      throw new HttpException("user do not owne this user id", 500);
+      throw new HttpException("user do not own this user id", 500);
     }
     return true;
   }

@@ -8,5 +8,9 @@ export const ErrMessage = {
     en: "Email already exist",
     zh: "Email already exist",
   },
-}
+  usernameExist: {
+    en: "Usernaem Exist",
+    zh: "Username Exist",
+  },
+};
 

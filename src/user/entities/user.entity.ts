@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ACCOUNT_TYPE_NUM, DEFAULT_LANGUAGE, LANGUAGE, ROLE_NUM } from '../../constant/constant';
 import * as mongoose from 'mongoose';
-import { BaseEntity, Friend, MultiLang, PersonalInfo } from '../../utils/base/base.entity';
+import { BaseEntity, Friend, MultiLang, PersonalInfo, Target } from '../../utils/base/base.entity';
 
 export type UserDocument = User & mongoose.Document;
 
@@ -20,6 +20,8 @@ export class User extends BaseEntity {
   @Prop()
   personalInfo: PersonalInfo;
   @Prop()
+  target: Target;
+  @Prop()
   friends: Friend[];
   @Prop({ default: DEFAULT_LANGUAGE })
   language: LANGUAGE;
@@ -27,6 +29,10 @@ export class User extends BaseEntity {
   accountTypeNum: ACCOUNT_TYPE_NUM;
   @Prop({ index: {unique: true, sparse: true }})
   socialId: string;
+  @Prop({ index: {unique: true, sparse: true }})
+  firebaseEmail: string;
+  @Prop()
+  firebasePassword: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

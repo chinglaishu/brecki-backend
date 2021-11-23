@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, Get, Param } from '@nestjs/common';
 import { Public } from 'src/core/decorator/public.decorator';
 import { AuthService } from "./auth.service";
 import { SignupDto, LoginDto, ResetPasswordDto, ForgetPasswordDto, ForgetPasswordRequestDto, RefreshTokenDto, SMSRequestDto, SocialAuthDto, SMSVerifyDto } from './dto/auth.dto';
@@ -14,6 +14,7 @@ import { CONFIG_TYPE_NUM, LANGUAGE, ACCOUNT_TYPE_NUM } from '../constant/constan
 import { ACCESS_TOKEN_EXPIRE_TIME, REFERSH_TOKEN_EXPIRE_TIME } from 'src/constant/config';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { redisClient } from 'src/core/cache/cache';
+import { ErrMessage } from 'src/constant/message';
 
 @Controller('auth')
 export class AuthController {
@@ -56,11 +57,18 @@ export class AuthController {
   }
 
   @Public()
+  @Get("check-username-available/:username")
+  async checkUserNameAvailable(@Param('username') username: string, @Lang() lang: LANGUAGE) {
+    await this.userService.countAndError({username}, ErrMessage.usernameExist[lang]);
+    return true;
+  }
+
+  @Public()
   @Post("signup")
   async signup(@Body() signupDto: SignupDto, @Lang() lang: LANGUAGE) {
-    const {phone} = signupDto;
+    const {phone, code} = signupDto;
+    await authHelper.checkIfCodeValid(redisClient, phone, code, true);
     const user = await this.service.signup(signupDto, this.userService);
-    await this.service.sendCode(redisClient, phone, phone, this.configService, lang);
     const token = JwtStrategy.signByUser(user, ACCESS_TOKEN_EXPIRE_TIME);
     const refreshToken = await this.service.generateRefreshToken(user);
     return {user, token, refreshToken};

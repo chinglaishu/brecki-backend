@@ -4,7 +4,7 @@ import { redisHelper } from "src/core/cache/cache";
 import { User } from "src/user/entities/user.entity";
 import utilsFunction from "src/utils/utilsFunction/utilsFunction";
 
-const generateDigitNumber = (digit: number) => {
+export const generateDigitNumber = (digit: number) => {
   let result = "";
   for (let i = 0; i < digit; i++) {
       result = result + `${Math.ceil(Math.random() * 9)}`
