@@ -24,24 +24,31 @@ export class EmailOrSMSData {
   replace: string;
 };
 
+export type ProfilePicTwoUrl = {
+  blurMore: string,
+  blurLess: string,
+  clear: string,
+};
+
 export class PersonalInfo {
   sex: SEX_NUM;
   ageRange: AGE_RANGE_NUM;
-  country: Location;
-  city: Location;
+  location: PersonalInfoLocation;
   profilePicOneUrl: string;
-  profilePicTwoUrl: string;
+  profilePicOneFileType?: string;
+  profilePicTwoUrl: ProfilePicTwoUrl;
+  profilePicTwoFileType?: string;
 }
 
-export class Location {
-  placeId: string;
-  name: MultiLang;
+export type PersonalInfoLocation = {
+  placeId: string,
+  name: MultiLang,
 };
 
 export class Target {
-  targetSexs: SEX_NUM[];
-  targetAgeRanges: AGE_RANGE_NUM[];
-  targetLocations: Location[];
+  targetSex: SEX_NUM;
+  targetAgeRange: AGE_RANGE_NUM;
+  targetLocation: PersonalInfoLocation;
 };
 
 export class Friend {
@@ -51,6 +58,20 @@ export class Friend {
   startFriendDate: Date;
   endFriendDate?: Date;
 }
+
+@Schema({
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+})
+export class QuestionChoice {
+  id: string;
+  choice: MultiLang;
+};
+
+export class PersonalityScoreRecord {
+  key: string;
+  score: number;
+};
 
 export class PaginationEntity {
   constructor(totalPage?: number, data?: Array<any>, page?: number, pageSize?: number) {

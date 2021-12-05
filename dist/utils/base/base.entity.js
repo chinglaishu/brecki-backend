@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaginationEntity = exports.Friend = exports.Target = exports.Location = exports.PersonalInfo = exports.EmailOrSMSData = exports.MultiLang = exports.BaseEntity = void 0;
+exports.PaginationEntity = exports.PersonalityScoreRecord = exports.QuestionChoice = exports.Friend = exports.Target = exports.PersonalInfo = exports.EmailOrSMSData = exports.MultiLang = exports.BaseEntity = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 let BaseEntity = class BaseEntity {
 };
@@ -39,10 +39,6 @@ exports.EmailOrSMSData = EmailOrSMSData;
 class PersonalInfo {
 }
 exports.PersonalInfo = PersonalInfo;
-class Location {
-}
-exports.Location = Location;
-;
 class Target {
 }
 exports.Target = Target;
@@ -50,6 +46,20 @@ exports.Target = Target;
 class Friend {
 }
 exports.Friend = Friend;
+let QuestionChoice = class QuestionChoice {
+};
+QuestionChoice = __decorate([
+    (0, mongoose_1.Schema)({
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+    })
+], QuestionChoice);
+exports.QuestionChoice = QuestionChoice;
+;
+class PersonalityScoreRecord {
+}
+exports.PersonalityScoreRecord = PersonalityScoreRecord;
+;
 class PaginationEntity {
     constructor(totalPage, data, page, pageSize) {
         this.totalPage = totalPage;

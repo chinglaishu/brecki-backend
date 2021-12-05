@@ -25,7 +25,7 @@ const user_decorator_1 = require("../../core/decorator/user.decorator");
 const user_entity_1 = require("../../user/entities/user.entity");
 const utilsFunction_1 = require("../utilsFunction/utilsFunction");
 class BaseController {
-    constructor(service, findOneCheckUser = false, findAllCheckUser = true, updateCheckUser = true, readOnly = false) {
+    constructor(service, findOneCheckUser = false, findAllCheckUser = false, updateCheckUser = true, readOnly = false) {
         this.service = service;
         this.findOneCheckUser = findOneCheckUser;
         this.findAllCheckUser = findAllCheckUser;
@@ -34,7 +34,7 @@ class BaseController {
     }
     async create(user, createDto, lang) {
         utilsFunction_1.default.checkReadOnly(this.readOnly, user);
-        return this.service.create(createDto);
+        return this.service.create(createDto, user);
     }
     async findAll(user, filter, pagination, sort = {}, search = { searchFilter: {} }) {
         const { page, pageSize } = pagination;

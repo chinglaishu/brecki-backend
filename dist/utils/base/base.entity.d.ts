@@ -13,22 +13,28 @@ export declare class EmailOrSMSData {
     content: string;
     replace: string;
 }
+export declare type ProfilePicTwoUrl = {
+    blurMore: string;
+    blurLess: string;
+    clear: string;
+};
 export declare class PersonalInfo {
     sex: SEX_NUM;
     ageRange: AGE_RANGE_NUM;
-    country: Location;
-    city: Location;
+    location: PersonalInfoLocation;
     profilePicOneUrl: string;
-    profilePicTwoUrl: string;
+    profilePicOneFileType?: string;
+    profilePicTwoUrl: ProfilePicTwoUrl;
+    profilePicTwoFileType?: string;
 }
-export declare class Location {
+export declare type PersonalInfoLocation = {
     placeId: string;
     name: MultiLang;
-}
+};
 export declare class Target {
-    targetSexs: SEX_NUM[];
-    targetAgeRanges: AGE_RANGE_NUM[];
-    targetLocations: Location[];
+    targetSex: SEX_NUM;
+    targetAgeRange: AGE_RANGE_NUM;
+    targetLocation: PersonalInfoLocation;
 }
 export declare class Friend {
     friendId: string;
@@ -36,6 +42,14 @@ export declare class Friend {
     intimacyLevel: number;
     startFriendDate: Date;
     endFriendDate?: Date;
+}
+export declare class QuestionChoice {
+    id: string;
+    choice: MultiLang;
+}
+export declare class PersonalityScoreRecord {
+    key: string;
+    score: number;
 }
 export declare class PaginationEntity {
     constructor(totalPage?: number, data?: Array<any>, page?: number, pageSize?: number);

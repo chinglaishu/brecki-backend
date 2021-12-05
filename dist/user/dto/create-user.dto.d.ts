@@ -3,6 +3,7 @@ export declare class CreateUserDto {
     id?: string;
     username?: string;
     password?: string;
+    phone?: string;
     accountTypeNum?: ACCOUNT_TYPE_NUM;
     socialId?: string;
     firebaseEmail?: string;

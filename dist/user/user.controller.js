@@ -30,6 +30,11 @@ const sort_decorator_1 = require("../core/decorator/sort.decorator");
 const search_decorator_1 = require("../core/decorator/search.decorator");
 const constant_1 = require("../constant/constant");
 const lang_decorator_1 = require("../core/decorator/lang.decorator");
+const uploadImage_1 = require("../core/uploadImage/uploadImage");
+const base_entity_1 = require("../utils/base/base.entity");
+const imageHandler_1 = require("../utils/utilsFunction/imageHandler");
+var Jimp = require("jimp");
+var path = require('path');
 let UserController = class UserController extends base_controller_1.BaseController {
     constructor(service) {
         super(service);
@@ -64,6 +69,28 @@ let UserController = class UserController extends base_controller_1.BaseControll
     async remove(user, id) {
         await this.service.checkIsIdOfUser(user, id);
         return this.service.remove(id);
+    }
+    async uploadProfilePicOne(body) {
+        const { base64, fileType } = body;
+        const buffer = Buffer.from(base64, "base64");
+        const result = await (0, uploadImage_1.uploadImage)(constant_1.S3_PROFILE_PIC_ONE_PATH, fileType, buffer);
+        return result.Location;
+    }
+    async uploadProfilePicTwo(body) {
+        const { base64, fileType } = body;
+        const buffer = Buffer.from(base64, "base64");
+        const image = await Jimp.read(buffer);
+        const blurLessBuffer = await (0, imageHandler_1.changeImageAndGetBuffer)(image, 1);
+        const blurMoreBuffer = await (0, imageHandler_1.changeImageAndGetBuffer)(image, 4);
+        const uploadClearResult = await (0, uploadImage_1.uploadImage)(constant_1.S3_PROFILE_PIC_TWO_CLEAR_PATH, fileType, buffer);
+        const uploadBlurLessResult = await (0, uploadImage_1.uploadImage)(constant_1.S3_PROFILE_PIC_TWO_BLUR_LESS_PATH, "png", blurLessBuffer);
+        const uploadBlurMoreResult = await (0, uploadImage_1.uploadImage)(constant_1.S3_PROFILE_PIC_TWO_BLUR_MORE_PATH, "png", blurMoreBuffer);
+        const profilePicTwoUrl = {
+            clear: uploadClearResult.Location,
+            blurLess: uploadBlurLessResult.Location,
+            blurMore: uploadBlurMoreResult.Location,
+        };
+        return profilePicTwoUrl;
     }
 };
 __decorate([
@@ -129,6 +156,20 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)("upload/profile-pic-one"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UploadProfilePicDTO]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "uploadProfilePicOne", null);
+__decorate([
+    (0, common_1.Post)("upload/profile-pic-two"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UploadProfilePicDTO]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "uploadProfilePicTwo", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

@@ -10,6 +10,12 @@ import { AuthModule } from "./auth/auth.module";
 import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USERNAME } from './constant/config';
 import { ConfigModule } from './config/config.module';
 import { MatchModule } from './match/match.module';
+import { QuestionModule } from './question/question.module';
+import { PersonalityModule } from './personality/personality.module';
+import { QuestionChoiceRecordModule } from './questionChoiceRecord/questionChoiceRecord.module';
+import { QuestionScoreRecordModule } from './questionScoreRecord/questionScoreRecord.module';
+import { SubmitQuestionRecordModule } from './submitQuestionRecord/submitQuestionRecord.module';
+import { QuestionChoiceModule } from './questionChoice/questionChoice.module';
 
 @Module({
   imports: [
@@ -24,6 +30,12 @@ import { MatchModule } from './match/match.module';
     AuthModule,
     ConfigModule,
     MatchModule,
+    QuestionModule,
+    QuestionChoiceModule,
+    PersonalityModule,
+    QuestionChoiceRecordModule,
+    QuestionScoreRecordModule,
+    SubmitQuestionRecordModule,
   ],
   controllers: [AppController],
   providers: [AppService, 

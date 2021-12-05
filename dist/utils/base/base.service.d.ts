@@ -3,8 +3,10 @@ import { PaginationEntity } from "./base.entity";
 import { BaseFilterOption } from 'src/core/filter/filter';
 export declare class BaseService<CreateDto, UpdateDto, FilterOption extends BaseFilterOption> {
     model: any;
-    constructor(model: any);
-    create(createDto: CreateDto): any;
+    createAddUserId: boolean;
+    populates: string[];
+    constructor(model: any, createAddUserId?: boolean, populates?: string[]);
+    create(createDto: CreateDto, user?: User): Promise<any>;
     findAll(filter: FilterOption, page: number, pageSize: number, checkIfAddUserIdByUser?: User | null, sort?: any): Promise<PaginationEntity>;
     findAllWithoutFilter(): Promise<any>;
     findOne(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<any>;
@@ -17,4 +19,6 @@ export declare class BaseService<CreateDto, UpdateDto, FilterOption extends Base
     getFilterByIfCheckBelongToUser(id: string, checkBelongToUser: User | null): {
         _id: string;
     };
+    populateExecList(results: any): Promise<any>;
+    populateExec(result: any): Promise<any>;
 }

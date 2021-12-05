@@ -1,3 +1,4 @@
+import { MultiLang } from "src/utils/base/base.entity";
 export declare const GLOBALPREFIX = "api";
 export declare const AUTH_HEADER = "authorization";
 export declare const TIMEZONE = "Asia/Hong_Kong";
@@ -10,7 +11,12 @@ export declare const DEFAULT_PAGE_SIZE = 20;
 export declare const DEFAULT_TTL = 3600;
 export declare const MAX_INTIMACY_LEVEL = 10;
 export declare const USER_ID_FIELD = "userId";
+export declare const S3_PROFILE_PIC_ONE_PATH = "profile-pic-one";
+export declare const S3_PROFILE_PIC_TWO_CLEAR_PATH = "profile-pic-two-clear";
+export declare const S3_PROFILE_PIC_TWO_BLUR_LESS_PATH = "profile-pic-two-blur-less";
+export declare const S3_PROFILE_PIC_TWO_BLUR_MORE_PATH = "profile-pic-two-blur-more";
 export declare type LANGUAGE = "en" | "zh";
+export declare const DEFAULT_MULTILANG: MultiLang;
 export declare type ACCOUNT_TYPE_NUM = 0 | 1 | 2 | 3;
 export declare const ACCOUNT_TYPE_NUM: {
     NORMAL: ACCOUNT_TYPE_NUM;
@@ -82,4 +88,9 @@ export declare type MATCH_METHOD_NUM = 0 | 1;
 export declare const MATCH_METHOD_NUM: {
     SYSTEM: MATCH_METHOD_NUM;
     MANUAL: MATCH_METHOD_NUM;
+};
+export declare type QUESTION_TYPE_NUM = 0 | 1;
+export declare const QUESTION_TYPE_NUM: {
+    CHOICE: QUESTION_TYPE_NUM;
+    PAINT: QUESTION_TYPE_NUM;
 };

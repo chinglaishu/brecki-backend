@@ -7,9 +7,11 @@ export class CreateUserDto {
   @IsString()
   id?: string;
 
+  @IsOptional()
   @IsString()
   username?: string;
 
+  @IsOptional()
   @IsString()
   @Length(8, 20)
   password?: string;
@@ -26,9 +28,15 @@ export class CreateUserDto {
   // @IsString()
   // language?: LANGUAGE;
 
+  @IsOptional()
+  @IsString()
+  phone?: string;
+
+  @IsOptional()
   @IsNumber()
   accountTypeNum?: ACCOUNT_TYPE_NUM;
 
+  @IsOptional()
   @IsString()
   socialId?: string;
 

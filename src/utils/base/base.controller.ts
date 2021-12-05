@@ -15,7 +15,7 @@ export class BaseController<CreateDto, UpdateDto, FilterOption> {
   constructor(
     public service: BaseService<CreateDto, UpdateDto, FilterOption>,
     public findOneCheckUser: boolean = false,
-    public findAllCheckUser: boolean = true,
+    public findAllCheckUser: boolean = false,
     public updateCheckUser: boolean = true,
     public readOnly: boolean = false,
   ) {}
@@ -23,7 +23,7 @@ export class BaseController<CreateDto, UpdateDto, FilterOption> {
   @Post()
   async create(@ReqUser() user: User, @Body() createDto: CreateDto, @Lang() lang: LANGUAGE) {
     utilsFunction.checkReadOnly(this.readOnly, user);
-    return this.service.create(createDto);
+    return this.service.create(createDto, user);
   }
 
   @Get()

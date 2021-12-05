@@ -7,12 +7,19 @@ const user_entity_1 = require("../../user/entities/user.entity");
 const utilsFunction_1 = require("../utilsFunction/utilsFunction");
 const base_entity_1 = require("./base.entity");
 const filter_1 = require("../../core/filter/filter");
+const moment = require("moment-timezone");
 class BaseService {
-    constructor(model) {
+    constructor(model, createAddUserId = false, populates = []) {
         this.model = model;
+        this.createAddUserId = createAddUserId;
+        this.populates = populates;
     }
-    create(createDto) {
-        return this.model.create(createDto);
+    async create(createDto, user) {
+        if (this.createAddUserId && user) {
+            createDto = utilsFunction_1.default.checkIfAddUserId(constant_1.USER_ID_FIELD, user, createDto);
+        }
+        const result = await this.model.create(createDto);
+        return await this.populateExec(result);
     }
     async findAll(filter, page, pageSize, checkIfAddUserIdByUser = null, sort = {}) {
         filter = utilsFunction_1.default.checkIfAddUserId(constant_1.USER_ID_FIELD, checkIfAddUserIdByUser, filter);
@@ -24,14 +31,15 @@ class BaseService {
             data.sort((a, b) => a.index - b.index);
         }
         const result = new base_entity_1.PaginationEntity();
-        result.data = data;
+        result.data = await this.populateExecList(data);
         result.page = page;
         result.pageSize = pageSize;
         result.totalPage = Math.ceil(totalCount / pageSize);
         return result;
     }
     async findAllWithoutFilter() {
-        return await this.model.find();
+        const result = await this.model.find();
+        return await this.populateExec(result);
     }
     async findOne(id, throwErrorIfNotFound = false, checkBelongToUser = null) {
         const filter = this.getFilterByIfCheckBelongToUser(id, checkBelongToUser);
@@ -39,14 +47,14 @@ class BaseService {
         if (!result && throwErrorIfNotFound) {
             throw new common_1.HttpException("item not found or do not belong to user", 500);
         }
-        return result;
+        return await this.populateExec(result);
     }
     async findOneWithFilter(filter, throwErrorIfNotFound = false) {
         const result = await this.model.findOne(filter);
         if (!result && throwErrorIfNotFound) {
             throw new common_1.HttpException("item not found", 500);
         }
-        return result;
+        return await this.populateExec(result);
     }
     async count(filter) {
         const count = await this.model.count(filter);
@@ -61,11 +69,11 @@ class BaseService {
     }
     async update(id, updateDto, throwErrorIfNotFound = false, checkBelongToUser = null) {
         const filter = this.getFilterByIfCheckBelongToUser(id, checkBelongToUser);
-        const result = await this.model.findOneAndUpdate(filter, updateDto, { new: true });
+        const result = await this.model.findOneAndUpdate(filter, Object.assign(Object.assign({}, updateDto), { updatedAt: moment().toDate() }), { new: true });
         if (!result && throwErrorIfNotFound) {
             throw new common_1.HttpException("item not found or do not belong to user", 500);
         }
-        return result;
+        return await this.populateExec(result);
     }
     async remove(id, throwErrorIfNotFound = false, checkBelongToUser = null) {
         const filter = this.getFilterByIfCheckBelongToUser(id, checkBelongToUser);
@@ -73,7 +81,7 @@ class BaseService {
         if (!result && throwErrorIfNotFound) {
             throw new common_1.HttpException("item not found or do not belong to user", 500);
         }
-        return result;
+        return await this.populateExec(result);
     }
     createFilterForTime(filter) {
         const { from, to } = filter;
@@ -97,6 +105,20 @@ class BaseService {
             filter[constant_1.USER_ID_FIELD] = checkBelongToUser.id;
         }
         return filter;
+    }
+    async populateExecList(results) {
+        for (let i = 0; i < results.length; i++) {
+            for (let a = 0; a < this.populates.length; a++) {
+                results[i] = await results[i].populate(this.populates[a]).execPopulate();
+            }
+        }
+        return results;
+    }
+    async populateExec(result) {
+        for (let i = 0; i < this.populates.length; i++) {
+            result = await result.populate(this.populates[i]).execPopulate();
+        }
+        return result;
     }
 }
 exports.BaseService = BaseService;

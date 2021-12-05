@@ -4,3 +4,11 @@ eb deploy after commit and push, only will deploy things also in repo,
 so the things in gitignore will not be deploy.
 
 password store in env var in AWS EB configuration.
+
+---------------------------------------------------------------------
+
+SubmitQuestionRecord
+
+
+QuestionChoiceRecord
+

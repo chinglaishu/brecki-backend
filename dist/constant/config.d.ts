@@ -17,3 +17,6 @@ export declare const REFERSH_TOKEN_EXPIRE_TIME: string;
 export declare const PASSWORD_SALT_ROUND = 10;
 export declare const GOOGLE_CLIENT_ID = "549401078361-i71620ipt8nljerc5r40lq2u2dmp4mlb.apps.googleusercontent.com";
 export declare const APPLE_CLIENT_SECRET = "AA";
+export declare const AWS_BUCKET_NAME: string;
+export declare const AWS_ACCESS_KEY_ID: string;
+export declare const AWS_SECRET_ACCESS_KEY: string;

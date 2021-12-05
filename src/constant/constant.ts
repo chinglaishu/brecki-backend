@@ -1,3 +1,5 @@
+import { MultiLang } from "src/utils/base/base.entity";
+
 export const GLOBALPREFIX = 'api';
 export const AUTH_HEADER = "authorization";
 export const TIMEZONE = "Asia/Hong_Kong";
@@ -13,7 +15,17 @@ export const MAX_INTIMACY_LEVEL = 10;
 
 export const USER_ID_FIELD = "userId";
 
+export const S3_PROFILE_PIC_ONE_PATH = "profile-pic-one";
+export const S3_PROFILE_PIC_TWO_CLEAR_PATH = "profile-pic-two-clear";
+export const S3_PROFILE_PIC_TWO_BLUR_LESS_PATH = "profile-pic-two-blur-less";
+export const S3_PROFILE_PIC_TWO_BLUR_MORE_PATH = "profile-pic-two-blur-more";
+
 export type LANGUAGE = "en" | "zh";
+
+export const DEFAULT_MULTILANG: MultiLang = {
+  en: "",
+  zh: "",
+};
 
 export type ACCOUNT_TYPE_NUM = 0 | 1 | 2 | 3;
 export const ACCOUNT_TYPE_NUM: {
@@ -163,4 +175,13 @@ export const MATCH_METHOD_NUM: {
 } = {
   SYSTEM: 0,
   MANUAL: 1,
+};
+
+export type QUESTION_TYPE_NUM = 0 | 1;
+export const QUESTION_TYPE_NUM: {
+  CHOICE: QUESTION_TYPE_NUM,
+  PAINT: QUESTION_TYPE_NUM,
+} = {
+  CHOICE: 0,
+  PAINT: 1,
 };

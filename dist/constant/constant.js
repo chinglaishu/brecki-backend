@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MATCH_METHOD_NUM = exports.MATCH_STATUS_NUM = exports.FRIEND_STATUS_NUM = exports.AGE_RANGE_NUM = exports.MESSAGE_METHOD_NUM = exports.CONFIG_TYPE_NUM = exports.ROLE_NUM = exports.WEEK_DAY_NUM = exports.SEX_NUM_REF = exports.SEX_NUM = exports.ACCOUNT_TYPE_NUM = exports.USER_ID_FIELD = exports.MAX_INTIMACY_LEVEL = exports.DEFAULT_TTL = exports.DEFAULT_PAGE_SIZE = exports.DTO_CHECK_ADMIN_FIELD_KEY = exports.DTO_TYPE_NUM_KEY = exports.GET_ALL_KEY = exports.LANG_HEADER = exports.DEFAULT_LANGUAGE = exports.TIMEZONE = exports.AUTH_HEADER = exports.GLOBALPREFIX = void 0;
+exports.QUESTION_TYPE_NUM = exports.MATCH_METHOD_NUM = exports.MATCH_STATUS_NUM = exports.FRIEND_STATUS_NUM = exports.AGE_RANGE_NUM = exports.MESSAGE_METHOD_NUM = exports.CONFIG_TYPE_NUM = exports.ROLE_NUM = exports.WEEK_DAY_NUM = exports.SEX_NUM_REF = exports.SEX_NUM = exports.ACCOUNT_TYPE_NUM = exports.DEFAULT_MULTILANG = exports.S3_PROFILE_PIC_TWO_BLUR_MORE_PATH = exports.S3_PROFILE_PIC_TWO_BLUR_LESS_PATH = exports.S3_PROFILE_PIC_TWO_CLEAR_PATH = exports.S3_PROFILE_PIC_ONE_PATH = exports.USER_ID_FIELD = exports.MAX_INTIMACY_LEVEL = exports.DEFAULT_TTL = exports.DEFAULT_PAGE_SIZE = exports.DTO_CHECK_ADMIN_FIELD_KEY = exports.DTO_TYPE_NUM_KEY = exports.GET_ALL_KEY = exports.LANG_HEADER = exports.DEFAULT_LANGUAGE = exports.TIMEZONE = exports.AUTH_HEADER = exports.GLOBALPREFIX = void 0;
+const base_entity_1 = require("../utils/base/base.entity");
 exports.GLOBALPREFIX = 'api';
 exports.AUTH_HEADER = "authorization";
 exports.TIMEZONE = "Asia/Hong_Kong";
@@ -13,6 +14,14 @@ exports.DEFAULT_PAGE_SIZE = 20;
 exports.DEFAULT_TTL = 3600;
 exports.MAX_INTIMACY_LEVEL = 10;
 exports.USER_ID_FIELD = "userId";
+exports.S3_PROFILE_PIC_ONE_PATH = "profile-pic-one";
+exports.S3_PROFILE_PIC_TWO_CLEAR_PATH = "profile-pic-two-clear";
+exports.S3_PROFILE_PIC_TWO_BLUR_LESS_PATH = "profile-pic-two-blur-less";
+exports.S3_PROFILE_PIC_TWO_BLUR_MORE_PATH = "profile-pic-two-blur-more";
+exports.DEFAULT_MULTILANG = {
+    en: "",
+    zh: "",
+};
 exports.ACCOUNT_TYPE_NUM = {
     NORMAL: 0,
     GOOGLE: 1,
@@ -74,5 +83,9 @@ exports.MATCH_STATUS_NUM = {
 exports.MATCH_METHOD_NUM = {
     SYSTEM: 0,
     MANUAL: 1,
+};
+exports.QUESTION_TYPE_NUM = {
+    CHOICE: 0,
+    PAINT: 1,
 };
 //# sourceMappingURL=constant.js.map

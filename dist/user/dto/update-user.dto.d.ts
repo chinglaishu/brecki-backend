@@ -1,7 +1,7 @@
 import { LANGUAGE, ROLE_NUM, ACCOUNT_TYPE_NUM } from '../../constant/constant';
 import { Friend, PersonalInfo, Target } from 'src/utils/base/base.entity';
 export declare class UpdateUserDto {
-    email?: string;
+    username?: string;
     password?: string;
     phone?: string;
     roleNum?: ROLE_NUM;
@@ -11,4 +11,8 @@ export declare class UpdateUserDto {
     friends?: Friend[];
     lang?: LANGUAGE;
     accountTypeNum?: ACCOUNT_TYPE_NUM;
+}
+export declare class UploadProfilePicDTO {
+    base64: string;
+    fileType: string;
 }

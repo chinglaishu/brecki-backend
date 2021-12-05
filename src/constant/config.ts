@@ -28,3 +28,7 @@ export const PASSWORD_SALT_ROUND = 10;
 
 export const GOOGLE_CLIENT_ID = "549401078361-i71620ipt8nljerc5r40lq2u2dmp4mlb.apps.googleusercontent.com";
 export const APPLE_CLIENT_SECRET = "AA";
+
+export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;

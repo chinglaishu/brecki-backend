@@ -22,3 +22,9 @@ export class MatchFilterOption extends BaseFilterOption {
   method?: MATCH_METHOD_NUM;
   status?: MATCH_STATUS_NUM;
 };
+export class QuestionFilterOption {};
+export class PersonalityFilterOption {};
+export class QuestionChoiceRecordFilterOption {};
+export class SubmitQuestionRecordFilterOption {};
+export class QuestionScoreRecordFilterOption {};
+export class QuestionChoiceFilterOption {};

@@ -19,3 +19,15 @@ export declare class MatchFilterOption extends BaseFilterOption {
     method?: MATCH_METHOD_NUM;
     status?: MATCH_STATUS_NUM;
 }
+export declare class QuestionFilterOption {
+}
+export declare class PersonalityFilterOption {
+}
+export declare class QuestionChoiceRecordFilterOption {
+}
+export declare class SubmitQuestionRecordFilterOption {
+}
+export declare class QuestionScoreRecordFilterOption {
+}
+export declare class QuestionChoiceFilterOption {
+}

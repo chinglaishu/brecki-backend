@@ -19,6 +19,12 @@ const auth_module_1 = require("./auth/auth.module");
 const config_1 = require("./constant/config");
 const config_module_1 = require("./config/config.module");
 const match_module_1 = require("./match/match.module");
+const question_module_1 = require("./question/question.module");
+const personality_module_1 = require("./personality/personality.module");
+const questionChoiceRecord_module_1 = require("./questionChoiceRecord/questionChoiceRecord.module");
+const questionScoreRecord_module_1 = require("./questionScoreRecord/questionScoreRecord.module");
+const submitQuestionRecord_module_1 = require("./submitQuestionRecord/submitQuestionRecord.module");
+const questionChoice_module_1 = require("./questionChoice/questionChoice.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,6 +41,12 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             config_module_1.ConfigModule,
             match_module_1.MatchModule,
+            question_module_1.QuestionModule,
+            questionChoice_module_1.QuestionChoiceModule,
+            personality_module_1.PersonalityModule,
+            questionChoiceRecord_module_1.QuestionChoiceRecordModule,
+            questionScoreRecord_module_1.QuestionScoreRecordModule,
+            submitQuestionRecord_module_1.SubmitQuestionRecordModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,

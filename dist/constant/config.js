@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.APPLE_CLIENT_SECRET = exports.GOOGLE_CLIENT_ID = exports.PASSWORD_SALT_ROUND = exports.REFERSH_TOKEN_EXPIRE_TIME = exports.ACCESS_TOKEN_EXPIRE_TIME = exports.REDIS_PASSWORD = exports.REDIS_PORT = exports.REDIS_HOST = exports.TWILIO_AUTH_TOKEN = exports.TWILIO_ACCOUNT_SID = exports.TWILIO_PHONE_NUM = exports.JWT_SECRET = exports.PORT = exports.DB_NAME = exports.DB_PASSWORD = exports.DB_USERNAME = exports.DB_HOST = exports.APP_ENV = exports.VERSION_NUM = void 0;
+exports.AWS_SECRET_ACCESS_KEY = exports.AWS_ACCESS_KEY_ID = exports.AWS_BUCKET_NAME = exports.APPLE_CLIENT_SECRET = exports.GOOGLE_CLIENT_ID = exports.PASSWORD_SALT_ROUND = exports.REFERSH_TOKEN_EXPIRE_TIME = exports.ACCESS_TOKEN_EXPIRE_TIME = exports.REDIS_PASSWORD = exports.REDIS_PORT = exports.REDIS_HOST = exports.TWILIO_AUTH_TOKEN = exports.TWILIO_ACCOUNT_SID = exports.TWILIO_PHONE_NUM = exports.JWT_SECRET = exports.PORT = exports.DB_NAME = exports.DB_PASSWORD = exports.DB_USERNAME = exports.DB_HOST = exports.APP_ENV = exports.VERSION_NUM = void 0;
 const env_1 = require("./env");
 exports.VERSION_NUM = "0.0.5";
 exports.APP_ENV = process.env.APP_ENV || "DEV";
@@ -22,4 +22,7 @@ exports.REFERSH_TOKEN_EXPIRE_TIME = useEnv.REFERSH_TOKEN_EXPIRE_TIME || "180d";
 exports.PASSWORD_SALT_ROUND = 10;
 exports.GOOGLE_CLIENT_ID = "549401078361-i71620ipt8nljerc5r40lq2u2dmp4mlb.apps.googleusercontent.com";
 exports.APPLE_CLIENT_SECRET = "AA";
+exports.AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+exports.AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+exports.AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 //# sourceMappingURL=config.js.map

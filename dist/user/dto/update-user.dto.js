@@ -9,52 +9,73 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateUserDto = void 0;
+exports.UploadProfilePicDTO = exports.UpdateUserDto = void 0;
 const class_validator_1 = require("class-validator");
 const constant_1 = require("../../constant/constant");
 const base_entity_1 = require("../../utils/base/base.entity");
 class UpdateUserDto {
 }
 __decorate([
-    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UpdateUserDto.prototype, "email", void 0);
+], UpdateUserDto.prototype, "username", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(8, 20),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "password", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "phone", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "roleNum", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "displayName", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", base_entity_1.PersonalInfo)
 ], UpdateUserDto.prototype, "personalInfo", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", base_entity_1.Target)
 ], UpdateUserDto.prototype, "target", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], UpdateUserDto.prototype, "friends", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "lang", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "accountTypeNum", void 0);
 exports.UpdateUserDto = UpdateUserDto;
+class UploadProfilePicDTO {
+}
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UploadProfilePicDTO.prototype, "base64", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UploadProfilePicDTO.prototype, "fileType", void 0);
+exports.UploadProfilePicDTO = UploadProfilePicDTO;
 //# sourceMappingURL=update-user.dto.js.map
