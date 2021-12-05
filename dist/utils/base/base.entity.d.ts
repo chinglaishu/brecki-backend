@@ -26,16 +26,14 @@ export declare class PersonalInfo {
     profilePicOneFileType?: string;
     profilePicTwoUrl: ProfilePicTwoUrl;
     profilePicTwoFileType?: string;
+    targetSex?: SEX_NUM;
+    targetAgeRange?: AGE_RANGE_NUM;
+    targetLocation?: PersonalInfoLocation;
 }
 export declare type PersonalInfoLocation = {
     placeId: string;
     name: MultiLang;
 };
-export declare class Target {
-    targetSex: SEX_NUM;
-    targetAgeRange: AGE_RANGE_NUM;
-    targetLocation: PersonalInfoLocation;
-}
 export declare class Friend {
     friendId: string;
     status: FRIEND_STATUS_NUM;

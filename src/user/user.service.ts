@@ -64,4 +64,10 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     const {friends} = user;
     if (!userHelper.checkUserIdInFriendList(friends, friendUserId)) {return user; }
   }
+
+  async getRandomUserWithPerference(user: User) {
+    const filter = userHelper.getFilterByPerference(user);
+    const result = await this.getRandomOne(filter);
+    return result;
+  }
 }

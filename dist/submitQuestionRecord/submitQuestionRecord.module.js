@@ -12,6 +12,8 @@ const submitQuestionRecord_service_1 = require("./submitQuestionRecord.service")
 const submitQuestionRecord_controller_1 = require("./submitQuestionRecord.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const submitQuestionRecord_entity_1 = require("./entities/submitQuestionRecord.entity");
+const questionChoiceRecord_module_1 = require("../questionChoiceRecord/questionChoiceRecord.module");
+const user_module_1 = require("../user/user.module");
 let SubmitQuestionRecordModule = class SubmitQuestionRecordModule {
 };
 SubmitQuestionRecordModule = __decorate([
@@ -20,6 +22,8 @@ SubmitQuestionRecordModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: submitQuestionRecord_entity_1.SubmitQuestionRecord.name, schema: submitQuestionRecord_entity_1.SubmitQuestionRecordSchema },
             ]),
+            questionChoiceRecord_module_1.QuestionChoiceRecordModule,
+            user_module_1.UserModule,
         ],
         controllers: [submitQuestionRecord_controller_1.SubmitQuestionRecordController],
         providers: [submitQuestionRecord_service_1.SubmitQuestionRecordService],

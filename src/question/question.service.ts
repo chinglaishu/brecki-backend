@@ -16,4 +16,8 @@ export class QuestionService extends BaseService<CreateQuestionDto, UpdateQuesti
     this.populates = ["questionChoices"];
   }
 
+  async getRequestToAnswer(num: number) {
+    const results = await this.model.find().limit(num);
+    return this.populateExecList(results);
+  }
 }

@@ -11,4 +11,5 @@ export declare class UserService extends BaseService<CreateUserDto, UpdateUserDt
     checkIsIdOfUser(user: User, id: string): Promise<boolean>;
     addUserToFriendList(user: User, friendUserId: string): Promise<any>;
     removeUserFromFriendList(user: User, friendUserId: string): Promise<User>;
+    getRandomUserWithPerference(user: User): Promise<any>;
 }

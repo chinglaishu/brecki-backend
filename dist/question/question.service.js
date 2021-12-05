@@ -25,6 +25,10 @@ let QuestionService = class QuestionService extends base_service_1.BaseService {
         this.model = model;
         this.populates = ["questionChoices"];
     }
+    async getRequestToAnswer(num) {
+        const results = await this.model.find().limit(num);
+        return this.populateExecList(results);
+    }
 };
 QuestionService = __decorate([
     (0, common_1.Injectable)(),

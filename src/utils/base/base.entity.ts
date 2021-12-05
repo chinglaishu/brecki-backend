@@ -38,17 +38,14 @@ export class PersonalInfo {
   profilePicOneFileType?: string;
   profilePicTwoUrl: ProfilePicTwoUrl;
   profilePicTwoFileType?: string;
+  targetSex?: SEX_NUM;
+  targetAgeRange?: AGE_RANGE_NUM;
+  targetLocation?: PersonalInfoLocation;
 }
 
 export type PersonalInfoLocation = {
   placeId: string,
   name: MultiLang,
-};
-
-export class Target {
-  targetSex: SEX_NUM;
-  targetAgeRange: AGE_RANGE_NUM;
-  targetLocation: PersonalInfoLocation;
 };
 
 export class Friend {

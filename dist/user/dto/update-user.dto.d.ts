@@ -1,5 +1,5 @@
 import { LANGUAGE, ROLE_NUM, ACCOUNT_TYPE_NUM } from '../../constant/constant';
-import { Friend, PersonalInfo, Target } from 'src/utils/base/base.entity';
+import { Friend, PersonalInfo } from 'src/utils/base/base.entity';
 export declare class UpdateUserDto {
     username?: string;
     password?: string;
@@ -7,10 +7,10 @@ export declare class UpdateUserDto {
     roleNum?: ROLE_NUM;
     displayName?: string;
     personalInfo?: PersonalInfo;
-    target?: Target;
     friends?: Friend[];
     lang?: LANGUAGE;
     accountTypeNum?: ACCOUNT_TYPE_NUM;
+    lastSubmitQuestionRecord?: string;
 }
 export declare class UploadProfilePicDTO {
     base64: string;

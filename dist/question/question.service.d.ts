@@ -7,4 +7,5 @@ import { QuestionFilterOption } from 'src/core/filter/filter';
 export declare class QuestionService extends BaseService<CreateQuestionDto, UpdateQuestionDto, QuestionFilterOption> {
     model: Model<QuestionDocument>;
     constructor(model: Model<QuestionDocument>);
+    getRequestToAnswer(num: number): Promise<any>;
 }

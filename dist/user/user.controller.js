@@ -92,6 +92,9 @@ let UserController = class UserController extends base_controller_1.BaseControll
         };
         return profilePicTwoUrl;
     }
+    async getRandomForQuestionReview(user) {
+        return await this.service.getRandomUserWithPerference(user);
+    }
 };
 __decorate([
     (0, common_1.Get)('self'),
@@ -170,6 +173,13 @@ __decorate([
     __metadata("design:paramtypes", [update_user_dto_1.UploadProfilePicDTO]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "uploadProfilePicTwo", null);
+__decorate([
+    (0, common_1.Get)("question-review/random-user"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getRandomForQuestionReview", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

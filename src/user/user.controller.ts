@@ -107,4 +107,9 @@ export class UserController extends BaseController<CreateUserDto, UpdateUserDto,
 
     return profilePicTwoUrl;
   }
+
+  @Get("question-review/random-user")
+  async getRandomForQuestionReview(@ReqUser() user: User) {
+    return await this.service.getRandomUserWithPerference(user);
+  } 
 }

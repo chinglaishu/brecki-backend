@@ -98,6 +98,16 @@ export class BaseService<CreateDto, UpdateDto, FilterOption extends BaseFilterOp
     return await this.populateExec(result);
   }
 
+  async getRandom(size: number, filter?: FilterOption) {
+    const results = await this.model.find({...filter}).aggregate([{$sample: {size}}]);
+    return results;
+  }
+
+  async getRandomOne(filter?: FilterOption) {
+    const results = await this.model.find({...filter}).aggregate([{$sample: {size: 1}}]);
+    return results.length > 0 ? results[0] : null;
+  }
+
   createFilterForTime(filter: FilterOption) {
     const {from, to} = filter;
     if (from && to) {

@@ -48,11 +48,6 @@ __decorate([
 ], UpdateUserDto.prototype, "personalInfo", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsObject)(),
-    __metadata("design:type", base_entity_1.Target)
-], UpdateUserDto.prototype, "target", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], UpdateUserDto.prototype, "friends", void 0);
@@ -66,6 +61,11 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "accountTypeNum", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateUserDto.prototype, "lastSubmitQuestionRecord", void 0);
 exports.UpdateUserDto = UpdateUserDto;
 class UploadProfilePicDTO {
 }

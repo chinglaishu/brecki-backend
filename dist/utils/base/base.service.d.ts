@@ -15,6 +15,8 @@ export declare class BaseService<CreateDto, UpdateDto, FilterOption extends Base
     countAndError(filter: FilterOption, errMessage?: string): Promise<any>;
     update(id: string, updateDto: UpdateDto, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<any>;
     remove(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<any>;
+    getRandom(size: number, filter?: FilterOption): Promise<any>;
+    getRandomOne(filter?: FilterOption): Promise<any>;
     createFilterForTime(filter: FilterOption): FilterOption;
     getFilterByIfCheckBelongToUser(id: string, checkBelongToUser: User | null): {
         _id: string;

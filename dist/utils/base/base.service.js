@@ -83,6 +83,14 @@ class BaseService {
         }
         return await this.populateExec(result);
     }
+    async getRandom(size, filter) {
+        const results = await this.model.find(Object.assign({}, filter)).aggregate([{ $sample: { size } }]);
+        return results;
+    }
+    async getRandomOne(filter) {
+        const results = await this.model.find(Object.assign({}, filter)).aggregate([{ $sample: { size: 1 } }]);
+        return results.length > 0 ? results[0] : null;
+    }
     createFilterForTime(filter) {
         const { from, to } = filter;
         if (from && to) {

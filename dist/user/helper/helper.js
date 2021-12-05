@@ -13,6 +13,21 @@ const userHelper = {
         }
         return false;
     },
+    getFilterByPerference(user) {
+        const { personalInfo } = user;
+        const { targetSex, targetLocation, targetAgeRange } = personalInfo;
+        let filter = {};
+        if (targetSex) {
+            filter = Object.assign(Object.assign({}, filter), { "personalInfo.sex": targetSex });
+        }
+        if (targetAgeRange) {
+            filter = Object.assign(Object.assign({}, filter), { "personalInfo.ageRange": targetAgeRange });
+        }
+        if (targetLocation) {
+            filter = Object.assign(Object.assign({}, filter), { "personalInfo.location.placeId": targetLocation.placeId });
+        }
+        return filter;
+    }
 };
 exports.default = userHelper;
 //# sourceMappingURL=helper.js.map

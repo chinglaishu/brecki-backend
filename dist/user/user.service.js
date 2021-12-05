@@ -69,6 +69,11 @@ let UserService = class UserService extends base_service_1.BaseService {
             return user;
         }
     }
+    async getRandomUserWithPerference(user) {
+        const filter = helper_1.default.getFilterByPerference(user);
+        const result = await this.getRandomOne(filter);
+        return result;
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

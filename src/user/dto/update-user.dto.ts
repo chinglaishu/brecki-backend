@@ -1,7 +1,7 @@
 import { Prop } from '@nestjs/mongoose';
 import { IsArray, IsEmail, IsNumber, IsObject, IsOptional, IsString, Length, ValidateNested } from 'class-validator';
 import { LANGUAGE, ROLE_NUM, ACCOUNT_TYPE_NUM } from '../../constant/constant';
-import { Friend, PersonalInfo, Target } from 'src/utils/base/base.entity';
+import { Friend, PersonalInfo } from 'src/utils/base/base.entity';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -30,10 +30,6 @@ export class UpdateUserDto {
   personalInfo?: PersonalInfo;
 
   @IsOptional()
-  @IsObject()
-  target?: Target;
-
-  @IsOptional()
   @IsArray()
   friends?: Friend[];
 
@@ -44,6 +40,10 @@ export class UpdateUserDto {
   @IsOptional()
   @IsNumber()
   accountTypeNum?: ACCOUNT_TYPE_NUM;
+
+  @IsOptional()
+  @IsString()
+  lastSubmitQuestionRecord?: string;
 }
 
 export class UploadProfilePicDTO {
