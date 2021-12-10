@@ -11,6 +11,8 @@ export class QuestionChoice extends BaseEntity {
   choice: MultiLang;
   @Prop({default: false})
   isFree: boolean;
+  @Prop({default: false})
+  isPaint: boolean;
 }
 
 export const QuestionChoiceSchema = SchemaFactory.createForClass(QuestionChoice);

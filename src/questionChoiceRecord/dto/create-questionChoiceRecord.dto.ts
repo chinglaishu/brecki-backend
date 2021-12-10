@@ -12,5 +12,8 @@ export class CreateQuestionChoiceRecordDto {
   choiceId: string;
   @IsOptional()
   @IsString()
-  content: string;
+  content?: string;
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
 }

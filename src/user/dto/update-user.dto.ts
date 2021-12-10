@@ -52,3 +52,12 @@ export class UploadProfilePicDTO {
   @IsString()
   fileType: string;
 }
+
+export class UploadImageDTO {
+  @IsString()
+  base64: string;
+  @IsString()
+  fileType: string;
+  @IsString()
+  directory: string;
+}

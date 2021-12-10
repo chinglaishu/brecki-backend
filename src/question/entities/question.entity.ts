@@ -15,8 +15,6 @@ export class Question extends BaseEntity {
   @Prop()
   defaultPersonalityKeys: string[];
   // defaultPersonalitys: Personality[];
-  @Prop({default: false})
-  isPaint: boolean;
   @Prop()
   imageUrl: string;
 };

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Query, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto, UploadProfilePicDTO } from './dto/update-user.dto';
+import { UpdateUserDto, UploadImageDTO, UploadProfilePicDTO } from './dto/update-user.dto';
 import { BaseController } from 'src/utils/base/base.controller';
 import { Public } from 'src/core/decorator/public.decorator';
 import { UserFilterOption } from 'src/core/filter/filter';
@@ -106,6 +106,15 @@ export class UserController extends BaseController<CreateUserDto, UpdateUserDto,
     }
 
     return profilePicTwoUrl;
+  }
+
+  @Post("upload/image")
+  async uploadImage(@Body() body: UploadImageDTO) {
+    const {base64, fileType, directory} = body;
+    // const useBase64ForBuffer = base64.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(base64, "base64");
+    const result: any = await uploadImage(directory, fileType, buffer);
+    return result.Location;
   }
 
   @Get("question-review/random-user")
