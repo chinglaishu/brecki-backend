@@ -92,6 +92,12 @@ let UserController = class UserController extends base_controller_1.BaseControll
         };
         return profilePicTwoUrl;
     }
+    async uploadImage(body) {
+        const { base64, fileType, directory } = body;
+        const buffer = Buffer.from(base64, "base64");
+        const result = await (0, uploadImage_1.uploadImage)(directory, fileType, buffer);
+        return result.Location;
+    }
     async getRandomForQuestionReview(user) {
         return await this.service.getRandomUserWithPerference(user);
     }
@@ -173,6 +179,13 @@ __decorate([
     __metadata("design:paramtypes", [update_user_dto_1.UploadProfilePicDTO]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "uploadProfilePicTwo", null);
+__decorate([
+    (0, common_1.Post)("upload/image"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UploadImageDTO]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "uploadImage", null);
 __decorate([
     (0, common_1.Get)("question-review/random-user"),
     __param(0, (0, user_decorator_1.ReqUser)()),

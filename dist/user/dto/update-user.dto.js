@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UploadProfilePicDTO = exports.UpdateUserDto = void 0;
+exports.UploadImageDTO = exports.UploadProfilePicDTO = exports.UpdateUserDto = void 0;
 const class_validator_1 = require("class-validator");
 const constant_1 = require("../../constant/constant");
 const base_entity_1 = require("../../utils/base/base.entity");
@@ -78,4 +78,19 @@ __decorate([
     __metadata("design:type", String)
 ], UploadProfilePicDTO.prototype, "fileType", void 0);
 exports.UploadProfilePicDTO = UploadProfilePicDTO;
+class UploadImageDTO {
+}
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UploadImageDTO.prototype, "base64", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UploadImageDTO.prototype, "fileType", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UploadImageDTO.prototype, "directory", void 0);
+exports.UploadImageDTO = UploadImageDTO;
 //# sourceMappingURL=update-user.dto.js.map

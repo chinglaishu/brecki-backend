@@ -1,6 +1,6 @@
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto, UploadProfilePicDTO } from './dto/update-user.dto';
+import { UpdateUserDto, UploadImageDTO, UploadProfilePicDTO } from './dto/update-user.dto';
 import { BaseController } from 'src/utils/base/base.controller';
 import { UserFilterOption } from 'src/core/filter/filter';
 import { User } from './entities/user.entity';
@@ -20,5 +20,6 @@ export declare class UserController extends BaseController<CreateUserDto, Update
     remove(user: User, id: string): Promise<any>;
     uploadProfilePicOne(body: UploadProfilePicDTO): Promise<any>;
     uploadProfilePicTwo(body: UploadProfilePicDTO): Promise<ProfilePicTwoUrl>;
+    uploadImage(body: UploadImageDTO): Promise<any>;
     getRandomForQuestionReview(user: User): Promise<any>;
 }

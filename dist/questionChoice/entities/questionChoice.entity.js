@@ -23,6 +23,10 @@ __decorate([
     (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], QuestionChoice.prototype, "isFree", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], QuestionChoice.prototype, "isPaint", void 0);
 QuestionChoice = __decorate([
     (0, mongoose_1.Schema)()
 ], QuestionChoice);

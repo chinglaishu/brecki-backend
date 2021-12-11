@@ -2,5 +2,6 @@ export declare class CreateQuestionChoiceRecordDto {
     userId: string;
     questionId: string;
     choiceId: string;
-    content: string;
+    content?: string;
+    imageUrl?: string;
 }

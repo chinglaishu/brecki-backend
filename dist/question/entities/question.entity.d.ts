@@ -6,7 +6,6 @@ export declare class Question extends BaseEntity {
     questionChoiceIds: string[];
     questionChoices: QuestionChoice[];
     defaultPersonalityKeys: string[];
-    isPaint: boolean;
     imageUrl: string;
 }
 export declare const QuestionSchema: mongoose.Schema<mongoose.Document<Question, any, any>, mongoose.Model<mongoose.Document<Question, any, any>, any, any>, undefined, {}>;

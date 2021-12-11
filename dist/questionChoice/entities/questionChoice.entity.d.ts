@@ -4,5 +4,6 @@ export declare type QuestionChoiceDocument = QuestionChoice & mongoose.Document;
 export declare class QuestionChoice extends BaseEntity {
     choice: MultiLang;
     isFree: boolean;
+    isPaint: boolean;
 }
 export declare const QuestionChoiceSchema: mongoose.Schema<mongoose.Document<QuestionChoice, any, any>, mongoose.Model<mongoose.Document<QuestionChoice, any, any>, any, any>, undefined, {}>;

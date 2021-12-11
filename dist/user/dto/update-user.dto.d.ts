@@ -16,3 +16,8 @@ export declare class UploadProfilePicDTO {
     base64: string;
     fileType: string;
 }
+export declare class UploadImageDTO {
+    base64: string;
+    fileType: string;
+    directory: string;
+}

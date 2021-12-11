@@ -28,10 +28,6 @@ __decorate([
     __metadata("design:type", Array)
 ], Question.prototype, "defaultPersonalityKeys", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: false }),
-    __metadata("design:type", Boolean)
-], Question.prototype, "isPaint", void 0);
-__decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Question.prototype, "imageUrl", void 0);
