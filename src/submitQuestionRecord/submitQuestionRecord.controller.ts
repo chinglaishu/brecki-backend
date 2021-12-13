@@ -28,7 +28,7 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
   async createWithChoiceRecord(@ReqUser() user: User, @Body() createDto: CreateWithChoiceRecord, @Lang() lang: LANGUAGE) {
     const {questionChoiceRecords} = createDto;
     const createChoiceRecords: QuestionChoiceRecord[] = await Promise.all(questionChoiceRecords.map(async (questionChoiceRecord) => {
-      return await this.questionChoiceRecordService.create(questionChoiceRecord);
+      return await this.questionChoiceRecordService.create({...questionChoiceRecord}, user);
     }));
     const questionChoiceRecordIds = createChoiceRecords.map((questionChoiceRecord) => questionChoiceRecord.id);
     const result: SubmitQuestionRecord = await this.service.create({questionChoiceRecordIds});

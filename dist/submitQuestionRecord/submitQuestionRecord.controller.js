@@ -35,7 +35,7 @@ let SubmitQuestionRecordController = class SubmitQuestionRecordController extend
     async createWithChoiceRecord(user, createDto, lang) {
         const { questionChoiceRecords } = createDto;
         const createChoiceRecords = await Promise.all(questionChoiceRecords.map(async (questionChoiceRecord) => {
-            return await this.questionChoiceRecordService.create(questionChoiceRecord);
+            return await this.questionChoiceRecordService.create(Object.assign({}, questionChoiceRecord), user);
         }));
         const questionChoiceRecordIds = createChoiceRecords.map((questionChoiceRecord) => questionChoiceRecord.id);
         const result = await this.service.create({ questionChoiceRecordIds });
