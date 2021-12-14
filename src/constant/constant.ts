@@ -185,3 +185,6 @@ export const QUESTION_TYPE_NUM: {
   CHOICE: 0,
   PAINT: 1,
 };
+
+export type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraversion" |
+  "Agreeableness" | "Neuroticism";

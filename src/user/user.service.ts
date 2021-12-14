@@ -15,6 +15,9 @@ import { ApplicationException } from 'src/core/exception/exception.model';
 import { AppErrorCode } from 'src/core/exception/exceptioncode.enum';
 import * as uuid from "uuid";
 import {generateDigitNumber} from "../auth/helper/helper";
+import { QuestionScoreRecord } from 'src/questionScoreRecord/entities/questionScoreRecord.entity';
+import { Personality } from 'src/personality/entities/personality.entity';
+import personalityHelper from 'src/personality/helper/helper';
 
 @Injectable()
 export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserFilterOption> {
@@ -57,7 +60,7 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     };
     friends.push(friend);
     return await this.update(user.id, {friends}, true);
-  } 
+  }
 
   // not really remove, but change status
   async removeUserFromFriendList(user: User, friendUserId: string) {
@@ -68,6 +71,13 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
   async getRandomUserWithPerference(user: User) {
     const filter = userHelper.getFilterByPerference(user);
     const result = await this.getRandomOne(filter);
+    return result;
+  }
+
+  async updatePersonalityScore(user: User, questionScoreRecords: QuestionScoreRecord[], personalities: Personality[]) {
+    const personalityScore = personalityHelper.getBasePersonality(personalities);
+    personalityHelper.getAverageScore(personalityScore, questionScoreRecords);
+    const result = await this.update(user.id, {personalityScore, personalityScoreNum: questionScoreRecords.length});
     return result;
   }
 }

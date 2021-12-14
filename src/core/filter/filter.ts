@@ -26,5 +26,8 @@ export class QuestionFilterOption {};
 export class PersonalityFilterOption {};
 export class QuestionChoiceRecordFilterOption {};
 export class SubmitQuestionRecordFilterOption {};
-export class QuestionScoreRecordFilterOption {};
+export class QuestionScoreRecordFilterOption {
+  userId?: string;
+};
 export class QuestionChoiceFilterOption {};
+export class QuestionNumFilterOption {};

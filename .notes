@@ -12,3 +12,5 @@ SubmitQuestionRecord
 
 QuestionChoiceRecord
 
+for scoring, to score not each question, but all questions, as i want scorer have
+a overall image to user instead of have seperate question based image to user.

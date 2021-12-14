@@ -1,5 +1,5 @@
 import { IsObject, IsOptional, IsString } from 'class-validator';
-import { PersonalityScoreRecord } from 'src/utils/base/base.entity';
+import { PersonalityScore } from 'src/utils/base/base.entity';
 
 export class CreateQuestionScoreRecordDto {
   @IsOptional()
@@ -10,5 +10,5 @@ export class CreateQuestionScoreRecordDto {
   toUserId: string;
   @IsOptional()
   @IsObject()
-  personalityScoreRecords: PersonalityScoreRecord[];
+  personalityScore: PersonalityScore[];
 }

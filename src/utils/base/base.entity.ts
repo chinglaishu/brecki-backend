@@ -1,5 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import { AGE_RANGE_NUM, FRIEND_STATUS_NUM, SEX_NUM } from '../../constant/constant';
+import { AGE_RANGE_NUM, FRIEND_STATUS_NUM, PERSONALITY_SCORE_KEY, SEX_NUM } from '../../constant/constant';
 
 @Schema({
   toJSON: { virtuals: true },
@@ -65,9 +65,8 @@ export class QuestionChoice {
   choice: MultiLang;
 };
 
-export class PersonalityScoreRecord {
-  key: string;
-  score: number;
+export class PersonalityScore {
+  [key: string]: number
 };
 
 export class PaginationEntity {

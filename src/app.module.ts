@@ -16,6 +16,7 @@ import { QuestionChoiceRecordModule } from './questionChoiceRecord/questionChoic
 import { QuestionScoreRecordModule } from './questionScoreRecord/questionScoreRecord.module';
 import { SubmitQuestionRecordModule } from './submitQuestionRecord/submitQuestionRecord.module';
 import { QuestionChoiceModule } from './questionChoice/questionChoice.module';
+import { QuestionNumModule } from './questionNum/questionNum.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { QuestionChoiceModule } from './questionChoice/questionChoice.module';
     QuestionChoiceRecordModule,
     QuestionScoreRecordModule,
     SubmitQuestionRecordModule,
+    QuestionNumModule,
   ],
   controllers: [AppController],
   providers: [AppService, 
