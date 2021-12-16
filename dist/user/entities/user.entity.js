@@ -44,6 +44,14 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "friends", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ default: null }),
+    __metadata("design:type", base_entity_1.PersonalityScore)
+], User.prototype, "personalityScore", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: 0 }),
+    __metadata("design:type", Number)
+], User.prototype, "personalityScoreNum", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ default: constant_1.DEFAULT_LANGUAGE }),
     __metadata("design:type", String)
 ], User.prototype, "language", void 0);
@@ -63,6 +71,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "firebasePassword", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], User.prototype, "notificationToken", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: null }),
     __metadata("design:type", String)

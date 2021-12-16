@@ -25,6 +25,7 @@ const questionChoiceRecord_module_1 = require("./questionChoiceRecord/questionCh
 const questionScoreRecord_module_1 = require("./questionScoreRecord/questionScoreRecord.module");
 const submitQuestionRecord_module_1 = require("./submitQuestionRecord/submitQuestionRecord.module");
 const questionChoice_module_1 = require("./questionChoice/questionChoice.module");
+const questionNum_module_1 = require("./questionNum/questionNum.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -47,6 +48,7 @@ AppModule = __decorate([
             questionChoiceRecord_module_1.QuestionChoiceRecordModule,
             questionScoreRecord_module_1.QuestionScoreRecordModule,
             submitQuestionRecord_module_1.SubmitQuestionRecordModule,
+            questionNum_module_1.QuestionNumModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,

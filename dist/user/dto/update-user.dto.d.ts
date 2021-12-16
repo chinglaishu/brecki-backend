@@ -1,5 +1,5 @@
 import { LANGUAGE, ROLE_NUM, ACCOUNT_TYPE_NUM } from '../../constant/constant';
-import { Friend, PersonalInfo } from 'src/utils/base/base.entity';
+import { Friend, PersonalInfo, PersonalityScore } from 'src/utils/base/base.entity';
 export declare class UpdateUserDto {
     username?: string;
     password?: string;
@@ -7,6 +7,8 @@ export declare class UpdateUserDto {
     roleNum?: ROLE_NUM;
     displayName?: string;
     personalInfo?: PersonalInfo;
+    personalityScore?: PersonalityScore;
+    personalityScoreNum?: number;
     friends?: Friend[];
     lang?: LANGUAGE;
     accountTypeNum?: ACCOUNT_TYPE_NUM;

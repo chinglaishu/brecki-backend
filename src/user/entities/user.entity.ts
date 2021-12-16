@@ -35,8 +35,10 @@ export class User extends BaseEntity {
   firebaseEmail: string;
   @Prop()
   firebasePassword: string;
+  @Prop({default: []})
+  notificationTokens: string[];
   @Prop({default: null})
-  lastSubmitQuestionRecord: string;
+  lastSubmitQuestionRecord: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -94,3 +94,4 @@ export declare const QUESTION_TYPE_NUM: {
     CHOICE: QUESTION_TYPE_NUM;
     PAINT: QUESTION_TYPE_NUM;
 };
+export declare type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraversion" | "Agreeableness" | "Neuroticism";

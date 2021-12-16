@@ -45,9 +45,8 @@ export declare class QuestionChoice {
     id: string;
     choice: MultiLang;
 }
-export declare class PersonalityScoreRecord {
-    key: string;
-    score: number;
+export declare class PersonalityScore {
+    [key: string]: number;
 }
 export declare class PaginationEntity {
     constructor(totalPage?: number, data?: Array<any>, page?: number, pageSize?: number);

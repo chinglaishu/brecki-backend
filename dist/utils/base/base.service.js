@@ -15,6 +15,9 @@ class BaseService {
         this.populates = populates;
     }
     async create(createDto, user) {
+        if (this.createAddUserId && !user) {
+            throw new common_1.HttpException("no user in create", 500);
+        }
         if (this.createAddUserId && user) {
             createDto = utilsFunction_1.default.checkIfAddUserId(constant_1.USER_ID_FIELD, user, createDto);
         }
@@ -36,6 +39,14 @@ class BaseService {
         result.pageSize = pageSize;
         result.totalPage = Math.ceil(totalCount / pageSize);
         return result;
+    }
+    async findAllWithoutPagination(filter, sort = {}) {
+        filter = this.createFilterForTime(filter);
+        const data = await this.model.find(filter).sort(sort);
+        if (Object.keys(sort).length === 0) {
+            data.sort((a, b) => a.index - b.index);
+        }
+        return await this.populateExecList(data);
     }
     async findAllWithoutFilter() {
         const result = await this.model.find();

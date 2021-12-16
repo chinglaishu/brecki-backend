@@ -22,12 +22,15 @@ export class MatchFilterOption extends BaseFilterOption {
   method?: MATCH_METHOD_NUM;
   status?: MATCH_STATUS_NUM;
 };
-export class QuestionFilterOption {};
-export class PersonalityFilterOption {};
-export class QuestionChoiceRecordFilterOption {};
-export class SubmitQuestionRecordFilterOption {};
-export class QuestionScoreRecordFilterOption {
+export class QuestionFilterOption extends BaseFilterOption {};
+export class PersonalityFilterOption extends BaseFilterOption {};
+export class QuestionChoiceRecordFilterOption extends BaseFilterOption {};
+export class SubmitQuestionRecordFilterOption extends BaseFilterOption {};
+export class QuestionScoreRecordFilterOption extends BaseFilterOption {
   userId?: string;
+  toUserId?: string;
 };
-export class QuestionChoiceFilterOption {};
-export class QuestionNumFilterOption {};
+export class QuestionChoiceFilterOption extends BaseFilterOption {};
+export class QuestionNumFilterOption extends BaseFilterOption {};
+export class SystemMatchFilterOption {};
+export class ManualMatchFilterOption {};

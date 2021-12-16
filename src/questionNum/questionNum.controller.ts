@@ -5,7 +5,7 @@ import { UpdateQuestionNumDto } from './dto/update-questionNum.dto';
 import { BaseController } from 'src/utils/base/base.controller';
 import { QuestionNumFilterOption } from 'src/core/filter/filter';
 
-@Controller('questionNum')
+@Controller('question-num')
 export class QuestionNumController extends BaseController<CreateQuestionNumDto, UpdateQuestionNumDto, QuestionNumFilterOption> {
 
   constructor(

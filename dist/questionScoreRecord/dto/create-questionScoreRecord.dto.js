@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
-    __metadata("design:type", Array)
-], CreateQuestionScoreRecordDto.prototype, "personalityScoreRecords", void 0);
+    __metadata("design:type", base_entity_1.PersonalityScore)
+], CreateQuestionScoreRecordDto.prototype, "personalityScore", void 0);
 exports.CreateQuestionScoreRecordDto = CreateQuestionScoreRecordDto;
 //# sourceMappingURL=create-questionScoreRecord.dto.js.map

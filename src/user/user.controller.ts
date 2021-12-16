@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, Put, HttpException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto, UploadImageDTO, UploadProfilePicDTO } from './dto/update-user.dto';
@@ -103,7 +103,7 @@ export class UserController extends BaseController<CreateUserDto, UpdateUserDto,
       clear: uploadClearResult.Location,
       blurLess: uploadBlurLessResult.Location,
       blurMore: uploadBlurMoreResult.Location,
-    }
+    };
 
     return profilePicTwoUrl;
   }
@@ -117,8 +117,29 @@ export class UserController extends BaseController<CreateUserDto, UpdateUserDto,
     return result.Location;
   }
 
-  @Get("question-review/random-user")
-  async getRandomForQuestionReview(@ReqUser() user: User) {
-    return await this.service.getRandomUserWithPerference(user);
-  } 
+  // @Get("question-review/random-user")
+  // async getRandomForQuestionReview(@ReqUser() user: User) {
+  //   return await this.service.getRandomUserWithPerference(user);
+  // }
+
+  @Post("add-notification-token/:token")
+  async addNotificationToken(@ReqUser() user: User, @Param("token") token: string) {
+    const {notificationTokens} = user;
+    if (notificationTokens.includes(token)) {
+      throw new HttpException("Notification token already exist", 500);
+    }
+    return await this.service.update(user.id, {notificationTokens: [...notificationTokens, token]});
+  }
+
+  @Post("remove-notification-token/:token")
+  async removeNotificationToken(@ReqUser() user: User, @Param("token") token: string) {
+    const {notificationTokens} = user;
+    const index = notificationTokens.indexOf(token);
+    if (index === -1) {
+      throw new HttpException("Notification token not exist", 500);
+    }
+    const newNotificationTokens: string[] = JSON.parse(JSON.stringify(notificationTokens));
+    newNotificationTokens.splice(index, 1);
+    return await this.service.update(user.id, {notificationTokens: newNotificationTokens});
+  }
 }

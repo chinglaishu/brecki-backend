@@ -10,5 +10,5 @@ export class CreateQuestionScoreRecordDto {
   toUserId: string;
   @IsOptional()
   @IsObject()
-  personalityScore: PersonalityScore[];
+  personalityScore: PersonalityScore;
 }

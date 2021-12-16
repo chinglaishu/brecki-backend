@@ -38,7 +38,7 @@ let SubmitQuestionRecordController = class SubmitQuestionRecordController extend
             return await this.questionChoiceRecordService.create(Object.assign({}, questionChoiceRecord), user);
         }));
         const questionChoiceRecordIds = createChoiceRecords.map((questionChoiceRecord) => questionChoiceRecord.id);
-        const result = await this.service.create({ questionChoiceRecordIds });
+        const result = await this.service.create({ questionChoiceRecordIds }, user);
         await this.userService.update(user.id, { lastSubmitQuestionRecord: result.id });
         return result;
     }

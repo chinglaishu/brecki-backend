@@ -8,6 +8,7 @@ export declare class BaseService<CreateDto, UpdateDto, FilterOption extends Base
     constructor(model: any, createAddUserId?: boolean, populates?: string[]);
     create(createDto: CreateDto, user?: User): Promise<any>;
     findAll(filter: FilterOption, page: number, pageSize: number, checkIfAddUserIdByUser?: User | null, sort?: any): Promise<PaginationEntity>;
+    findAllWithoutPagination(filter: FilterOption, sort?: any): Promise<any>;
     findAllWithoutFilter(): Promise<any>;
     findOne(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<any>;
     findOneWithFilter(filter: FilterOption, throwErrorIfNotFound?: boolean): Promise<any>;

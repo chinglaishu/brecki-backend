@@ -48,6 +48,16 @@ __decorate([
 ], UpdateUserDto.prototype, "personalInfo", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", base_entity_1.PersonalityScore)
+], UpdateUserDto.prototype, "personalityScore", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateUserDto.prototype, "personalityScoreNum", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], UpdateUserDto.prototype, "friends", void 0);

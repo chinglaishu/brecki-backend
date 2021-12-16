@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QuestionChoiceFilterOption = exports.QuestionScoreRecordFilterOption = exports.SubmitQuestionRecordFilterOption = exports.QuestionChoiceRecordFilterOption = exports.PersonalityFilterOption = exports.QuestionFilterOption = exports.MatchFilterOption = exports.TemplateFilterOption = exports.UserFilterOption = exports.BaseFilterOption = void 0;
+exports.QuestionNumFilterOption = exports.QuestionChoiceFilterOption = exports.QuestionScoreRecordFilterOption = exports.SubmitQuestionRecordFilterOption = exports.QuestionChoiceRecordFilterOption = exports.PersonalityFilterOption = exports.QuestionFilterOption = exports.MatchFilterOption = exports.TemplateFilterOption = exports.UserFilterOption = exports.BaseFilterOption = void 0;
 class BaseFilterOption {
 }
 exports.BaseFilterOption = BaseFilterOption;
@@ -15,28 +15,32 @@ class MatchFilterOption extends BaseFilterOption {
 }
 exports.MatchFilterOption = MatchFilterOption;
 ;
-class QuestionFilterOption {
+class QuestionFilterOption extends BaseFilterOption {
 }
 exports.QuestionFilterOption = QuestionFilterOption;
 ;
-class PersonalityFilterOption {
+class PersonalityFilterOption extends BaseFilterOption {
 }
 exports.PersonalityFilterOption = PersonalityFilterOption;
 ;
-class QuestionChoiceRecordFilterOption {
+class QuestionChoiceRecordFilterOption extends BaseFilterOption {
 }
 exports.QuestionChoiceRecordFilterOption = QuestionChoiceRecordFilterOption;
 ;
-class SubmitQuestionRecordFilterOption {
+class SubmitQuestionRecordFilterOption extends BaseFilterOption {
 }
 exports.SubmitQuestionRecordFilterOption = SubmitQuestionRecordFilterOption;
 ;
-class QuestionScoreRecordFilterOption {
+class QuestionScoreRecordFilterOption extends BaseFilterOption {
 }
 exports.QuestionScoreRecordFilterOption = QuestionScoreRecordFilterOption;
 ;
-class QuestionChoiceFilterOption {
+class QuestionChoiceFilterOption extends BaseFilterOption {
 }
 exports.QuestionChoiceFilterOption = QuestionChoiceFilterOption;
+;
+class QuestionNumFilterOption extends BaseFilterOption {
+}
+exports.QuestionNumFilterOption = QuestionNumFilterOption;
 ;
 //# sourceMappingURL=filter.js.map

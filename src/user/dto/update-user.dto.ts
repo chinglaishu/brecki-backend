@@ -46,6 +46,10 @@ export class UpdateUserDto {
   lang?: LANGUAGE;
 
   @IsOptional()
+  @IsArray()
+  notificationTokens?: string[];
+
+  @IsOptional()
   @IsNumber()
   accountTypeNum?: ACCOUNT_TYPE_NUM;
 

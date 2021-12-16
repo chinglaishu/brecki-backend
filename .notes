@@ -14,3 +14,18 @@ QuestionChoiceRecord
 
 for scoring, to score not each question, but all questions, as i want scorer have
 a overall image to user instead of have seperate question based image to user.
+
+Data Chart
+
+1. Difference of self score on each time
+
+2. Heap map of people user match
+
+Classify the five type as 
+
+extremely low - low - normal - high - extremely high
+
+Openness 
+
+
+

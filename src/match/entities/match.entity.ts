@@ -7,11 +7,11 @@ export type MatchDocument = Match & mongoose.Document;
 
 @Schema()
 export class Match extends BaseEntity {
-  @Prop()
+  @Prop({required: true})
   fromUserId: string;
-  @Prop()
+  @Prop({required: true})
   toUserId: string;
-  @Prop()
+  @Prop({required: true})
   method: MATCH_METHOD_NUM;
   @Prop({default: MATCH_STATUS_NUM.WAITING})
   status: MATCH_STATUS_NUM;

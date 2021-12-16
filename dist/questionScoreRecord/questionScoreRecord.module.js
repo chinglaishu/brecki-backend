@@ -12,6 +12,8 @@ const questionScoreRecord_service_1 = require("./questionScoreRecord.service");
 const questionScoreRecord_controller_1 = require("./questionScoreRecord.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const questionScoreRecord_entity_1 = require("./entities/questionScoreRecord.entity");
+const user_module_1 = require("../user/user.module");
+const personality_module_1 = require("../personality/personality.module");
 let QuestionScoreRecordModule = class QuestionScoreRecordModule {
 };
 QuestionScoreRecordModule = __decorate([
@@ -20,6 +22,8 @@ QuestionScoreRecordModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: questionScoreRecord_entity_1.QuestionScoreRecord.name, schema: questionScoreRecord_entity_1.QuestionScoreRecordSchema },
             ]),
+            user_module_1.UserModule,
+            personality_module_1.PersonalityModule,
         ],
         controllers: [questionScoreRecord_controller_1.QuestionScoreRecordController],
         providers: [questionScoreRecord_service_1.QuestionScoreRecordService],

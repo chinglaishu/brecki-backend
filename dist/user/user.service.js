@@ -28,6 +28,9 @@ const exception_model_1 = require("../core/exception/exception.model");
 const exceptioncode_enum_1 = require("../core/exception/exceptioncode.enum");
 const uuid = require("uuid");
 const helper_2 = require("../auth/helper/helper");
+const questionScoreRecord_entity_1 = require("../questionScoreRecord/entities/questionScoreRecord.entity");
+const personality_entity_1 = require("../personality/entities/personality.entity");
+const helper_3 = require("../personality/helper/helper");
 let UserService = class UserService extends base_service_1.BaseService {
     constructor(model) {
         super(model);
@@ -72,6 +75,12 @@ let UserService = class UserService extends base_service_1.BaseService {
     async getRandomUserWithPerference(user) {
         const filter = helper_1.default.getFilterByPerference(user);
         const result = await this.getRandomOne(filter);
+        return result;
+    }
+    async updatePersonalityScore(user, questionScoreRecords, personalities) {
+        const personalityScore = helper_3.default.getBasePersonality(personalities);
+        helper_3.default.getAverageScore(personalityScore, questionScoreRecords);
+        const result = await this.update(user.id, { personalityScore, personalityScoreNum: questionScoreRecords.length });
         return result;
     }
 };

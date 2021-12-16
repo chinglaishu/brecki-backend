@@ -27,9 +27,10 @@ export class QuestionScoreRecordController extends BaseController<CreateQuestion
   async create(@ReqUser() user: User, @Body() createDto: CreateQuestionScoreRecordDto, @Lang() lang: LANGUAGE) {
     utilsFunction.checkReadOnly(this.readOnly, user);
     const createResult = await this.service.create(createDto, user);
-    const questionScoreRecords = await this.service.findAllWithoutPagination({userId: createDto.toUserId});
+    const questionScoreRecords = await this.service.findAllWithoutPagination({toUserId: createDto.toUserId});
     const personalities = await this.personalityService.findAllWithoutFilter();
-    await this.userService.updatePersonalityScore(user, questionScoreRecords, personalities);
+    const toUser = await this.userService.findOne(createDto.toUserId);
+    await this.userService.updatePersonalityScore(toUser, questionScoreRecords, personalities);
     // send notification to user?
     return createResult;
   }
