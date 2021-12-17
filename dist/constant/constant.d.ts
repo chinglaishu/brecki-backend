@@ -95,3 +95,13 @@ export declare const QUESTION_TYPE_NUM: {
     PAINT: QUESTION_TYPE_NUM;
 };
 export declare type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraversion" | "Agreeableness" | "Neuroticism";
+export declare const SYSTEM_MATCH_NUM = 5;
+export declare const MANUAL_MATCH_NUM = 1;
+export declare const SYSTEM_MATCH_VALID_AFTER_MINS: number;
+export declare const MANUAL_MATCH_VALID_AFTER_MINS = 1;
+export declare type NOTIFICATION_TYPE = "question-score" | "match-invitation" | "match-accept";
+export declare const NOTIFICATION_TYPE: {
+    QUESTION_SCORE: NOTIFICATION_TYPE;
+    MATCH_INVITATION: NOTIFICATION_TYPE;
+    MATCH_ACCEPT: NOTIFICATION_TYPE;
+};

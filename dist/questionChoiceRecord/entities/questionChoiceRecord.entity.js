@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QuestionChoiceRecordSchema = exports.QuestionChoiceRecord = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const question_entity_1 = require("../../question/entities/question.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
 let QuestionChoiceRecord = class QuestionChoiceRecord extends base_entity_1.BaseEntity {
 };
@@ -50,5 +51,11 @@ exports.QuestionChoiceRecordSchema.set('toJSON', {
         delete ret._id;
         return ret;
     }
+});
+exports.QuestionChoiceRecordSchema.virtual("question", {
+    ref: "Question",
+    localField: "questionId",
+    foreignField: "_id",
+    justOne: true
 });
 //# sourceMappingURL=questionChoiceRecord.entity.js.map

@@ -17,6 +17,8 @@ import { QuestionScoreRecordModule } from './questionScoreRecord/questionScoreRe
 import { SubmitQuestionRecordModule } from './submitQuestionRecord/submitQuestionRecord.module';
 import { QuestionChoiceModule } from './questionChoice/questionChoice.module';
 import { QuestionNumModule } from './questionNum/questionNum.module';
+import { ManualMatchModule } from './manualMatch/manualMatch.module';
+import { SystemMatchModule } from './systemMatch/systemMatch.module';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { QuestionNumModule } from './questionNum/questionNum.module';
     QuestionScoreRecordModule,
     SubmitQuestionRecordModule,
     QuestionNumModule,
+    ManualMatchModule,
+    SystemMatchModule,
   ],
   controllers: [AppController],
   providers: [AppService, 

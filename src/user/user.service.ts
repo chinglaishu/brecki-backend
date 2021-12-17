@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import crypt from 'src/utils/utilsFunction/crypt';
 import { UserFilterOption } from 'src/core/filter/filter';
-import { FRIEND_STATUS_NUM, ROLE_NUM } from '../constant/constant';
+import { FRIEND_STATUS_NUM, NOTIFICATION_TYPE, ROLE_NUM } from '../constant/constant';
 import userHelper from './helper/helper';
 import { Friend } from 'src/utils/base/base.entity';
 import * as moment from "moment-timezone";
@@ -68,9 +68,10 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     if (!userHelper.checkUserIdInFriendList(friends, friendUserId)) {return user; }
   }
 
-  async getRandomUserWithPerference(user: User) {
-    const filter = userHelper.getFilterByPerference(user);
-    const result = await this.getRandomOne(filter);
+  async getRandomWithPerference(user: User, withPreference: boolean, size: number) {
+    let filter = (withPreference) ? userHelper.getFilterByPerference(user) : {};
+    filter = {...filter, personalInfo: {$ne: null}};
+    const result = await this.getRandom(size, filter);
     return result;
   }
 
@@ -79,5 +80,9 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     personalityHelper.getAverageScore(personalityScore, questionScoreRecords);
     const result = await this.update(user.id, {personalityScore, personalityScoreNum: questionScoreRecords.length});
     return result;
+  }
+
+  async sendNotification(user: User, notificationType: NOTIFICATION_TYPE, fromUser?: User) {
+    
   }
 }

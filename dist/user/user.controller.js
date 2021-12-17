@@ -98,8 +98,22 @@ let UserController = class UserController extends base_controller_1.BaseControll
         const result = await (0, uploadImage_1.uploadImage)(directory, fileType, buffer);
         return result.Location;
     }
-    async getRandomForQuestionReview(user) {
-        return await this.service.getRandomUserWithPerference(user);
+    async addNotificationToken(user, token) {
+        const { notificationTokens } = user;
+        if (notificationTokens.includes(token)) {
+            throw new common_1.HttpException("Notification token already exist", 500);
+        }
+        return await this.service.update(user.id, { notificationTokens: [...notificationTokens, token] });
+    }
+    async removeNotificationToken(user, token) {
+        const { notificationTokens } = user;
+        const index = notificationTokens.indexOf(token);
+        if (index === -1) {
+            throw new common_1.HttpException("Notification token not exist", 500);
+        }
+        const newNotificationTokens = JSON.parse(JSON.stringify(notificationTokens));
+        newNotificationTokens.splice(index, 1);
+        return await this.service.update(user.id, { notificationTokens: newNotificationTokens });
     }
 };
 __decorate([
@@ -187,12 +201,21 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "uploadImage", null);
 __decorate([
-    (0, common_1.Get)("question-review/random-user"),
+    (0, common_1.Post)("add-notification-token/:token"),
     __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("token")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User]),
+    __metadata("design:paramtypes", [user_entity_1.User, String]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "getRandomForQuestionReview", null);
+], UserController.prototype, "addNotificationToken", null);
+__decorate([
+    (0, common_1.Post)("remove-notification-token/:token"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("token")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "removeNotificationToken", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

@@ -35,3 +35,9 @@ export declare class QuestionChoiceFilterOption extends BaseFilterOption {
 }
 export declare class QuestionNumFilterOption extends BaseFilterOption {
 }
+export declare class SystemMatchFilterOption extends BaseFilterOption {
+    userId?: string;
+}
+export declare class ManualMatchFilterOption extends BaseFilterOption {
+    userId?: string;
+}

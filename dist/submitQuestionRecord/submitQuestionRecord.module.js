@@ -14,6 +14,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const submitQuestionRecord_entity_1 = require("./entities/submitQuestionRecord.entity");
 const questionChoiceRecord_module_1 = require("../questionChoiceRecord/questionChoiceRecord.module");
 const user_module_1 = require("../user/user.module");
+const question_entity_1 = require("../question/entities/question.entity");
 let SubmitQuestionRecordModule = class SubmitQuestionRecordModule {
 };
 SubmitQuestionRecordModule = __decorate([
@@ -21,6 +22,7 @@ SubmitQuestionRecordModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([
                 { name: submitQuestionRecord_entity_1.SubmitQuestionRecord.name, schema: submitQuestionRecord_entity_1.SubmitQuestionRecordSchema },
+                { name: question_entity_1.Question.name, schema: question_entity_1.QuestionSchema },
             ]),
             questionChoiceRecord_module_1.QuestionChoiceRecordModule,
             user_module_1.UserModule,

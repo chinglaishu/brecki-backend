@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import { Question } from 'src/question/entities/question.entity';
 import { BaseEntity } from '../../utils/base/base.entity';
 
 export type QuestionChoiceRecordDocument = QuestionChoiceRecord & mongoose.Document;
@@ -16,6 +17,7 @@ export class QuestionChoiceRecord extends BaseEntity {
   content: string; // for free option 
   @Prop()
   imageUrl: string; // for paint question
+  question: Question;
 };
 
 export const QuestionChoiceRecordSchema = SchemaFactory.createForClass(QuestionChoiceRecord);
@@ -31,4 +33,11 @@ QuestionChoiceRecordSchema.set('toJSON', {
     delete ret._id 
     return ret
   }
+});
+
+QuestionChoiceRecordSchema.virtual("question", {
+  ref: "Question",
+  localField: "questionId",
+  foreignField: "_id",
+  justOne: true
 });

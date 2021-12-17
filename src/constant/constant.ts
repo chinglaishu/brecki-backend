@@ -191,3 +191,16 @@ export type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraver
 
 export const SYSTEM_MATCH_NUM = 5;
 export const MANUAL_MATCH_NUM = 1;
+export const SYSTEM_MATCH_VALID_AFTER_MINS = 24 * 60;
+export const MANUAL_MATCH_VALID_AFTER_MINS = 1;
+
+export type NOTIFICATION_TYPE = "question-score" | "match-invitation" | "match-accept";
+export const NOTIFICATION_TYPE: {
+  QUESTION_SCORE: NOTIFICATION_TYPE,
+  MATCH_INVITATION: NOTIFICATION_TYPE,
+  MATCH_ACCEPT: NOTIFICATION_TYPE,
+} = {
+  QUESTION_SCORE: "question-score",
+  MATCH_INVITATION: "match-invitation",
+  MATCH_ACCEPT: "match-accept",
+};

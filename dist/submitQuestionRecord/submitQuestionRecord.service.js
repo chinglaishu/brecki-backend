@@ -20,11 +20,14 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const filter_1 = require("../core/filter/filter");
 const user_entity_1 = require("../user/entities/user.entity");
+const question_entity_1 = require("../question/entities/question.entity");
 let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base_service_1.BaseService {
-    constructor(model) {
+    constructor(model, questionModel) {
         super(model);
         this.model = model;
+        this.questionModel = questionModel;
         this.createAddUserId = true;
+        this.populates = ["questionChoiceRecords"];
     }
     async findOne(id, throwErrorIfNotFound = false, checkBelongToUser = null) {
         const filter = this.getFilterByIfCheckBelongToUser(id, checkBelongToUser);
@@ -32,13 +35,37 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
         if (!result && throwErrorIfNotFound) {
             throw new common_1.HttpException("item not found or do not belong to user", 500);
         }
-        return await result.populate("questionChoiceRecords").execPopulate();
+        return await this.populateExec(result);
+    }
+    async populateExecList(results) {
+        for (let i = 0; i < results.length; i++) {
+            for (let a = 0; a < this.populates.length; a++) {
+                results[i] = await results[i].populate(this.populates[a]).execPopulate();
+            }
+        }
+        return results;
+    }
+    async populateExec(result) {
+        for (let i = 0; i < this.populates.length; i++) {
+            result = await result.populate(this.populates[i]).execPopulate();
+            await this.getQuestionDetail(result);
+        }
+        return result;
+    }
+    async getQuestionDetail(submitQuestionRecord) {
+        const { questionChoiceRecords } = submitQuestionRecord;
+        for (let i = 0; i < questionChoiceRecords.length; i++) {
+            const question = await this.questionModel.findOne({ _id: questionChoiceRecords[i].questionId });
+            questionChoiceRecords[i].question = question;
+        }
     }
 };
 SubmitQuestionRecordService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(submitQuestionRecord_entity_1.SubmitQuestionRecord.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(question_entity_1.Question.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], SubmitQuestionRecordService);
 exports.SubmitQuestionRecordService = SubmitQuestionRecordService;
 //# sourceMappingURL=submitQuestionRecord.service.js.map

@@ -21,5 +21,6 @@ export declare class UserController extends BaseController<CreateUserDto, Update
     uploadProfilePicOne(body: UploadProfilePicDTO): Promise<any>;
     uploadProfilePicTwo(body: UploadProfilePicDTO): Promise<ProfilePicTwoUrl>;
     uploadImage(body: UploadImageDTO): Promise<any>;
-    getRandomForQuestionReview(user: User): Promise<any>;
+    addNotificationToken(user: User, token: string): Promise<any>;
+    removeNotificationToken(user: User, token: string): Promise<any>;
 }

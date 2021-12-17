@@ -72,9 +72,10 @@ let UserService = class UserService extends base_service_1.BaseService {
             return user;
         }
     }
-    async getRandomUserWithPerference(user) {
-        const filter = helper_1.default.getFilterByPerference(user);
-        const result = await this.getRandomOne(filter);
+    async getRandomWithPerference(user, withPreference, size) {
+        let filter = (withPreference) ? helper_1.default.getFilterByPerference(user) : {};
+        filter = Object.assign(Object.assign({}, filter), { personalInfo: { $ne: null } });
+        const result = await this.getRandom(size, filter);
         return result;
     }
     async updatePersonalityScore(user, questionScoreRecords, personalities) {
@@ -82,6 +83,8 @@ let UserService = class UserService extends base_service_1.BaseService {
         helper_3.default.getAverageScore(personalityScore, questionScoreRecords);
         const result = await this.update(user.id, { personalityScore, personalityScoreNum: questionScoreRecords.length });
         return result;
+    }
+    async sendNotification(user, notificationType, fromUser) {
     }
 };
 UserService = __decorate([

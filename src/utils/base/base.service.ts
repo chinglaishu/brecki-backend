@@ -116,12 +116,14 @@ export class BaseService<CreateDto, UpdateDto, FilterOption extends BaseFilterOp
   }
 
   async getRandom(size: number, filter?: FilterOption) {
-    const results = await this.model.find({...filter}).aggregate([{$sample: {size}}]);
+    // const results = await this.model.find({...filter}).aggregate([{$sample: {size}}]);
+    const results = await this.model.find({...filter}).limit(size);
     return results;
   }
 
   async getRandomOne(filter?: FilterOption) {
-    const results = await this.model.find({...filter}).aggregate([{$sample: {size: 1}}]);
+    // const results = await this.model.find({...filter}).aggregate([{$sample: {size: 1}}]);
+    const results = await this.model.find({...filter}).limit(1);
     return results.length > 0 ? results[0] : null;
   }
 

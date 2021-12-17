@@ -32,5 +32,9 @@ export class QuestionScoreRecordFilterOption extends BaseFilterOption {
 };
 export class QuestionChoiceFilterOption extends BaseFilterOption {};
 export class QuestionNumFilterOption extends BaseFilterOption {};
-export class SystemMatchFilterOption {};
-export class ManualMatchFilterOption {};
+export class SystemMatchFilterOption extends BaseFilterOption {
+  userId?: string;
+};
+export class ManualMatchFilterOption extends BaseFilterOption {
+  userId?: string;
+};

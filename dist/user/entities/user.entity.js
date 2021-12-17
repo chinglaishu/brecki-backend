@@ -74,10 +74,10 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ default: [] }),
     __metadata("design:type", Array)
-], User.prototype, "notificationToken", void 0);
+], User.prototype, "notificationTokens", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: null }),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], User.prototype, "lastSubmitQuestionRecord", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QuestionNumFilterOption = exports.QuestionChoiceFilterOption = exports.QuestionScoreRecordFilterOption = exports.SubmitQuestionRecordFilterOption = exports.QuestionChoiceRecordFilterOption = exports.PersonalityFilterOption = exports.QuestionFilterOption = exports.MatchFilterOption = exports.TemplateFilterOption = exports.UserFilterOption = exports.BaseFilterOption = void 0;
+exports.ManualMatchFilterOption = exports.SystemMatchFilterOption = exports.QuestionNumFilterOption = exports.QuestionChoiceFilterOption = exports.QuestionScoreRecordFilterOption = exports.SubmitQuestionRecordFilterOption = exports.QuestionChoiceRecordFilterOption = exports.PersonalityFilterOption = exports.QuestionFilterOption = exports.MatchFilterOption = exports.TemplateFilterOption = exports.UserFilterOption = exports.BaseFilterOption = void 0;
 class BaseFilterOption {
 }
 exports.BaseFilterOption = BaseFilterOption;
@@ -42,5 +42,13 @@ exports.QuestionChoiceFilterOption = QuestionChoiceFilterOption;
 class QuestionNumFilterOption extends BaseFilterOption {
 }
 exports.QuestionNumFilterOption = QuestionNumFilterOption;
+;
+class SystemMatchFilterOption extends BaseFilterOption {
+}
+exports.SystemMatchFilterOption = SystemMatchFilterOption;
+;
+class ManualMatchFilterOption extends BaseFilterOption {
+}
+exports.ManualMatchFilterOption = ManualMatchFilterOption;
 ;
 //# sourceMappingURL=filter.js.map

@@ -13,6 +13,22 @@ export class ManualMatchService extends BaseService<CreateManualMatchDto, Update
     @InjectModel(ManualMatch.name) public model: Model<ManualMatchDocument>,
   ) {
     super(model);
+    this.createAddUserId = true;
   }
 
+  async populateExecList(results: any) {
+    for (let i = 0 ; i < results.length ; i++) {
+      for (let a = 0 ; a < this.populates.length ; a++) {
+        results[i] = await results[i].populate("matchUsers", {displayName: 1, personalInfo: 1}).execPopulate();
+      }
+    }
+    return results;
+  }
+
+  async populateExec(result: any) {
+    for (let i = 0 ; i < this.populates.length ; i++) {
+      result = await result.populate("matchUsers", {displayName: 1, personalInfo: 1}).execPopulate();
+    }
+    return result;
+  }
 }

@@ -26,6 +26,8 @@ const questionScoreRecord_module_1 = require("./questionScoreRecord/questionScor
 const submitQuestionRecord_module_1 = require("./submitQuestionRecord/submitQuestionRecord.module");
 const questionChoice_module_1 = require("./questionChoice/questionChoice.module");
 const questionNum_module_1 = require("./questionNum/questionNum.module");
+const manualMatch_module_1 = require("./manualMatch/manualMatch.module");
+const systemMatch_module_1 = require("./systemMatch/systemMatch.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -49,6 +51,8 @@ AppModule = __decorate([
             questionScoreRecord_module_1.QuestionScoreRecordModule,
             submitQuestionRecord_module_1.SubmitQuestionRecordModule,
             questionNum_module_1.QuestionNumModule,
+            manualMatch_module_1.ManualMatchModule,
+            systemMatch_module_1.SystemMatchModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,

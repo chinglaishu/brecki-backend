@@ -17,7 +17,7 @@ export declare class User extends BaseEntity {
     socialId: string;
     firebaseEmail: string;
     firebasePassword: string;
-    notificationToken: string[];
-    lastSubmitQuestionRecord: string;
+    notificationTokens: string[];
+    lastSubmitQuestionRecord: Date;
 }
 export declare const UserSchema: mongoose.Schema<mongoose.Document<User, any, any>, mongoose.Model<mongoose.Document<User, any, any>, any, any>, undefined, {}>;

@@ -4,13 +4,48 @@ import { CreateManualMatchDto } from './dto/create-manualMatch.dto';
 import { UpdateManualMatchDto } from './dto/update-manualMatch.dto';
 import { BaseController } from 'src/utils/base/base.controller';
 import { ManualMatchFilterOption } from 'src/core/filter/filter';
+import { ReqUser } from 'src/core/decorator/user.decorator';
+import { User } from 'src/user/entities/user.entity';
+import { MANUAL_MATCH_NUM, MANUAL_MATCH_VALID_AFTER_MINS } from 'src/constant/constant';
+import systemMatchHelper from 'src/systemMatch/helper/helper';
+import { ManualMatch } from './entities/manualMatch.entity';
+import { UserService } from 'src/user/user.service';
+import * as moment from "moment-timezone";
 
-@Controller('manualMatch')
+@Controller('manual-match')
 export class ManualMatchController extends BaseController<CreateManualMatchDto, UpdateManualMatchDto, ManualMatchFilterOption> {
 
   constructor(
     public service: ManualMatchService,
+    public userService: UserService,
   ) {
     super(service);
+    this.findOneCheckUser = true;
+    this.findAllCheckUser = true;
+  }
+
+  @Get("request")
+  async requestManualMatch(@ReqUser() user: User, @Query() query: any) {
+    const {withPreference} = query;
+
+    const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id});
+
+    if (manualMatch) {
+      systemMatchHelper.checkTime(manualMatch.updatedAt, MANUAL_MATCH_VALID_AFTER_MINS);
+    }
+
+    const users: User[] = await this.userService.getRandomWithPerference(user, withPreference, MANUAL_MATCH_NUM);
+    const matchUserIds = users.map((user) => user.id);
+
+    if (!manualMatch) {
+      return await this.service.create({matchUserIds}, user);
+    }
+    return await this.service.update(manualMatch.id, {matchUserIds, updatedAt: moment().toDate()}, true, user);
+  }
+
+  @Get("self")
+  async getSelfManualMatch(@ReqUser() user: User) {
+    const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id});
+    return manualMatch;
   }
 }

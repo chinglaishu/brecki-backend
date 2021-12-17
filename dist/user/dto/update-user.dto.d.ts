@@ -11,6 +11,7 @@ export declare class UpdateUserDto {
     personalityScoreNum?: number;
     friends?: Friend[];
     lang?: LANGUAGE;
+    notificationTokens?: string[];
     accountTypeNum?: ACCOUNT_TYPE_NUM;
     lastSubmitQuestionRecord?: string;
 }

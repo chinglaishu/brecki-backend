@@ -1,4 +1,4 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsDate, IsOptional, IsString } from 'class-validator';
 
 export class UpdateSystemMatchDto {
   @IsOptional()
@@ -7,4 +7,7 @@ export class UpdateSystemMatchDto {
   @IsOptional()
   @IsArray()
   matchUserIds?: string[];
+  @IsOptional()
+  @IsDate()
+  updatedAt: Date;
 }

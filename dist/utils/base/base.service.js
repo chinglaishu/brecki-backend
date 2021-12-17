@@ -95,11 +95,11 @@ class BaseService {
         return await this.populateExec(result);
     }
     async getRandom(size, filter) {
-        const results = await this.model.find(Object.assign({}, filter)).aggregate([{ $sample: { size } }]);
+        const results = await this.model.find(Object.assign({}, filter)).limit(size);
         return results;
     }
     async getRandomOne(filter) {
-        const results = await this.model.find(Object.assign({}, filter)).aggregate([{ $sample: { size: 1 } }]);
+        const results = await this.model.find(Object.assign({}, filter)).limit(1);
         return results.length > 0 ? results[0] : null;
     }
     createFilterForTime(filter) {
