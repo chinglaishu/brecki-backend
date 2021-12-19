@@ -4,6 +4,7 @@ declare const systemMatchHelper: {
         personalInfo: {
             name: number;
             ageRange: number;
+            sex: number;
             location: number;
             profilePicOneUrl: number;
             profilePicTwoUrl: {

@@ -19,6 +19,7 @@ const manualMatch_entity_1 = require("./entities/manualMatch.entity");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const filter_1 = require("../core/filter/filter");
+const helper_1 = require("../systemMatch/helper/helper");
 let ManualMatchService = class ManualMatchService extends base_service_1.BaseService {
     constructor(model) {
         super(model);
@@ -26,17 +27,21 @@ let ManualMatchService = class ManualMatchService extends base_service_1.BaseSer
         this.createAddUserId = true;
     }
     async populateExecList(results) {
+        if (!results) {
+            return results;
+        }
+        const field = helper_1.default.getMatchUserPersonalInfoField();
         for (let i = 0; i < results.length; i++) {
-            for (let a = 0; a < this.populates.length; a++) {
-                results[i] = await results[i].populate("matchUsers", { displayName: 1, personalInfo: 1 }).execPopulate();
-            }
+            results[i] = await results[i].populate("matchUsers", field).execPopulate();
         }
         return results;
     }
     async populateExec(result) {
-        for (let i = 0; i < this.populates.length; i++) {
-            result = await result.populate("matchUsers", { displayName: 1, personalInfo: 1 }).execPopulate();
+        if (!result) {
+            return result;
         }
+        const field = helper_1.default.getMatchUserPersonalInfoField();
+        result = await result.populate("matchUsers", field).execPopulate();
         return result;
     }
 };

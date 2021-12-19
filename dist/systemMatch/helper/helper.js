@@ -16,6 +16,7 @@ const systemMatchHelper = {
             personalInfo: {
                 name: 1,
                 ageRange: 1,
+                sex: 1,
                 location: 1,
                 profilePicOneUrl: 1,
                 profilePicTwoUrl: {
