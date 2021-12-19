@@ -30,6 +30,12 @@ export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestio
     return await this.populateExec(result);
   }
 
+  async getLastByUserId(userId: string) {
+    const results = await this.model.find({userId}).sort({createdAt: 1}).limit(1);
+    if (results.length === 0) {return null; }
+    return await this.populateExec(results[0]);
+  }
+
   async populateExecList(results: SubmitQuestionRecordDocument[]) {
     for (let i = 0 ; i < results.length ; i++) {
       for (let a = 0 ; a < this.populates.length ; a++) {

@@ -42,6 +42,10 @@ let SubmitQuestionRecordController = class SubmitQuestionRecordController extend
         await this.userService.update(user.id, { lastSubmitQuestionRecord: result.id });
         return result;
     }
+    async getUserLast(user, userId, lang) {
+        const submitQuestionRecord = await this.service.getLastByUserId(userId);
+        return submitQuestionRecord;
+    }
 };
 __decorate([
     (0, common_1.Post)("create-with-choice-record"),
@@ -52,6 +56,15 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User, create_submitQuestionRecord_dto_1.CreateWithChoiceRecord, String]),
     __metadata("design:returntype", Promise)
 ], SubmitQuestionRecordController.prototype, "createWithChoiceRecord", null);
+__decorate([
+    (0, common_1.Get)("get-user-last/:userId"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("userId")),
+    __param(2, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:returntype", Promise)
+], SubmitQuestionRecordController.prototype, "getUserLast", null);
 SubmitQuestionRecordController = __decorate([
     (0, common_1.Controller)('submit-question-record'),
     __metadata("design:paramtypes", [submitQuestionRecord_service_1.SubmitQuestionRecordService,

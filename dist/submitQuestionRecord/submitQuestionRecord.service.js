@@ -37,6 +37,13 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
         }
         return await this.populateExec(result);
     }
+    async getLastByUserId(userId) {
+        const results = await this.model.find({ userId }).sort({ createdAt: 1 }).limit(1);
+        if (results.length === 0) {
+            return null;
+        }
+        return await this.populateExec(results[0]);
+    }
     async populateExecList(results) {
         for (let i = 0; i < results.length; i++) {
             for (let a = 0; a < this.populates.length; a++) {

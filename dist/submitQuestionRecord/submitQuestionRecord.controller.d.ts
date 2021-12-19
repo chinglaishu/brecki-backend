@@ -14,4 +14,5 @@ export declare class SubmitQuestionRecordController extends BaseController<Creat
     userService: UserService;
     constructor(service: SubmitQuestionRecordService, questionChoiceRecordService: QuestionChoiceRecordService, userService: UserService);
     createWithChoiceRecord(user: User, createDto: CreateWithChoiceRecord, lang: LANGUAGE): Promise<SubmitQuestionRecord>;
+    getUserLast(user: User, userId: string, lang: LANGUAGE): Promise<import("./entities/submitQuestionRecord.entity").SubmitQuestionRecordDocument>;
 }

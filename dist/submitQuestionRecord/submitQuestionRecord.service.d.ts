@@ -11,6 +11,7 @@ export declare class SubmitQuestionRecordService extends BaseService<CreateSubmi
     questionModel: Model<QuestionDocument>;
     constructor(model: Model<SubmitQuestionRecordDocument>, questionModel: Model<QuestionDocument>);
     findOne(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<SubmitQuestionRecordDocument>;
+    getLastByUserId(userId: string): Promise<SubmitQuestionRecordDocument>;
     populateExecList(results: SubmitQuestionRecordDocument[]): Promise<SubmitQuestionRecordDocument[]>;
     populateExec(result: SubmitQuestionRecordDocument): Promise<SubmitQuestionRecordDocument>;
     getQuestionDetail(submitQuestionRecord: SubmitQuestionRecordDocument): Promise<void>;

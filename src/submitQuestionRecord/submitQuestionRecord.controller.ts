@@ -36,5 +36,9 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
     return result;
   }
 
-  // @Get("get-user-last")
+  @Get("get-user-last/:userId")
+  async getUserLast(@ReqUser() user: User, @Param("userId") userId: string, @Lang() lang: LANGUAGE) {
+    const submitQuestionRecord = await this.service.getLastByUserId(userId);
+    return submitQuestionRecord;
+  }
 }
