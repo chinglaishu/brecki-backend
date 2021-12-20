@@ -189,7 +189,7 @@ export const QUESTION_TYPE_NUM: {
 export type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraversion" |
   "Agreeableness" | "Neuroticism";
 
-export const SYSTEM_MATCH_NUM = 5;
+export const SYSTEM_MATCH_NUM = 8;
 export const MANUAL_MATCH_NUM = 1;
 export const SYSTEM_MATCH_VALID_AFTER_MINS = 24 * 60;
 export const MANUAL_MATCH_VALID_AFTER_MINS = 1;
