@@ -5,11 +5,11 @@ import { SubmitQuestionRecordDocument } from './entities/submitQuestionRecord.en
 import { Model } from 'mongoose';
 import { SubmitQuestionRecordFilterOption } from 'src/core/filter/filter';
 import { User } from 'src/user/entities/user.entity';
-import { QuestionDocument } from 'src/question/entities/question.entity';
+import { QuestionService } from 'src/question/question.service';
 export declare class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestionRecordDto, UpdateSubmitQuestionRecordDto, SubmitQuestionRecordFilterOption> {
     model: Model<SubmitQuestionRecordDocument>;
-    questionModel: Model<QuestionDocument>;
-    constructor(model: Model<SubmitQuestionRecordDocument>, questionModel: Model<QuestionDocument>);
+    questionService: QuestionService;
+    constructor(model: Model<SubmitQuestionRecordDocument>, questionService: QuestionService);
     findOne(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<SubmitQuestionRecordDocument>;
     getLastByUserId(userId: string): Promise<SubmitQuestionRecordDocument>;
     populateExecList(results: SubmitQuestionRecordDocument[]): Promise<SubmitQuestionRecordDocument[]>;

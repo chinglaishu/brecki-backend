@@ -5,5 +5,6 @@ export declare class QuestionScoreRecord extends BaseEntity {
     userId: string;
     toUserId: string;
     personalityScore: PersonalityScore;
+    submitQuestionRecordId: string;
 }
 export declare const QuestionScoreRecordSchema: mongoose.Schema<mongoose.Document<QuestionScoreRecord, any, any>, mongoose.Model<mongoose.Document<QuestionScoreRecord, any, any>, any, any>, undefined, {}>;

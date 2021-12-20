@@ -21,11 +21,12 @@ const mongoose_2 = require("mongoose");
 const filter_1 = require("../core/filter/filter");
 const user_entity_1 = require("../user/entities/user.entity");
 const question_entity_1 = require("../question/entities/question.entity");
+const question_service_1 = require("../question/question.service");
 let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base_service_1.BaseService {
-    constructor(model, questionModel) {
+    constructor(model, questionService) {
         super(model);
         this.model = model;
-        this.questionModel = questionModel;
+        this.questionService = questionService;
         this.createAddUserId = true;
         this.populates = ["questionChoiceRecords"];
     }
@@ -42,19 +43,17 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
         if (results.length === 0) {
             return null;
         }
-        return await this.populateExec(results[0]);
+        return await results[0];
     }
     async populateExecList(results) {
         for (let i = 0; i < results.length; i++) {
-            for (let a = 0; a < this.populates.length; a++) {
-                results[i] = await results[i].populate(this.populates[a]).execPopulate();
-            }
+            results[i] = await results[i].populate("questionChoiceRecords").execPopulate();
         }
         return results;
     }
     async populateExec(result) {
         for (let i = 0; i < this.populates.length; i++) {
-            result = await result.populate(this.populates[i]).execPopulate();
+            result = await result.populate("questionChoiceRecords").execPopulate();
             await this.getQuestionDetail(result);
         }
         return result;
@@ -62,7 +61,7 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
     async getQuestionDetail(submitQuestionRecord) {
         const { questionChoiceRecords } = submitQuestionRecord;
         for (let i = 0; i < questionChoiceRecords.length; i++) {
-            const question = await this.questionModel.findOne({ _id: questionChoiceRecords[i].questionId });
+            const question = await this.questionService.findOne(questionChoiceRecords[i].questionId);
             questionChoiceRecords[i].question = question;
         }
     }
@@ -70,9 +69,8 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
 SubmitQuestionRecordService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(submitQuestionRecord_entity_1.SubmitQuestionRecord.name)),
-    __param(1, (0, mongoose_1.InjectModel)(question_entity_1.Question.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model])
+        question_service_1.QuestionService])
 ], SubmitQuestionRecordService);
 exports.SubmitQuestionRecordService = SubmitQuestionRecordService;
 //# sourceMappingURL=submitQuestionRecord.service.js.map

@@ -8,12 +8,13 @@ import { Model } from 'mongoose';
 import { SubmitQuestionRecordFilterOption } from 'src/core/filter/filter';
 import { User } from 'src/user/entities/user.entity';
 import { Question, QuestionDocument } from 'src/question/entities/question.entity';
+import { QuestionService } from 'src/question/question.service';
 
 @Injectable()
 export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestionRecordDto, UpdateSubmitQuestionRecordDto, SubmitQuestionRecordFilterOption> {
   constructor(
     @InjectModel(SubmitQuestionRecord.name) public model: Model<SubmitQuestionRecordDocument>,
-    @InjectModel(Question.name) public questionModel: Model<QuestionDocument>,
+    public questionService: QuestionService,
   ) {
     super(model);
     this.createAddUserId = true;
@@ -33,22 +34,20 @@ export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestio
   async getLastByUserId(userId: string) {
     const results = await this.model.find({userId}).sort({createdAt: 1}).limit(1);
     if (results.length === 0) {return null; }
-    return await this.populateExec(results[0]);
+    return await results[0];
   }
 
   async populateExecList(results: SubmitQuestionRecordDocument[]) {
     for (let i = 0 ; i < results.length ; i++) {
-      for (let a = 0 ; a < this.populates.length ; a++) {
-        results[i] = await results[i].populate(this.populates[a]).execPopulate();
-        // await this.getQuestionDetail(results[i]);
-      }
+      results[i] = await results[i].populate("questionChoiceRecords").execPopulate();
+      // await this.getQuestionDetail(results[i]);
     }
     return results;
   }
 
   async populateExec(result: SubmitQuestionRecordDocument) {
     for (let i = 0 ; i < this.populates.length ; i++) {
-      result = await result.populate(this.populates[i]).execPopulate();
+      result = await result.populate("questionChoiceRecords").execPopulate();
       await this.getQuestionDetail(result);
     }
     return result;
@@ -57,7 +56,7 @@ export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestio
   async getQuestionDetail(submitQuestionRecord: SubmitQuestionRecordDocument) {
     const {questionChoiceRecords} = submitQuestionRecord;
     for (let i = 0 ; i < questionChoiceRecords.length ; i++) {
-      const question = await this.questionModel.findOne({_id: questionChoiceRecords[i].questionId});
+      const question = await this.questionService.findOne(questionChoiceRecords[i].questionId);
       questionChoiceRecords[i].question = question;
     }
   }
