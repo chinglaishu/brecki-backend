@@ -21,6 +21,8 @@ export class QuestionScoreRecordController extends BaseController<CreateQuestion
     public personalityService: PersonalityService,
   ) {
     super(service);
+    this.findOneCheckUser = true;
+    this.findAllCheckUser = true;
   }
 
   @Post()

@@ -18,6 +18,8 @@ let QuestionChoiceRecordController = class QuestionChoiceRecordController extend
     constructor(service) {
         super(service);
         this.service = service;
+        this.findOneCheckUser = true;
+        this.findAllCheckUser = true;
     }
 };
 QuestionChoiceRecordController = __decorate([

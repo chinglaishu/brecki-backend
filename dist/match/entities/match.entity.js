@@ -18,7 +18,7 @@ let Match = class Match extends base_entity_1.BaseEntity {
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Match.prototype, "fromUserId", void 0);
+], Match.prototype, "userId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

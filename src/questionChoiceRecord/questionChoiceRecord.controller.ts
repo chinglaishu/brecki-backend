@@ -12,5 +12,7 @@ export class QuestionChoiceRecordController extends BaseController<CreateQuestio
     public service: QuestionChoiceRecordService,
   ) {
     super(service);
+    this.findOneCheckUser = true;
+    this.findAllCheckUser = true;
   }
 }

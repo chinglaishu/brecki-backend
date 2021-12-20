@@ -40,7 +40,8 @@ class BaseService {
         result.totalPage = Math.ceil(totalCount / pageSize);
         return result;
     }
-    async findAllWithoutPagination(filter, sort = {}) {
+    async findAllWithoutPagination(filter, checkIfAddUserIdByUser = null, sort = {}) {
+        filter = utilsFunction_1.default.checkIfAddUserId(constant_1.USER_ID_FIELD, checkIfAddUserIdByUser, filter);
         filter = this.createFilterForTime(filter);
         const data = await this.model.find(filter).sort(sort);
         if (Object.keys(sort).length === 0) {
@@ -60,7 +61,8 @@ class BaseService {
         }
         return await this.populateExec(result);
     }
-    async findOneWithFilter(filter, throwErrorIfNotFound = false) {
+    async findOneWithFilter(filter, checkIfAddUserIdByUser = null, throwErrorIfNotFound = false) {
+        filter = utilsFunction_1.default.checkIfAddUserId(constant_1.USER_ID_FIELD, checkIfAddUserIdByUser, filter);
         const result = await this.model.findOne(filter);
         if (!result && throwErrorIfNotFound) {
             throw new common_1.HttpException("item not found", 500);

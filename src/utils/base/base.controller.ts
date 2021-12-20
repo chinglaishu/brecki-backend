@@ -43,14 +43,14 @@ export class BaseController<CreateDto, UpdateDto, FilterOption> {
   async findAllWithoutPagination(@ReqUser() user: User, @Filter() filter: FilterOption, @Sort() sort: any = {}, @Search() search: SearchOption = {searchFilter: {}}) {
     const {searchFilter} = search;
     filter = {...filter, ...searchFilter};
-    return this.service.findAllWithoutPagination(filter, sort);
+    return this.service.findAllWithoutPagination(filter, utilsFunction.getCheckUser(this.findAllCheckUser, user), sort);
   }
 
   @Get('get/one')
   async findOneWithFilter(@ReqUser() user: User, @Filter() filter: FilterOption, @Search() search: SearchOption = {searchFilter: {}}) {
     const {searchFilter} = search;
     filter = {...filter, ...searchFilter};
-    return this.service.findOneWithFilter(filter);
+    return this.service.findOneWithFilter(filter, utilsFunction.getCheckUser(this.findOneCheckUser, user));
   }
 
 

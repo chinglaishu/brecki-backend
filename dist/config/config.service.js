@@ -25,7 +25,7 @@ let ConfigService = class ConfigService extends base_service_1.BaseService {
         this.model = model;
     }
     async findByLang(typeNum, lang) {
-        const config = await this.findOneWithFilter({ typeNum }, true);
+        const config = await this.findOneWithFilter({ typeNum }, null, true);
         const { subject, content, messageMethodNum } = config;
         return { subject: subject[lang], content: content[lang], messageMethodNum };
     }

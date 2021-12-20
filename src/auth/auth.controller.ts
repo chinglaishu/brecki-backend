@@ -51,7 +51,7 @@ export class AuthController {
   @Post("forget-password-token/request")
   async forgetPasswordToken(@Body() body: ForgetPasswordRequestDto, @Lang() lang: LANGUAGE) {
     const {phone} = body;
-    const user: User = await this.userService.findOneWithFilter({phone}, true);
+    const user: User = await this.userService.findOneWithFilter({phone}, null, true);
     await this.service.sendCode(redisClient, user.id, phone, this.configService, lang);
     return true;
   }
@@ -95,7 +95,7 @@ export class AuthController {
   @Post("login")
   async login(@Body() loginDto: LoginDto) {
     const {username, password} = loginDto;
-    const user = await this.userService.findOneWithFilter({username}, true);
+    const user = await this.userService.findOneWithFilter({username}, null, true);
     await crypt.comparePasswordAndHash(password, user.password);
     const token = JwtStrategy.signByUser(user, ACCESS_TOKEN_EXPIRE_TIME);
     const refreshToken = await this.service.generateRefreshToken(user);
@@ -106,7 +106,7 @@ export class AuthController {
   @Post("forget-password")
   async forgetPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
     const {newPassword, code, username} = forgetPasswordDto;
-    const user = await this.userService.findOneWithFilter({username}, true);
+    const user = await this.userService.findOneWithFilter({username}, null, true);
     await authHelper.checkIfCodeValid(redisClient, user.id, code);
     const hashNewPassword = await crypt.hashPassword(newPassword);
     await this.userService.update(user.id, {password: hashNewPassword});
@@ -128,7 +128,7 @@ export class AuthController {
     const {refreshToken} = refreshTokenDto;
     const userId = JwtStrategy.getUserIdFromToken(refreshToken);
     const user = await this.userService.findOne(userId, true);
-    const token = await this.service.findOneWithFilter({refreshToken}, false);
+    const token = await this.service.findOneWithFilter({refreshToken}, null, false);
     if (!token) {
       await this.service.deleteAllRefreshTokenByUserId(userId);
       throw new HttpException("token is used or invalid", 500);

@@ -54,7 +54,7 @@ let AuthController = class AuthController {
     }
     async forgetPasswordToken(body, lang) {
         const { phone } = body;
-        const user = await this.userService.findOneWithFilter({ phone }, true);
+        const user = await this.userService.findOneWithFilter({ phone }, null, true);
         await this.service.sendCode(cache_1.redisClient, user.id, phone, this.configService, lang);
         return true;
     }
@@ -84,7 +84,7 @@ let AuthController = class AuthController {
     }
     async login(loginDto) {
         const { username, password } = loginDto;
-        const user = await this.userService.findOneWithFilter({ username }, true);
+        const user = await this.userService.findOneWithFilter({ username }, null, true);
         await crypt_1.default.comparePasswordAndHash(password, user.password);
         const token = jwt_strategy_1.default.signByUser(user, config_1.ACCESS_TOKEN_EXPIRE_TIME);
         const refreshToken = await this.service.generateRefreshToken(user);
@@ -92,7 +92,7 @@ let AuthController = class AuthController {
     }
     async forgetPassword(forgetPasswordDto) {
         const { newPassword, code, username } = forgetPasswordDto;
-        const user = await this.userService.findOneWithFilter({ username }, true);
+        const user = await this.userService.findOneWithFilter({ username }, null, true);
         await helper_1.default.checkIfCodeValid(cache_1.redisClient, user.id, code);
         const hashNewPassword = await crypt_1.default.hashPassword(newPassword);
         await this.userService.update(user.id, { password: hashNewPassword });
@@ -109,7 +109,7 @@ let AuthController = class AuthController {
         const { refreshToken } = refreshTokenDto;
         const userId = jwt_strategy_1.default.getUserIdFromToken(refreshToken);
         const user = await this.userService.findOne(userId, true);
-        const token = await this.service.findOneWithFilter({ refreshToken }, false);
+        const token = await this.service.findOneWithFilter({ refreshToken }, null, false);
         if (!token) {
             await this.service.deleteAllRefreshTokenByUserId(userId);
             throw new common_1.HttpException("token is used or invalid", 500);

@@ -19,15 +19,17 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
     public userService: UserService,
   ) {
     super(service);
+    this.findOneCheckUser = true;
+    this.findAllCheckUser = true;
   }
 
   @Post()
   async create(@ReqUser() user: User, @Body() createMatchDto: CreateMatchDto, @Lang() lang: LANGUAGE) {
-    if (user.roleNum !== ROLE_NUM.ADMIN || !createMatchDto.fromUserId) {
-      createMatchDto.fromUserId = user.id;
+    if (user.roleNum !== ROLE_NUM.ADMIN || !createMatchDto.userId) {
+      createMatchDto.userId = user.id;
     }
-    const {fromUserId, toUserId} = createMatchDto;
-    await this.service.countAndError({fromUserId, toUserId});
+    const {userId, toUserId} = createMatchDto;
+    await this.service.countAndError({userId, toUserId});
     return this.service.create(createMatchDto);
   }
 
@@ -35,12 +37,12 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
   async update(@ReqUser() user: User, @Param('id') id: string, @Body() updateMatchDto: UpdateMatchDto, @Lang() lang: LANGUAGE) {
     const {status} = updateMatchDto;
     const match: Match = await this.service.findOne(id, true, user);
-    const {fromUserId, toUserId} = match;
+    const {userId, toUserId} = match;
     if (status === MATCH_STATUS_NUM.ACCEPTED) {
-      const fromUser = await this.userService.findOne(fromUserId, true);
+      const fromUser = await this.userService.findOne(userId, true);
       const toUser = await this.userService.findOne(toUserId, true);
       await this.userService.addUserToFriendList(fromUser, toUserId);
-      await this.userService.addUserToFriendList(toUser, fromUserId);
+      await this.userService.addUserToFriendList(toUser, userId);
     }
     return await this.service.update(id, updateMatchDto, true, user);
   }

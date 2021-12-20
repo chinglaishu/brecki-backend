@@ -48,12 +48,12 @@ class BaseController {
     async findAllWithoutPagination(user, filter, sort = {}, search = { searchFilter: {} }) {
         const { searchFilter } = search;
         filter = Object.assign(Object.assign({}, filter), searchFilter);
-        return this.service.findAllWithoutPagination(filter, sort);
+        return this.service.findAllWithoutPagination(filter, utilsFunction_1.default.getCheckUser(this.findAllCheckUser, user), sort);
     }
     async findOneWithFilter(user, filter, search = { searchFilter: {} }) {
         const { searchFilter } = search;
         filter = Object.assign(Object.assign({}, filter), searchFilter);
-        return this.service.findOneWithFilter(filter);
+        return this.service.findOneWithFilter(filter, utilsFunction_1.default.getCheckUser(this.findOneCheckUser, user));
     }
     async update(user, id, updateDto, lang) {
         utilsFunction_1.default.checkReadOnly(this.readOnly, user);

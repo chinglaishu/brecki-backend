@@ -4,7 +4,7 @@ import { MATCH_METHOD_NUM, MATCH_STATUS_NUM } from 'src/constant/constant';
 export class CreateMatchDto {
   @IsOptional()
   @IsString()
-  fromUserId: string;
+  userId: string;
 
   @IsString()
   toUserId: string;

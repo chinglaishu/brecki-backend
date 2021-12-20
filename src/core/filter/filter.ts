@@ -17,7 +17,7 @@ export class UserFilterOption extends BaseFilterOption {
 export class TemplateFilterOption extends BaseFilterOption {};
 
 export class MatchFilterOption extends BaseFilterOption {
-  fromUserId?: string;
+  userId?: string;
   toUserId?: string;
   method?: MATCH_METHOD_NUM;
   status?: MATCH_STATUS_NUM;

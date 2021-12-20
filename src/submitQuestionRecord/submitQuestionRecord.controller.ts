@@ -22,6 +22,8 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
     public userService: UserService,
   ) {
     super(service);
+    this.findOneCheckUser = true;
+    this.findAllCheckUser = true;
   }
 
   @Post("create-with-choice-record")

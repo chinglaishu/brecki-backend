@@ -8,7 +8,7 @@ export type MatchDocument = Match & mongoose.Document;
 @Schema()
 export class Match extends BaseEntity {
   @Prop({required: true})
-  fromUserId: string;
+  userId: string;
   @Prop({required: true})
   toUserId: string;
   @Prop({required: true})

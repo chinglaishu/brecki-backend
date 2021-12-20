@@ -49,8 +49,8 @@ export class BaseService<CreateDto, UpdateDto, FilterOption extends BaseFilterOp
     return result;
   }
 
-  async findAllWithoutPagination(filter: FilterOption, sort: any = {}) {
-
+  async findAllWithoutPagination(filter: FilterOption, checkIfAddUserIdByUser: User | null = null, sort: any = {}) {
+    filter = utilsFunction.checkIfAddUserId(USER_ID_FIELD, checkIfAddUserIdByUser, filter);
     filter = this.createFilterForTime(filter);
 
     const data = await this.model.find(filter).sort(sort);
@@ -76,7 +76,8 @@ export class BaseService<CreateDto, UpdateDto, FilterOption extends BaseFilterOp
     return await this.populateExec(result);
   }
 
-  async findOneWithFilter(filter: FilterOption, throwErrorIfNotFound: boolean = false) {
+  async findOneWithFilter(filter: FilterOption, checkIfAddUserIdByUser: User | null = null, throwErrorIfNotFound: boolean = false) {
+    filter = utilsFunction.checkIfAddUserId(USER_ID_FIELD, checkIfAddUserIdByUser, filter);
     const result = await this.model.findOne(filter);
     if (!result && throwErrorIfNotFound) {
       throw new HttpException("item not found", 500);

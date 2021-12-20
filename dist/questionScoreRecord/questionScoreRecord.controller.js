@@ -31,6 +31,8 @@ let QuestionScoreRecordController = class QuestionScoreRecordController extends 
         this.service = service;
         this.userService = userService;
         this.personalityService = personalityService;
+        this.findOneCheckUser = true;
+        this.findAllCheckUser = true;
     }
     async create(user, createDto, lang) {
         utilsFunction_1.default.checkReadOnly(this.readOnly, user);

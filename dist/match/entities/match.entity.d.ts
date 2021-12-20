@@ -3,7 +3,7 @@ import { MATCH_METHOD_NUM, MATCH_STATUS_NUM } from 'src/constant/constant';
 import { BaseEntity } from '../../utils/base/base.entity';
 export declare type MatchDocument = Match & mongoose.Document;
 export declare class Match extends BaseEntity {
-    fromUserId: string;
+    userId: string;
     toUserId: string;
     method: MATCH_METHOD_NUM;
     status: MATCH_STATUS_NUM;
