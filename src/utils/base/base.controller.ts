@@ -46,6 +46,14 @@ export class BaseController<CreateDto, UpdateDto, FilterOption> {
     return this.service.findAllWithoutPagination(filter, sort);
   }
 
+  @Get('get/one')
+  async findOneWithFilter(@ReqUser() user: User, @Filter() filter: FilterOption, @Search() search: SearchOption = {searchFilter: {}}) {
+    const {searchFilter} = search;
+    filter = {...filter, ...searchFilter};
+    return this.service.findOneWithFilter(filter);
+  }
+
+
   @Put(':id')
   async update(@ReqUser() user: User, @Param('id') id: string, @Body() updateDto: UpdateDto, @Lang() lang: LANGUAGE) {
     utilsFunction.checkReadOnly(this.readOnly, user);

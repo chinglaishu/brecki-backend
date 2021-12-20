@@ -50,6 +50,11 @@ class BaseController {
         filter = Object.assign(Object.assign({}, filter), searchFilter);
         return this.service.findAllWithoutPagination(filter, sort);
     }
+    async findOneWithFilter(user, filter, search = { searchFilter: {} }) {
+        const { searchFilter } = search;
+        filter = Object.assign(Object.assign({}, filter), searchFilter);
+        return this.service.findOneWithFilter(filter);
+    }
     async update(user, id, updateDto, lang) {
         utilsFunction_1.default.checkReadOnly(this.readOnly, user);
         return await this.service.update(id, updateDto, true, utilsFunction_1.default.getCheckUser(this.updateCheckUser, user));
@@ -97,6 +102,15 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User, Object, Object, search_decorator_1.SearchOption]),
     __metadata("design:returntype", Promise)
 ], BaseController.prototype, "findAllWithoutPagination", null);
+__decorate([
+    (0, common_1.Get)('get/one'),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, filter_decorator_1.Filter)()),
+    __param(2, (0, search_decorator_1.Search)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, Object, search_decorator_1.SearchOption]),
+    __metadata("design:returntype", Promise)
+], BaseController.prototype, "findOneWithFilter", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, user_decorator_1.ReqUser)()),
