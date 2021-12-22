@@ -43,6 +43,10 @@ __decorate([
     (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)
 ], Match.prototype, "intimacyLevel", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Match.prototype, "submitQuestionScoreRecordId", void 0);
 Match = __decorate([
     (0, mongoose_1.Schema)()
 ], Match);

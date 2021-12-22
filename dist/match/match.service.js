@@ -29,8 +29,8 @@ let MatchService = class MatchService extends base_service_1.BaseService {
         this.model = model;
         this.createAddUserId = true;
     }
-    async likeUser(userId, toUserId, method, userService) {
-        const result = await this.create({ userId, toUserId, method });
+    async likeUser(userId, toUserId, method, userService, submitQuestionScoreRecordId) {
+        const result = await this.create({ userId, toUserId, method, submitQuestionScoreRecordId });
         await (0, notification_1.sendPushNotificationByUserId)(toUserId, userService, "SOME_ONE_LIKE_YOU");
         return result;
     }

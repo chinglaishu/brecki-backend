@@ -20,8 +20,8 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
     this.createAddUserId = true;
   }
 
-  async likeUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService) {
-    const result = await this.create({userId, toUserId, method});
+  async likeUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService, submitQuestionScoreRecordId?: string) {
+    const result = await this.create({userId, toUserId, method, submitQuestionScoreRecordId});
     await sendPushNotificationByUserId(toUserId, userService, "SOME_ONE_LIKE_YOU");
     return result;
   }

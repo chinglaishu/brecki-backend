@@ -32,6 +32,9 @@ let SubmitQuestionScoreRecordController = class SubmitQuestionScoreRecordControl
         this.questionScoreRecordService = questionScoreRecordService;
         this.personalityService = personalityService;
         this.userService = userService;
+        this.findOneCheckUser = true;
+        this.findAllCheckUser = true;
+        this.updateCheckUser = true;
     }
     async createWithScoreRecord(user, createDto, lang) {
         const { questionScoreRecords, toUserId, submitQuestionRecordId } = createDto;
@@ -57,7 +60,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SubmitQuestionScoreRecordController.prototype, "createWithScoreRecord", null);
 SubmitQuestionScoreRecordController = __decorate([
-    (0, common_1.Controller)('submitQuestionScoreRecord'),
+    (0, common_1.Controller)('submit-question-score-record'),
     __metadata("design:paramtypes", [submitQuestionScoreRecord_service_1.SubmitQuestionScoreRecordService,
         questionScoreRecord_service_1.QuestionScoreRecordService,
         personality_service_1.PersonalityService,

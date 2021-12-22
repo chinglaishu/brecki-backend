@@ -55,12 +55,13 @@ export class SystemMatchController extends BaseController<CreateSystemMatchDto, 
   }
 
   @Post("like-user/:toUserId")
-  async likeUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+  async likeUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Query() query: any, @Lang() lang: LANGUAGE) {
+    const {submitQuestionScoreRecordId} = query;
     const systemMatch: SystemMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
     const {matchUserIds} = systemMatch;
     const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
     const result = await this.service.update(systemMatch.id, {matchUserIds: useMatchUserIds});
-    await this.matchService.likeUser(user.id, toUserId, MATCH_METHOD_NUM.SYSTEM, this.userService);
+    await this.matchService.likeUser(user.id, toUserId, MATCH_METHOD_NUM.SYSTEM, this.userService, submitQuestionScoreRecordId);
     return result;
   }
 

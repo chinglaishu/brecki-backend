@@ -13,7 +13,7 @@ import { SubmitQuestionScoreRecord } from './entities/submitQuestionScoreRecord.
 import { PersonalityService } from 'src/personality/personality.service';
 import { UserService } from 'src/user/user.service';
 
-@Controller('submitQuestionScoreRecord')
+@Controller('submit-question-score-record')
 export class SubmitQuestionScoreRecordController extends BaseController<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, SubmitQuestionScoreRecordFilterOption> {
 
   constructor(
@@ -23,6 +23,9 @@ export class SubmitQuestionScoreRecordController extends BaseController<CreateSu
     public userService: UserService,
   ) {
     super(service);
+    this.findOneCheckUser = true;
+    this.findAllCheckUser = true;
+    this.updateCheckUser = true;
   }
 
   @Post("create-with-score-record")

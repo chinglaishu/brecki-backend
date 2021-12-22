@@ -15,4 +15,8 @@ export class CreateMatchDto {
   @IsOptional()
   @IsNumber()
   status?: MATCH_STATUS_NUM;
+
+  @IsOptional()
+  @IsString()
+  submitQuestionScoreRecordId?: string;
 }

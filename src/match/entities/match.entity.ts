@@ -21,6 +21,8 @@ export class Match extends BaseEntity {
   status: MATCH_STATUS_NUM;
   @Prop({default: 0})
   intimacyLevel: number;
+  @Prop()
+  submitQuestionScoreRecordId: string;
 }
 
 export const MatchSchema = SchemaFactory.createForClass(Match);

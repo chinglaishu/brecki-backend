@@ -9,6 +9,6 @@ import { UserService } from 'src/user/user.service';
 export declare class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, MatchFilterOption> {
     model: Model<MatchDocument>;
     constructor(model: Model<MatchDocument>);
-    likeUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService): Promise<any>;
+    likeUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService, submitQuestionScoreRecordId?: string): Promise<any>;
     crossUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService): Promise<any>;
 }
