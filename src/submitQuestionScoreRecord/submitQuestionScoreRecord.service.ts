@@ -13,6 +13,7 @@ export class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQu
     @InjectModel(SubmitQuestionScoreRecord.name) public model: Model<SubmitQuestionScoreRecordDocument>,
   ) {
     super(model);
+    this.populates = ["questionScoreRecords"];
   }
 
 }

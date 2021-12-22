@@ -23,6 +23,7 @@ let SubmitQuestionScoreRecordService = class SubmitQuestionScoreRecordService ex
     constructor(model) {
         super(model);
         this.model = model;
+        this.populates = ["questionScoreRecords"];
     }
 };
 SubmitQuestionScoreRecordService = __decorate([
