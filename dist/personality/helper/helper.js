@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const questionScoreRecord_entity_1 = require("../../questionScoreRecord/entities/questionScoreRecord.entity");
+const user_entity_1 = require("../../user/entities/user.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
 const personalityHelper = {
     getBasePersonality(personalities) {
@@ -10,15 +11,14 @@ const personalityHelper = {
         }
         return obj;
     },
-    getAverageScore(personalityScore, questionScoreRecords) {
-        for (let i = 0; i < questionScoreRecords.length; i++) {
-            this.addUpPersonalityScore(personalityScore, questionScoreRecords[i].personalityScore);
-        }
-        const keys = Object.keys(personalityScore);
+    getNewScore(user, newPersonalityScore) {
+        const { personalityScoreNum, personalityScore } = user;
+        const oldPersonalityScore = Object.assign({}, personalityScore);
+        const keys = Object.keys(newPersonalityScore);
         for (let i = 0; i < keys.length; i++) {
-            personalityScore[keys[i]] = personalityScore[keys[i]] / questionScoreRecords.length;
+            oldPersonalityScore[keys[i]] = (oldPersonalityScore[keys[i]] * personalityScoreNum + newPersonalityScore[keys[i]]) / (personalityScoreNum + 1);
         }
-        return personalityScore;
+        return oldPersonalityScore;
     },
     addUpPersonalityScore(scoreA, scoreB) {
         const keys = Object.keys(scoreA);

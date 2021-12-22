@@ -38,3 +38,5 @@ export class SystemMatchFilterOption extends BaseFilterOption {
 export class ManualMatchFilterOption extends BaseFilterOption {
   userId?: string;
 };
+
+export class SubmitQuestionScoreRecordFilterOption {};

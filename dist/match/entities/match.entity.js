@@ -24,6 +24,14 @@ __decorate([
     __metadata("design:type", String)
 ], Match.prototype, "toUserId", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], Match.prototype, "blockedIds", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], Match.prototype, "quitedIds", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
 ], Match.prototype, "method", void 0);
@@ -31,6 +39,10 @@ __decorate([
     (0, mongoose_1.Prop)({ default: constant_1.MATCH_STATUS_NUM.WAITING }),
     __metadata("design:type", Number)
 ], Match.prototype, "status", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: 0 }),
+    __metadata("design:type", Number)
+], Match.prototype, "intimacyLevel", void 0);
 Match = __decorate([
     (0, mongoose_1.Schema)()
 ], Match);

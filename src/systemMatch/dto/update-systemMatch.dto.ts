@@ -9,5 +9,5 @@ export class UpdateSystemMatchDto {
   matchUserIds?: string[];
   @IsOptional()
   @IsDate()
-  updatedAt: Date;
+  updatedAt?: Date;
 }

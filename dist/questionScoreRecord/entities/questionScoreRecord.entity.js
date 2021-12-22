@@ -15,21 +15,17 @@ const base_entity_1 = require("../../utils/base/base.entity");
 let QuestionScoreRecord = class QuestionScoreRecord extends base_entity_1.BaseEntity {
 };
 __decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], QuestionScoreRecord.prototype, "userId", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], QuestionScoreRecord.prototype, "toUserId", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", base_entity_1.PersonalityScore)
 ], QuestionScoreRecord.prototype, "personalityScore", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], QuestionScoreRecord.prototype, "questionId", void 0);
+__decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], QuestionScoreRecord.prototype, "submitQuestionRecordId", void 0);
+], QuestionScoreRecord.prototype, "comment", void 0);
 QuestionScoreRecord = __decorate([
     (0, mongoose_1.Schema)()
 ], QuestionScoreRecord);

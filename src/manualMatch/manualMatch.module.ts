@@ -4,6 +4,7 @@ import { ManualMatchController } from './manualMatch.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ManualMatch, ManualMatchSchema } from './entities/manualMatch.entity';
 import { UserModule } from 'src/user/user.module';
+import { MatchModule } from 'src/match/match.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { UserModule } from 'src/user/user.module';
       { name: ManualMatch.name, schema: ManualMatchSchema },
     ]),
     UserModule,
+    MatchModule,
   ],
   controllers: [ManualMatchController],
   providers: [ManualMatchService],

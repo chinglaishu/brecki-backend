@@ -5,7 +5,10 @@ export declare type MatchDocument = Match & mongoose.Document;
 export declare class Match extends BaseEntity {
     userId: string;
     toUserId: string;
+    blockedIds: string[];
+    quitedIds: string[];
     method: MATCH_METHOD_NUM;
     status: MATCH_STATUS_NUM;
+    intimacyLevel: number;
 }
 export declare const MatchSchema: mongoose.Schema<mongoose.Document<Match, any, any>, mongoose.Model<mongoose.Document<Match, any, any>, any, any>, undefined, {}>;

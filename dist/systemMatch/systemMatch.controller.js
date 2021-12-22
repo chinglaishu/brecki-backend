@@ -23,11 +23,16 @@ const user_service_1 = require("../user/user.service");
 const helper_1 = require("./helper/helper");
 const constant_1 = require("../constant/constant");
 const moment = require("moment-timezone");
+const lang_decorator_1 = require("../core/decorator/lang.decorator");
+const notification_1 = require("../core/notification/notification");
+const utilsFunction_1 = require("../utils/utilsFunction/utilsFunction");
+const match_service_1 = require("../match/match.service");
 let SystemMatchController = class SystemMatchController extends base_controller_1.BaseController {
-    constructor(service, userService) {
+    constructor(service, userService, matchService) {
         super(service);
         this.service = service;
         this.userService = userService;
+        this.matchService = matchService;
         this.findOneCheckUser = true;
         this.findAllCheckUser = true;
     }
@@ -48,6 +53,22 @@ let SystemMatchController = class SystemMatchController extends base_controller_
         const systemMatch = await this.service.findOneWithFilter({ userId: user.id });
         return systemMatch;
     }
+    async likeUser(user, toUserId, lang) {
+        const systemMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
+        const { matchUserIds } = systemMatch;
+        const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
+        const result = await this.service.update(systemMatch.id, { matchUserIds: useMatchUserIds });
+        await this.matchService.likeUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.SYSTEM, this.userService);
+        return result;
+    }
+    async crossUser(user, toUserId, lang) {
+        const systemMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
+        const { matchUserIds } = systemMatch;
+        const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
+        const result = await this.service.update(systemMatch.id, { matchUserIds: useMatchUserIds });
+        await this.matchService.crossUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.SYSTEM, this.userService);
+        return result;
+    }
 };
 __decorate([
     (0, common_1.Get)("request"),
@@ -64,10 +85,29 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], SystemMatchController.prototype, "getSelfSystemMatch", null);
+__decorate([
+    (0, common_1.Post)("like-user/:toUserId"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("toUserId")),
+    __param(2, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:returntype", Promise)
+], SystemMatchController.prototype, "likeUser", null);
+__decorate([
+    (0, common_1.Post)("cross-user/:toUserId"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("toUserId")),
+    __param(2, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:returntype", Promise)
+], SystemMatchController.prototype, "crossUser", null);
 SystemMatchController = __decorate([
     (0, common_1.Controller)('system-match'),
     __metadata("design:paramtypes", [systemMatch_service_1.SystemMatchService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        match_service_1.MatchService])
 ], SystemMatchController);
 exports.SystemMatchController = SystemMatchController;
 //# sourceMappingURL=systemMatch.controller.js.map

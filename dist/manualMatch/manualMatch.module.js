@@ -13,6 +13,7 @@ const manualMatch_controller_1 = require("./manualMatch.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const manualMatch_entity_1 = require("./entities/manualMatch.entity");
 const user_module_1 = require("../user/user.module");
+const match_module_1 = require("../match/match.module");
 let ManualMatchModule = class ManualMatchModule {
 };
 ManualMatchModule = __decorate([
@@ -22,6 +23,7 @@ ManualMatchModule = __decorate([
                 { name: manualMatch_entity_1.ManualMatch.name, schema: manualMatch_entity_1.ManualMatchSchema },
             ]),
             user_module_1.UserModule,
+            match_module_1.MatchModule,
         ],
         controllers: [manualMatch_controller_1.ManualMatchController],
         providers: [manualMatch_service_1.ManualMatchService],

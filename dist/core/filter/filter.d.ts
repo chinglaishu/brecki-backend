@@ -41,3 +41,5 @@ export declare class SystemMatchFilterOption extends BaseFilterOption {
 export declare class ManualMatchFilterOption extends BaseFilterOption {
     userId?: string;
 }
+export declare class SubmitQuestionScoreRecordFilterOption {
+}

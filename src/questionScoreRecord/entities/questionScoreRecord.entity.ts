@@ -6,14 +6,12 @@ export type QuestionScoreRecordDocument = QuestionScoreRecord & mongoose.Documen
 
 @Schema()
 export class QuestionScoreRecord extends BaseEntity {
-  @Prop()
-  userId: string;
-  @Prop()
-  toUserId: string;
-  @Prop()
+  @Prop({required: true})
   personalityScore: PersonalityScore;
+  @Prop({required: true})
+  questionId: string;
   @Prop()
-  submitQuestionRecordId: string;
+  comment: string;
 }
 
 export const QuestionScoreRecordSchema = SchemaFactory.createForClass(QuestionScoreRecord);

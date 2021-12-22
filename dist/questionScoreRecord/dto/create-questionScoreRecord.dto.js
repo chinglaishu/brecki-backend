@@ -15,19 +15,17 @@ const base_entity_1 = require("../../utils/base/base.entity");
 class CreateQuestionScoreRecordDto {
 }
 __decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateQuestionScoreRecordDto.prototype, "fromUserId", void 0);
+], CreateQuestionScoreRecordDto.prototype, "questionId", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateQuestionScoreRecordDto.prototype, "toUserId", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", base_entity_1.PersonalityScore)
 ], CreateQuestionScoreRecordDto.prototype, "personalityScore", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateQuestionScoreRecordDto.prototype, "comment", void 0);
 exports.CreateQuestionScoreRecordDto = CreateQuestionScoreRecordDto;
 //# sourceMappingURL=create-questionScoreRecord.dto.js.map

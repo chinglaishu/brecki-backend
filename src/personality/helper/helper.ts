@@ -1,4 +1,5 @@
 import { QuestionScoreRecord } from "src/questionScoreRecord/entities/questionScoreRecord.entity";
+import { User } from "src/user/entities/user.entity";
 import { PersonalityScore } from "src/utils/base/base.entity";
 import { Personality } from "../entities/personality.entity";
 
@@ -10,16 +11,26 @@ const personalityHelper = {
     }
     return obj;
   },
-  getAverageScore(personalityScore: PersonalityScore, questionScoreRecords: QuestionScoreRecord[]) {
-    for (let i = 0 ; i < questionScoreRecords.length ; i++) {
-      // const {personalityScore} = questionScoreRecords[i];
-      this.addUpPersonalityScore(personalityScore, questionScoreRecords[i].personalityScore);
-    }
-    const keys = Object.keys(personalityScore);
+  // now use get last score only
+  // getAverageScore(personalityScore: PersonalityScore, questionScoreRecords: QuestionScoreRecord[]) {
+  //   for (let i = 0 ; i < questionScoreRecords.length ; i++) {
+  //     // const {personalityScore} = questionScoreRecords[i];
+  //     this.addUpPersonalityScore(personalityScore, questionScoreRecords[i].personalityScore);
+  //   }
+  //   const keys = Object.keys(personalityScore);
+  //   for (let i = 0 ; i < keys.length ; i++) {
+  //     personalityScore[keys[i]] = personalityScore[keys[i]] / questionScoreRecords.length;
+  //   }
+  //   return personalityScore;
+  // },
+  getNewScore(user: User, newPersonalityScore: PersonalityScore) {
+    const {personalityScoreNum, personalityScore} = user;
+    const oldPersonalityScore = {...personalityScore};
+    const keys = Object.keys(newPersonalityScore);
     for (let i = 0 ; i < keys.length ; i++) {
-      personalityScore[keys[i]] = personalityScore[keys[i]] / questionScoreRecords.length;
+      oldPersonalityScore[keys[i]] = (oldPersonalityScore[keys[i]] * personalityScoreNum + newPersonalityScore[keys[i]]) / (personalityScoreNum + 1);
     }
-    return personalityScore;
+    return oldPersonalityScore;
   },
   addUpPersonalityScore(scoreA: PersonalityScore, scoreB: PersonalityScore) {
     const keys = Object.keys(scoreA);

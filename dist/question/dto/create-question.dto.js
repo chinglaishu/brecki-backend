@@ -21,9 +21,14 @@ __decorate([
 ], CreateQuestionDto.prototype, "title", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsObject)(),
+    (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
-], CreateQuestionDto.prototype, "Choices", void 0);
+], CreateQuestionDto.prototype, "questionChoices", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateQuestionDto.prototype, "questionChoiceIds", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),

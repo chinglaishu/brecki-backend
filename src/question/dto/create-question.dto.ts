@@ -6,8 +6,11 @@ export class CreateQuestionDto {
   @IsObject()
   title?: MultiLang;
   @IsOptional()
-  @IsObject()
-  Choices?: QuestionChoice[];
+  @IsArray()
+  questionChoices?: QuestionChoice[];
+  @IsOptional()
+  @IsArray()
+  questionChoiceIds: string[];
   @IsOptional()
   @IsArray()
   defaultPersonalityKeys?: string[];

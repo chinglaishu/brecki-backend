@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ManualMatchFilterOption = exports.SystemMatchFilterOption = exports.QuestionNumFilterOption = exports.QuestionChoiceFilterOption = exports.QuestionScoreRecordFilterOption = exports.SubmitQuestionRecordFilterOption = exports.QuestionChoiceRecordFilterOption = exports.PersonalityFilterOption = exports.QuestionFilterOption = exports.MatchFilterOption = exports.TemplateFilterOption = exports.UserFilterOption = exports.BaseFilterOption = void 0;
+exports.SubmitQuestionScoreRecordFilterOption = exports.ManualMatchFilterOption = exports.SystemMatchFilterOption = exports.QuestionNumFilterOption = exports.QuestionChoiceFilterOption = exports.QuestionScoreRecordFilterOption = exports.SubmitQuestionRecordFilterOption = exports.QuestionChoiceRecordFilterOption = exports.PersonalityFilterOption = exports.QuestionFilterOption = exports.MatchFilterOption = exports.TemplateFilterOption = exports.UserFilterOption = exports.BaseFilterOption = void 0;
 class BaseFilterOption {
 }
 exports.BaseFilterOption = BaseFilterOption;
@@ -50,5 +50,9 @@ exports.SystemMatchFilterOption = SystemMatchFilterOption;
 class ManualMatchFilterOption extends BaseFilterOption {
 }
 exports.ManualMatchFilterOption = ManualMatchFilterOption;
+;
+class SubmitQuestionScoreRecordFilterOption {
+}
+exports.SubmitQuestionScoreRecordFilterOption = SubmitQuestionScoreRecordFilterOption;
 ;
 //# sourceMappingURL=filter.js.map

@@ -9,5 +9,5 @@ export class UpdateManualMatchDto {
   matchUserIds?: string[];
   @IsOptional()
   @IsDate()
-  updatedAt: Date;
+  updatedAt?: Date;
 }

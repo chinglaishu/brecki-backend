@@ -13,6 +13,7 @@ const systemMatch_controller_1 = require("./systemMatch.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const systemMatch_entity_1 = require("./entities/systemMatch.entity");
 const user_module_1 = require("../user/user.module");
+const match_module_1 = require("../match/match.module");
 let SystemMatchModule = class SystemMatchModule {
 };
 SystemMatchModule = __decorate([
@@ -22,6 +23,7 @@ SystemMatchModule = __decorate([
                 { name: systemMatch_entity_1.SystemMatch.name, schema: systemMatch_entity_1.SystemMatchSchema },
             ]),
             user_module_1.UserModule,
+            match_module_1.MatchModule,
         ],
         controllers: [systemMatch_controller_1.SystemMatchController],
         providers: [systemMatch_service_1.SystemMatchService],

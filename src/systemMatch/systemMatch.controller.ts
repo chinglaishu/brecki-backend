@@ -9,8 +9,12 @@ import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { SystemMatch } from './entities/systemMatch.entity';
 import systemMatchHelper from './helper/helper';
-import { SYSTEM_MATCH_NUM, SYSTEM_MATCH_VALID_AFTER_MINS } from 'src/constant/constant';
+import { LANGUAGE, MATCH_METHOD_NUM, SYSTEM_MATCH_NUM, SYSTEM_MATCH_VALID_AFTER_MINS } from 'src/constant/constant';
 import * as moment from "moment-timezone";
+import { Lang } from 'src/core/decorator/lang.decorator';
+import { sendPushNotificationByUserId } from 'src/core/notification/notification';
+import utilsFunction from 'src/utils/utilsFunction/utilsFunction';
+import { MatchService } from 'src/match/match.service';
 
 @Controller('system-match')
 export class SystemMatchController extends BaseController<CreateSystemMatchDto, UpdateSystemMatchDto, SystemMatchFilterOption> {
@@ -18,6 +22,7 @@ export class SystemMatchController extends BaseController<CreateSystemMatchDto, 
   constructor(
     public service: SystemMatchService,
     public userService: UserService,
+    public matchService: MatchService,
   ) {
     super(service);
     this.findOneCheckUser = true;
@@ -47,5 +52,25 @@ export class SystemMatchController extends BaseController<CreateSystemMatchDto, 
   async getSelfSystemMatch(@ReqUser() user: User) {
     const systemMatch: SystemMatch = await this.service.findOneWithFilter({userId: user.id});
     return systemMatch;
+  }
+
+  @Post("like-user/:toUserId")
+  async likeUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+    const systemMatch: SystemMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
+    const {matchUserIds} = systemMatch;
+    const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
+    const result = await this.service.update(systemMatch.id, {matchUserIds: useMatchUserIds});
+    await this.matchService.likeUser(user.id, toUserId, MATCH_METHOD_NUM.SYSTEM, this.userService);
+    return result;
+  }
+
+  @Post("cross-user/:toUserId")
+  async crossUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+    const systemMatch: SystemMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
+    const {matchUserIds} = systemMatch;
+    const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
+    const result = await this.service.update(systemMatch.id, {matchUserIds: useMatchUserIds});
+    await this.matchService.crossUser(user.id, toUserId, MATCH_METHOD_NUM.SYSTEM, this.userService);
+    return result;
   }
 }

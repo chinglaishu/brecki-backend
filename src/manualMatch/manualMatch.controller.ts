@@ -6,11 +6,14 @@ import { BaseController } from 'src/utils/base/base.controller';
 import { ManualMatchFilterOption } from 'src/core/filter/filter';
 import { ReqUser } from 'src/core/decorator/user.decorator';
 import { User } from 'src/user/entities/user.entity';
-import { MANUAL_MATCH_NUM, MANUAL_MATCH_VALID_AFTER_MINS } from 'src/constant/constant';
+import { LANGUAGE, MANUAL_MATCH_NUM, MANUAL_MATCH_VALID_AFTER_MINS, MATCH_METHOD_NUM } from 'src/constant/constant';
 import systemMatchHelper from 'src/systemMatch/helper/helper';
 import { ManualMatch } from './entities/manualMatch.entity';
 import { UserService } from 'src/user/user.service';
 import * as moment from "moment-timezone";
+import utilsFunction from 'src/utils/utilsFunction/utilsFunction';
+import { Lang } from 'src/core/decorator/lang.decorator';
+import { MatchService } from 'src/match/match.service';
 
 @Controller('manual-match')
 export class ManualMatchController extends BaseController<CreateManualMatchDto, UpdateManualMatchDto, ManualMatchFilterOption> {
@@ -18,6 +21,7 @@ export class ManualMatchController extends BaseController<CreateManualMatchDto, 
   constructor(
     public service: ManualMatchService,
     public userService: UserService,
+    public matchService: MatchService,
   ) {
     super(service);
     this.findOneCheckUser = true;
@@ -47,5 +51,25 @@ export class ManualMatchController extends BaseController<CreateManualMatchDto, 
   async getSelfManualMatch(@ReqUser() user: User) {
     const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id});
     return manualMatch;
+  }
+
+  @Post("like-user/:toUserId")
+  async likeUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+    const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
+    const {matchUserIds} = manualMatch;
+    const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
+    const result = await this.service.update(manualMatch.id, {matchUserIds: useMatchUserIds});
+    await this.matchService.likeUser(user.id, toUserId, MATCH_METHOD_NUM.MANUAL, this.userService);
+    return result;
+  }
+
+  @Post("cross-user/:toUserId")
+  async crossUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+    const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
+    const {matchUserIds} = manualMatch;
+    const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
+    const result = await this.service.update(manualMatch.id, {matchUserIds: useMatchUserIds});
+    await this.matchService.crossUser(user.id, toUserId, MATCH_METHOD_NUM.MANUAL, this.userService);
+    return result;
   }
 }

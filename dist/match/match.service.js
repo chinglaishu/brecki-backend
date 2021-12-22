@@ -19,10 +19,24 @@ const match_entity_1 = require("./entities/match.entity");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const filter_1 = require("../core/filter/filter");
+const constant_1 = require("../constant/constant");
+const notification_1 = require("../core/notification/notification");
+const notificationMessage_1 = require("../constant/notificationMessage");
+const user_service_1 = require("../user/user.service");
 let MatchService = class MatchService extends base_service_1.BaseService {
     constructor(model) {
         super(model);
         this.model = model;
+        this.createAddUserId = true;
+    }
+    async likeUser(userId, toUserId, method, userService) {
+        const result = await this.create({ userId, toUserId, method });
+        await (0, notification_1.sendPushNotificationByUserId)(toUserId, userService, "SOME_ONE_LIKE_YOU");
+        return result;
+    }
+    async crossUser(userId, toUserId, method, userService) {
+        const result = await this.create({ userId, toUserId, method, status: constant_1.MATCH_STATUS_NUM.CROSS });
+        return result;
     }
 };
 MatchService = __decorate([

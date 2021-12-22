@@ -19,6 +19,7 @@ import { QuestionChoiceModule } from './questionChoice/questionChoice.module';
 import { QuestionNumModule } from './questionNum/questionNum.module';
 import { ManualMatchModule } from './manualMatch/manualMatch.module';
 import { SystemMatchModule } from './systemMatch/systemMatch.module';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { SystemMatchModule } from './systemMatch/systemMatch.module';
     QuestionNumModule,
     ManualMatchModule,
     SystemMatchModule,
+    SocketModule,
   ],
   controllers: [AppController],
   providers: [AppService, 

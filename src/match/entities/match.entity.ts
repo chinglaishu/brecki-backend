@@ -11,10 +11,16 @@ export class Match extends BaseEntity {
   userId: string;
   @Prop({required: true})
   toUserId: string;
+  @Prop({default: []})
+  blockedIds: string[];
+  @Prop({default: []})
+  quitedIds: string[];
   @Prop({required: true})
   method: MATCH_METHOD_NUM;
   @Prop({default: MATCH_STATUS_NUM.WAITING})
   status: MATCH_STATUS_NUM;
+  @Prop({default: 0})
+  intimacyLevel: number;
 }
 
 export const MatchSchema = SchemaFactory.createForClass(Match);

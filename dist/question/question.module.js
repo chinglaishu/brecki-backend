@@ -12,6 +12,7 @@ const question_service_1 = require("./question.service");
 const question_controller_1 = require("./question.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const question_entity_1 = require("./entities/question.entity");
+const questionChoice_module_1 = require("../questionChoice/questionChoice.module");
 let QuestionModule = class QuestionModule {
 };
 QuestionModule = __decorate([
@@ -20,6 +21,7 @@ QuestionModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: question_entity_1.Question.name, schema: question_entity_1.QuestionSchema },
             ]),
+            questionChoice_module_1.QuestionChoiceModule,
         ],
         controllers: [question_controller_1.QuestionController],
         providers: [question_service_1.QuestionService],

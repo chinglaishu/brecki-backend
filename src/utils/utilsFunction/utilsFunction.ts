@@ -106,6 +106,13 @@ const utilsFunction = {
     }
     return true;
   },
+  getRemovedItemArray(arr: any[], item: any) {
+    const useArray = JSON.parse(JSON.stringify(arr));
+    const index = useArray.indexOf(item);
+    if (index === -1) {return useArray; }
+    useArray.splice(index, 1);
+    return useArray;
+  },
 };
 
 export default utilsFunction;

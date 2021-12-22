@@ -23,11 +23,15 @@ const constant_1 = require("../constant/constant");
 const helper_1 = require("../systemMatch/helper/helper");
 const user_service_1 = require("../user/user.service");
 const moment = require("moment-timezone");
+const utilsFunction_1 = require("../utils/utilsFunction/utilsFunction");
+const lang_decorator_1 = require("../core/decorator/lang.decorator");
+const match_service_1 = require("../match/match.service");
 let ManualMatchController = class ManualMatchController extends base_controller_1.BaseController {
-    constructor(service, userService) {
+    constructor(service, userService, matchService) {
         super(service);
         this.service = service;
         this.userService = userService;
+        this.matchService = matchService;
         this.findOneCheckUser = true;
         this.findAllCheckUser = true;
     }
@@ -48,6 +52,22 @@ let ManualMatchController = class ManualMatchController extends base_controller_
         const manualMatch = await this.service.findOneWithFilter({ userId: user.id });
         return manualMatch;
     }
+    async likeUser(user, toUserId, lang) {
+        const manualMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
+        const { matchUserIds } = manualMatch;
+        const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
+        const result = await this.service.update(manualMatch.id, { matchUserIds: useMatchUserIds });
+        await this.matchService.likeUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.MANUAL, this.userService);
+        return result;
+    }
+    async crossUser(user, toUserId, lang) {
+        const manualMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
+        const { matchUserIds } = manualMatch;
+        const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
+        const result = await this.service.update(manualMatch.id, { matchUserIds: useMatchUserIds });
+        await this.matchService.crossUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.MANUAL, this.userService);
+        return result;
+    }
 };
 __decorate([
     (0, common_1.Get)("request"),
@@ -64,10 +84,29 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], ManualMatchController.prototype, "getSelfManualMatch", null);
+__decorate([
+    (0, common_1.Post)("like-user/:toUserId"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("toUserId")),
+    __param(2, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:returntype", Promise)
+], ManualMatchController.prototype, "likeUser", null);
+__decorate([
+    (0, common_1.Post)("cross-user/:toUserId"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("toUserId")),
+    __param(2, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:returntype", Promise)
+], ManualMatchController.prototype, "crossUser", null);
 ManualMatchController = __decorate([
     (0, common_1.Controller)('manual-match'),
     __metadata("design:paramtypes", [manualMatch_service_1.ManualMatchService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        match_service_1.MatchService])
 ], ManualMatchController);
 exports.ManualMatchController = ManualMatchController;
 //# sourceMappingURL=manualMatch.controller.js.map

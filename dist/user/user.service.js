@@ -78,13 +78,15 @@ let UserService = class UserService extends base_service_1.BaseService {
         const result = await this.getRandom(size, filter);
         return result;
     }
-    async updatePersonalityScore(user, questionScoreRecords, personalities) {
-        const personalityScore = helper_3.default.getBasePersonality(personalities);
-        helper_3.default.getAverageScore(personalityScore, questionScoreRecords);
-        const result = await this.update(user.id, { personalityScore, personalityScoreNum: questionScoreRecords.length });
+    async updatePersonalityScore(user, questionScoreRecords) {
+        if (questionScoreRecords.length === 0) {
+            throw new common_1.HttpException("Question score record length can not be 0", 500);
+        }
+        const useScore = questionScoreRecords[questionScoreRecords.length - 1].personalityScore;
+        const newPersonalityScore = helper_3.default.getNewScore(user, useScore);
+        const useNum = user.personalityScoreNum || 0;
+        const result = await this.update(user.id, { personalityScore: newPersonalityScore, personalityScoreNum: useNum + 1 });
         return result;
-    }
-    async sendNotification(user, notificationType, fromUser) {
     }
 };
 UserService = __decorate([

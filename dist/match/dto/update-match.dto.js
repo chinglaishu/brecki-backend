@@ -18,5 +18,15 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateMatchDto.prototype, "status", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], UpdateMatchDto.prototype, "blockedIds", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], UpdateMatchDto.prototype, "quitedIds", void 0);
 exports.UpdateMatchDto = UpdateMatchDto;
 //# sourceMappingURL=update-match.dto.js.map

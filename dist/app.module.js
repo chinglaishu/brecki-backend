@@ -28,6 +28,7 @@ const questionChoice_module_1 = require("./questionChoice/questionChoice.module"
 const questionNum_module_1 = require("./questionNum/questionNum.module");
 const manualMatch_module_1 = require("./manualMatch/manualMatch.module");
 const systemMatch_module_1 = require("./systemMatch/systemMatch.module");
+const socket_module_1 = require("./socket/socket.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -53,6 +54,7 @@ AppModule = __decorate([
             questionNum_module_1.QuestionNumModule,
             manualMatch_module_1.ManualMatchModule,
             systemMatch_module_1.SystemMatchModule,
+            socket_module_1.SocketModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,

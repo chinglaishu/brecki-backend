@@ -122,6 +122,15 @@ const utilsFunction = {
         }
         return true;
     },
+    getRemovedItemArray(arr, item) {
+        const useArray = JSON.parse(JSON.stringify(arr));
+        const index = useArray.indexOf(item);
+        if (index === -1) {
+            return useArray;
+        }
+        useArray.splice(index, 1);
+        return useArray;
+    },
 };
 exports.default = utilsFunction;
 //# sourceMappingURL=utilsFunction.js.map

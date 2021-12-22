@@ -78,8 +78,11 @@ export declare const FRIEND_STATUS_NUM: {
     friend_quit: FRIEND_STATUS_NUM;
     normal: FRIEND_STATUS_NUM;
 };
-export declare type MATCH_STATUS_NUM = -1 | 0 | 1;
+export declare type MATCH_STATUS_NUM = -4 | -3 | -2 | -1 | 0 | 1;
 export declare const MATCH_STATUS_NUM: {
+    SOMEONE_QUIT: MATCH_STATUS_NUM;
+    SOMEONE_BLOCK: MATCH_STATUS_NUM;
+    CROSS: MATCH_STATUS_NUM;
     REJECTED: MATCH_STATUS_NUM;
     WAITING: MATCH_STATUS_NUM;
     ACCEPTED: MATCH_STATUS_NUM;
@@ -95,7 +98,7 @@ export declare const QUESTION_TYPE_NUM: {
     PAINT: QUESTION_TYPE_NUM;
 };
 export declare type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraversion" | "Agreeableness" | "Neuroticism";
-export declare const SYSTEM_MATCH_NUM = 5;
+export declare const SYSTEM_MATCH_NUM = 8;
 export declare const MANUAL_MATCH_NUM = 1;
 export declare const SYSTEM_MATCH_VALID_AFTER_MINS: number;
 export declare const MANUAL_MATCH_VALID_AFTER_MINS = 1;

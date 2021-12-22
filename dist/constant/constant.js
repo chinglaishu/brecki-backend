@@ -76,6 +76,9 @@ exports.FRIEND_STATUS_NUM = {
     normal: 0,
 };
 exports.MATCH_STATUS_NUM = {
+    SOMEONE_QUIT: -4,
+    SOMEONE_BLOCK: -3,
+    CROSS: -2,
     REJECTED: -1,
     WAITING: 0,
     ACCEPTED: 1,
@@ -88,7 +91,7 @@ exports.QUESTION_TYPE_NUM = {
     CHOICE: 0,
     PAINT: 1,
 };
-exports.SYSTEM_MATCH_NUM = 5;
+exports.SYSTEM_MATCH_NUM = 8;
 exports.MANUAL_MATCH_NUM = 1;
 exports.SYSTEM_MATCH_VALID_AFTER_MINS = 24 * 60;
 exports.MANUAL_MATCH_VALID_AFTER_MINS = 1;

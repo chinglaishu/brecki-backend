@@ -13,5 +13,6 @@ declare const utilsFunction: {
     paramsAppendByObj(params: any, useObj: any): void;
     getCheckUser(isCheck: boolean, user: User): User;
     checkReadOnly(readOnly: boolean, user: User): boolean;
+    getRemovedItemArray(arr: any[], item: any): any;
 };
 export default utilsFunction;

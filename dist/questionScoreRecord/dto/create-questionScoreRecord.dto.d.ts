@@ -1,6 +1,6 @@
 import { PersonalityScore } from 'src/utils/base/base.entity';
 export declare class CreateQuestionScoreRecordDto {
-    fromUserId: string;
-    toUserId: string;
+    questionId: string;
     personalityScore: PersonalityScore;
+    comment?: string;
 }

@@ -4,6 +4,7 @@ import { SystemMatchController } from './systemMatch.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SystemMatch, SystemMatchSchema } from './entities/systemMatch.entity';
 import { UserModule } from 'src/user/user.module';
+import { MatchModule } from 'src/match/match.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { UserModule } from 'src/user/user.module';
       { name: SystemMatch.name, schema: SystemMatchSchema },
     ]),
     UserModule,
+    MatchModule,
   ],
   controllers: [SystemMatchController],
   providers: [SystemMatchService],

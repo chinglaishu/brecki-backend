@@ -75,14 +75,14 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     return result;
   }
 
-  async updatePersonalityScore(user: User, questionScoreRecords: QuestionScoreRecord[], personalities: Personality[]) {
-    const personalityScore = personalityHelper.getBasePersonality(personalities);
-    personalityHelper.getAverageScore(personalityScore, questionScoreRecords);
-    const result = await this.update(user.id, {personalityScore, personalityScoreNum: questionScoreRecords.length});
+  async updatePersonalityScore(user: User, questionScoreRecords: QuestionScoreRecord[]) {
+    if (questionScoreRecords.length === 0) {
+      throw new HttpException("Question score record length can not be 0", 500);
+    }
+    const useScore = questionScoreRecords[questionScoreRecords.length - 1].personalityScore;
+    const newPersonalityScore = personalityHelper.getNewScore(user, useScore);
+    const useNum = user.personalityScoreNum || 0;
+    const result = await this.update(user.id, {personalityScore: newPersonalityScore, personalityScoreNum: useNum + 1});
     return result;
-  }
-
-  async sendNotification(user: User, notificationType: NOTIFICATION_TYPE, fromUser?: User) {
-    
   }
 }

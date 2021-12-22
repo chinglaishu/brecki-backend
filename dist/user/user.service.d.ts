@@ -4,9 +4,7 @@ import { BaseService } from "../utils/base/base.service";
 import { User, UserDocument } from './entities/user.entity';
 import { Model } from 'mongoose';
 import { UserFilterOption } from 'src/core/filter/filter';
-import { NOTIFICATION_TYPE } from '../constant/constant';
 import { QuestionScoreRecord } from 'src/questionScoreRecord/entities/questionScoreRecord.entity';
-import { Personality } from 'src/personality/entities/personality.entity';
 export declare class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserFilterOption> {
     model: Model<UserDocument>;
     constructor(model: Model<UserDocument>);
@@ -15,6 +13,5 @@ export declare class UserService extends BaseService<CreateUserDto, UpdateUserDt
     addUserToFriendList(user: User, friendUserId: string): Promise<any>;
     removeUserFromFriendList(user: User, friendUserId: string): Promise<User>;
     getRandomWithPerference(user: User, withPreference: boolean, size: number): Promise<any>;
-    updatePersonalityScore(user: User, questionScoreRecords: QuestionScoreRecord[], personalities: Personality[]): Promise<any>;
-    sendNotification(user: User, notificationType: NOTIFICATION_TYPE, fromUser?: User): Promise<void>;
+    updatePersonalityScore(user: User, questionScoreRecords: QuestionScoreRecord[]): Promise<any>;
 }
