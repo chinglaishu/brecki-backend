@@ -10,6 +10,7 @@ import { MATCH_METHOD_NUM, MATCH_STATUS_NUM } from 'src/constant/constant';
 import { sendPushNotificationByUserId } from 'src/core/notification/notification';
 import { NM } from 'src/constant/notificationMessage';
 import { UserService } from 'src/user/user.service';
+import systemMatchHelper from 'src/systemMatch/helper/helper';
 
 @Injectable()
 export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, MatchFilterOption> {
@@ -18,6 +19,24 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
   ) {
     super(model);
     this.createAddUserId = true;
+  }
+
+  async getAllOthersLike(toUserId: string) {
+    const field = systemMatchHelper.getMatchUserPersonalInfoField();
+    const results = await this.findAllWithoutPagination({toUserId, status: MATCH_STATUS_NUM.WAITING}, null);
+    if (!results) {return results; }
+    for (let i = 0 ; i < results.length ; i++) {
+      results[i] = await results[i].populate("user", field).execPopulate();
+    }
+  }
+
+  async getAllSelfLike(userId: string) {
+    const field = systemMatchHelper.getMatchUserPersonalInfoField();
+    const results = await this.findAllWithoutPagination({userId, status: MATCH_STATUS_NUM.WAITING}, null);
+    if (!results) {return results; }
+    for (let i = 0 ; i < results.length ; i++) {
+      results[i] = await results[i].populate("toUser", field).execPopulate();
+    }
   }
 
   async likeUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService, submitQuestionScoreRecordId?: string) {

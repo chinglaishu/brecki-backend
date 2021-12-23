@@ -50,6 +50,16 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
   //   return await this.service.update(id, updateMatchDto, true, user);
   // }
 
+  @Get("get/all-others-like")
+  async getAllOthersLike(@ReqUser() user: User, @Lang() lang: LANGUAGE) {
+    return await this.service.getAllOthersLike(user.id);
+  }
+
+  @Get("get/all-self-like")
+  async getAllSelfLike(@ReqUser() user: User, @Lang() lang: LANGUAGE) {
+    return await this.service.getAllSelfLike(user.id);
+  }
+
   @Post("accept-match/:id")
   async acceptMatch(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
     const match: Match = await this.service.findOne(id);

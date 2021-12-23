@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { MATCH_METHOD_NUM, MATCH_STATUS_NUM } from 'src/constant/constant';
+import { User } from 'src/user/entities/user.entity';
 import { BaseEntity } from '../../utils/base/base.entity';
 
 export type MatchDocument = Match & mongoose.Document;
@@ -9,8 +10,10 @@ export type MatchDocument = Match & mongoose.Document;
 export class Match extends BaseEntity {
   @Prop({required: true})
   userId: string;
+  user: User;
   @Prop({required: true})
   toUserId: string;
+  toUser: User;
   @Prop({default: []})
   blockedIds: string[];
   @Prop({default: []})
@@ -38,4 +41,18 @@ MatchSchema.set('toJSON', {
     delete ret._id 
     return ret
   }
+});
+
+MatchSchema.virtual("user", {
+  ref: "User",
+  localField: "userId",
+  foreignField: "_id",
+  justOne: true,
+});
+
+MatchSchema.virtual("toUser", {
+  ref: "User",
+  localField: "toUserId",
+  foreignField: "_id",
+  justOne: true,
 });
