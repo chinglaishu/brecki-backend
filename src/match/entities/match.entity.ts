@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { MATCH_METHOD_NUM, MATCH_STATUS_NUM } from 'src/constant/constant';
+import { SubmitQuestionScoreRecord } from 'src/submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity';
 import { User } from 'src/user/entities/user.entity';
 import { BaseEntity } from '../../utils/base/base.entity';
 
@@ -26,6 +27,7 @@ export class Match extends BaseEntity {
   intimacyLevel: number;
   @Prop()
   submitQuestionScoreRecordId: string;
+  submitQuestionScoreRecord: SubmitQuestionScoreRecord;
 }
 
 export const MatchSchema = SchemaFactory.createForClass(Match);
@@ -41,6 +43,13 @@ MatchSchema.set('toJSON', {
     delete ret._id 
     return ret
   }
+});
+
+MatchSchema.virtual("submitQuestionScoreRecord", {
+  ref: "SubmitQuestionScoreRecord",
+  localField: "submitQuestionScoreRecordId",
+  foreignField: "_id",
+  justOne: true,
 });
 
 MatchSchema.virtual("user", {

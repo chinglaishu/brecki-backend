@@ -26,7 +26,7 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
     const results = await this.findAllWithoutPagination({toUserId, status: MATCH_STATUS_NUM.WAITING}, null);
     if (!results) {return results; }
     for (let i = 0 ; i < results.length ; i++) {
-      results[i] = await results[i].populate("user", field).execPopulate();
+      results[i] = await results[i].populate("user", field).populate("submitQuestionScoreRecord").execPopulate();
     }
   }
 
@@ -35,7 +35,7 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
     const results = await this.findAllWithoutPagination({userId, status: MATCH_STATUS_NUM.WAITING}, null);
     if (!results) {return results; }
     for (let i = 0 ; i < results.length ; i++) {
-      results[i] = await results[i].populate("toUser", field).execPopulate();
+      results[i] = await results[i].populate("toUser", field).populate("submitQuestionScoreRecord").execPopulate();
     }
   }
 
