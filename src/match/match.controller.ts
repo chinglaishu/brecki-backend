@@ -50,37 +50,10 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
   //   return await this.service.update(id, updateMatchDto, true, user);
   // }
 
-  @Get("get/all-others-like")
-  async getAllOthersLike(@ReqUser() user: User, @Lang() lang: LANGUAGE) {
-    return await this.service.getAllOthersLike(user.id);
-  }
-
-  @Get("get/all-self-like")
-  async getAllSelfLike(@ReqUser() user: User, @Lang() lang: LANGUAGE) {
-    return await this.service.getAllSelfLike(user.id);
-  }
-
-  @Post("accept-match/:id")
-  async acceptMatch(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
-    const match: Match = await this.service.findOne(id);
-    if (match.toUserId !== user.id && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
-    const result: Match = await this.service.update(id, {status: MATCH_STATUS_NUM.ACCEPTED}, true);
-    await sendPushNotificationByUserId(match.userId, this.userService, "SOME_ONE_ACCEPT_YOU");
-    return result;
-  }
-
-  @Post("reject-match/:id")
-  async rejectMatch(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
-    const match: Match = await this.service.findOne(id);
-    if (match.toUserId !== user.id && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
-    const result: Match = await this.service.update(id, {status: MATCH_STATUS_NUM.REJECTED}, true);
-    return result;
-  }
-
   @Post("block-match/:id")
   async blockMatch(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
     const match: Match = await this.service.findOne(id);
-    if (match.toUserId !== user.id && match.userId !== user.id && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
+    if (!(match.userIds.includes(user.id)) && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
     const isAlreadyBlocked = match.blockedIds.includes(user.id);
     if (isAlreadyBlocked) {
       throw new HttpException("Already blocked", 500);
@@ -92,14 +65,14 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
   @Post("unblock-match/:id")
   async unblockMatch(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
     const match: Match = await this.service.findOne(id);
-    if (match.toUserId !== user.id && match.userId !== user.id && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
+    if (!(match.userIds.includes(user.id)) && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
     const index = match.blockedIds.indexOf(user.id);
     if (match.status !== MATCH_STATUS_NUM.SOMEONE_BLOCK || index === -1) {
       throw new HttpException("Status Error, not blocked", 500);
     }
     const newBlockedIds = JSON.parse(JSON.stringify(match.blockedIds));
     newBlockedIds.splice(index, 1);
-    const useStatus = newBlockedIds.length === 0 ? MATCH_STATUS_NUM.ACCEPTED : MATCH_STATUS_NUM.SOMEONE_BLOCK;
+    const useStatus = newBlockedIds.length === 0 ? MATCH_STATUS_NUM.NORMAL : MATCH_STATUS_NUM.SOMEONE_BLOCK;
     const result: Match = await this.service.update(id, {status: useStatus, blockedIds: newBlockedIds}, true);
     return result;
   }
@@ -107,7 +80,7 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
   @Post("quit-match/:id")
   async quitMatch(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
     const match: Match = await this.service.findOne(id);
-    if (match.toUserId !== user.id && match.userId !== user.id && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
+    if (!(match.userIds.includes(user.id)) && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
     const isAlreadyQuited = match.quitedIds.includes(user.id);
     if (isAlreadyQuited) {
       throw new HttpException("Already Quited", 500);

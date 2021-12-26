@@ -15,14 +15,9 @@ const constant_1 = require("../../constant/constant");
 class CreateMatchDto {
 }
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateMatchDto.prototype, "userId", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateMatchDto.prototype, "toUserId", void 0);
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateMatchDto.prototype, "userIds", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -32,10 +27,5 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateMatchDto.prototype, "status", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateMatchDto.prototype, "submitQuestionScoreRecordId", void 0);
 exports.CreateMatchDto = CreateMatchDto;
 //# sourceMappingURL=create-match.dto.js.map

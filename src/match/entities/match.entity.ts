@@ -10,24 +10,18 @@ export type MatchDocument = Match & mongoose.Document;
 @Schema()
 export class Match extends BaseEntity {
   @Prop({required: true})
-  userId: string;
-  user: User;
-  @Prop({required: true})
-  toUserId: string;
-  toUser: User;
+  userIds: string;
+  users: User[];
   @Prop({default: []})
   blockedIds: string[];
   @Prop({default: []})
   quitedIds: string[];
   @Prop({required: true})
   method: MATCH_METHOD_NUM;
-  @Prop({default: MATCH_STATUS_NUM.WAITING})
+  @Prop({default: MATCH_STATUS_NUM.NORMAL})
   status: MATCH_STATUS_NUM;
   @Prop({default: 0})
   intimacyLevel: number;
-  @Prop()
-  submitQuestionScoreRecordId: string;
-  submitQuestionScoreRecord: SubmitQuestionScoreRecord;
 }
 
 export const MatchSchema = SchemaFactory.createForClass(Match);
@@ -45,23 +39,8 @@ MatchSchema.set('toJSON', {
   }
 });
 
-MatchSchema.virtual("submitQuestionScoreRecord", {
-  ref: "SubmitQuestionScoreRecord",
-  localField: "submitQuestionScoreRecordId",
-  foreignField: "_id",
-  justOne: true,
-});
-
-MatchSchema.virtual("user", {
+MatchSchema.virtual("users", {
   ref: "User",
-  localField: "userId",
+  localField: "userIds",
   foreignField: "_id",
-  justOne: true,
-});
-
-MatchSchema.virtual("toUser", {
-  ref: "User",
-  localField: "toUserId",
-  foreignField: "_id",
-  justOne: true,
 });

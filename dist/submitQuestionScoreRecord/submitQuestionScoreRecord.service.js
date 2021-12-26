@@ -19,11 +19,27 @@ const submitQuestionScoreRecord_entity_1 = require("./entities/submitQuestionSco
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const filter_1 = require("../core/filter/filter");
+const helper_1 = require("../systemMatch/helper/helper");
 let SubmitQuestionScoreRecordService = class SubmitQuestionScoreRecordService extends base_service_1.BaseService {
     constructor(model) {
         super(model);
         this.model = model;
         this.populates = ["questionScoreRecords"];
+    }
+    async populateExecList(results) {
+        const field = helper_1.default.getMatchUserPersonalInfoField();
+        for (let i = 0; i < results.length; i++) {
+            results[i] = await results[i].populate("user", field).execPopulate();
+        }
+        return results;
+    }
+    async populateExec(result) {
+        const field = helper_1.default.getMatchUserPersonalInfoField();
+        for (let i = 0; i < this.populates.length; i++) {
+            result = await result.populate(this.populates[i]).execPopulate();
+        }
+        result = await result.populate("user", field).execPopulate();
+        return result;
     }
 };
 SubmitQuestionScoreRecordService = __decorate([

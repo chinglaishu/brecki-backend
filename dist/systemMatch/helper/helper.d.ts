@@ -11,6 +11,7 @@ declare const systemMatchHelper: {
                 blurMore: number;
             };
         };
+        personalityScore: number;
     };
 };
 export default systemMatchHelper;

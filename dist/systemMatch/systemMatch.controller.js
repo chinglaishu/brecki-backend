@@ -53,21 +53,12 @@ let SystemMatchController = class SystemMatchController extends base_controller_
         const systemMatch = await this.service.findOneWithFilter({ userId: user.id });
         return systemMatch;
     }
-    async likeUser(user, toUserId, query, lang) {
-        const { submitQuestionScoreRecordId } = query;
+    async createMatch(user, toUserId, query, lang) {
         const systemMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
         const { matchUserIds } = systemMatch;
         const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
         const result = await this.service.update(systemMatch.id, { matchUserIds: useMatchUserIds });
-        await this.matchService.likeUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.SYSTEM, this.userService, submitQuestionScoreRecordId);
-        return result;
-    }
-    async crossUser(user, toUserId, lang) {
-        const systemMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
-        const { matchUserIds } = systemMatch;
-        const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
-        const result = await this.service.update(systemMatch.id, { matchUserIds: useMatchUserIds });
-        await this.matchService.crossUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.SYSTEM, this.userService);
+        await this.matchService.create({ userIds: [user.id, toUserId], method: constant_1.MATCH_METHOD_NUM.SYSTEM });
         return result;
     }
 };
@@ -87,7 +78,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SystemMatchController.prototype, "getSelfSystemMatch", null);
 __decorate([
-    (0, common_1.Post)("like-user/:toUserId"),
+    (0, common_1.Post)("create-match/:toUserId"),
     __param(0, (0, user_decorator_1.ReqUser)()),
     __param(1, (0, common_1.Param)("toUserId")),
     __param(2, (0, common_1.Query)()),
@@ -95,16 +86,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User, String, Object, String]),
     __metadata("design:returntype", Promise)
-], SystemMatchController.prototype, "likeUser", null);
-__decorate([
-    (0, common_1.Post)("cross-user/:toUserId"),
-    __param(0, (0, user_decorator_1.ReqUser)()),
-    __param(1, (0, common_1.Param)("toUserId")),
-    __param(2, (0, lang_decorator_1.Lang)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
-    __metadata("design:returntype", Promise)
-], SystemMatchController.prototype, "crossUser", null);
+], SystemMatchController.prototype, "createMatch", null);
 SystemMatchController = __decorate([
     (0, common_1.Controller)('system-match'),
     __metadata("design:paramtypes", [systemMatch_service_1.SystemMatchService,

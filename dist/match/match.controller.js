@@ -33,26 +33,9 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
         this.findAllCheckUser = true;
         this.updateCheckUser = false;
     }
-    async acceptMatch(user, id, lang) {
-        const match = await this.service.findOne(id);
-        if (match.toUserId !== user.id && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
-            throw new common_1.HttpException("User do not have permission", 500);
-        }
-        const result = await this.service.update(id, { status: constant_1.MATCH_STATUS_NUM.ACCEPTED }, true);
-        await (0, notification_1.sendPushNotificationByUserId)(match.userId, this.userService, "SOME_ONE_ACCEPT_YOU");
-        return result;
-    }
-    async rejectMatch(user, id, lang) {
-        const match = await this.service.findOne(id);
-        if (match.toUserId !== user.id && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
-            throw new common_1.HttpException("User do not have permission", 500);
-        }
-        const result = await this.service.update(id, { status: constant_1.MATCH_STATUS_NUM.REJECTED }, true);
-        return result;
-    }
     async blockMatch(user, id, lang) {
         const match = await this.service.findOne(id);
-        if (match.toUserId !== user.id && match.userId !== user.id && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
+        if (!(match.userIds.includes(user.id)) && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
             throw new common_1.HttpException("User do not have permission", 500);
         }
         const isAlreadyBlocked = match.blockedIds.includes(user.id);
@@ -64,7 +47,7 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
     }
     async unblockMatch(user, id, lang) {
         const match = await this.service.findOne(id);
-        if (match.toUserId !== user.id && match.userId !== user.id && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
+        if (!(match.userIds.includes(user.id)) && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
             throw new common_1.HttpException("User do not have permission", 500);
         }
         const index = match.blockedIds.indexOf(user.id);
@@ -73,13 +56,13 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
         }
         const newBlockedIds = JSON.parse(JSON.stringify(match.blockedIds));
         newBlockedIds.splice(index, 1);
-        const useStatus = newBlockedIds.length === 0 ? constant_1.MATCH_STATUS_NUM.ACCEPTED : constant_1.MATCH_STATUS_NUM.SOMEONE_BLOCK;
+        const useStatus = newBlockedIds.length === 0 ? constant_1.MATCH_STATUS_NUM.NORMAL : constant_1.MATCH_STATUS_NUM.SOMEONE_BLOCK;
         const result = await this.service.update(id, { status: useStatus, blockedIds: newBlockedIds }, true);
         return result;
     }
     async quitMatch(user, id, lang) {
         const match = await this.service.findOne(id);
-        if (match.toUserId !== user.id && match.userId !== user.id && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
+        if (!(match.userIds.includes(user.id)) && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
             throw new common_1.HttpException("User do not have permission", 500);
         }
         const isAlreadyQuited = match.quitedIds.includes(user.id);
@@ -90,24 +73,6 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
         return result;
     }
 };
-__decorate([
-    (0, common_1.Post)("accept-match/:id"),
-    __param(0, (0, user_decorator_1.ReqUser)()),
-    __param(1, (0, common_1.Param)("id")),
-    __param(2, (0, lang_decorator_1.Lang)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
-    __metadata("design:returntype", Promise)
-], MatchController.prototype, "acceptMatch", null);
-__decorate([
-    (0, common_1.Post)("reject-match/:id"),
-    __param(0, (0, user_decorator_1.ReqUser)()),
-    __param(1, (0, common_1.Param)("id")),
-    __param(2, (0, lang_decorator_1.Lang)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
-    __metadata("design:returntype", Promise)
-], MatchController.prototype, "rejectMatch", null);
 __decorate([
     (0, common_1.Post)("block-match/:id"),
     __param(0, (0, user_decorator_1.ReqUser)()),

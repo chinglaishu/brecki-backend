@@ -76,12 +76,9 @@ exports.FRIEND_STATUS_NUM = {
     normal: 0,
 };
 exports.MATCH_STATUS_NUM = {
-    SOMEONE_QUIT: -4,
-    SOMEONE_BLOCK: -3,
-    CROSS: -2,
-    REJECTED: -1,
-    WAITING: 0,
-    ACCEPTED: 1,
+    SOMEONE_QUIT: -2,
+    SOMEONE_BLOCK: -1,
+    NORMAL: 0,
 };
 exports.MATCH_METHOD_NUM = {
     SYSTEM: 0,

@@ -22,6 +22,7 @@ const filter_1 = require("../core/filter/filter");
 const user_entity_1 = require("../user/entities/user.entity");
 const question_entity_1 = require("../question/entities/question.entity");
 const question_service_1 = require("../question/question.service");
+const helper_1 = require("../systemMatch/helper/helper");
 let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base_service_1.BaseService {
     constructor(model, questionService) {
         super(model);
@@ -46,13 +47,16 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
         return await results[0];
     }
     async populateExecList(results) {
+        const field = helper_1.default.getMatchUserPersonalInfoField();
         for (let i = 0; i < results.length; i++) {
-            results[i] = await results[i].populate("questionChoiceRecords").execPopulate();
+            results[i] = await results[i].populate("user", field).execPopulate();
         }
         return results;
     }
     async populateExec(result) {
+        const field = helper_1.default.getMatchUserPersonalInfoField();
         for (let i = 0; i < this.populates.length; i++) {
+            result = await result.populate("user", field).execPopulate();
             result = await result.populate("questionChoiceRecords").execPopulate();
             await this.getQuestionDetail(result);
         }

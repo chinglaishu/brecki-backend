@@ -12,17 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MatchSchema = exports.Match = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const constant_1 = require("../../constant/constant");
+const submitQuestionScoreRecord_entity_1 = require("../../submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity");
+const user_entity_1 = require("../../user/entities/user.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
 let Match = class Match extends base_entity_1.BaseEntity {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Match.prototype, "userId", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Match.prototype, "toUserId", void 0);
+], Match.prototype, "userIds", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: [] }),
     __metadata("design:type", Array)
@@ -36,17 +34,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Match.prototype, "method", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: constant_1.MATCH_STATUS_NUM.WAITING }),
+    (0, mongoose_1.Prop)({ default: constant_1.MATCH_STATUS_NUM.NORMAL }),
     __metadata("design:type", Number)
 ], Match.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)
 ], Match.prototype, "intimacyLevel", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Match.prototype, "submitQuestionScoreRecordId", void 0);
 Match = __decorate([
     (0, mongoose_1.Schema)()
 ], Match);
@@ -62,5 +56,10 @@ exports.MatchSchema.set('toJSON', {
         delete ret._id;
         return ret;
     }
+});
+exports.MatchSchema.virtual("users", {
+    ref: "User",
+    localField: "userIds",
+    foreignField: "_id",
 });
 //# sourceMappingURL=match.entity.js.map

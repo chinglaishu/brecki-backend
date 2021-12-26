@@ -15,6 +15,5 @@ export declare class ManualMatchController extends BaseController<CreateManualMa
     constructor(service: ManualMatchService, userService: UserService, matchService: MatchService);
     requestManualMatch(user: User, query: any): Promise<any>;
     getSelfManualMatch(user: User): Promise<ManualMatch>;
-    likeUser(user: User, toUserId: string, lang: LANGUAGE): Promise<any>;
-    crossUser(user: User, toUserId: string, lang: LANGUAGE): Promise<any>;
+    createMatch(user: User, toUserId: string, query: any, lang: LANGUAGE): Promise<any>;
 }

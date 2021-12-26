@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubmitQuestionRecordSchema = exports.SubmitQuestionRecord = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const questionChoiceRecord_entity_1 = require("../../questionChoiceRecord/entities/questionChoiceRecord.entity");
+const user_entity_1 = require("../../user/entities/user.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
 let SubmitQuestionRecord = class SubmitQuestionRecord extends base_entity_1.BaseEntity {
 };
@@ -43,5 +44,11 @@ exports.SubmitQuestionRecordSchema.virtual("questionChoiceRecords", {
     ref: "QuestionChoiceRecord",
     localField: "questionChoiceRecordIds",
     foreignField: "_id",
+});
+exports.SubmitQuestionRecordSchema.virtual("user", {
+    ref: "QuestionChoiceRecord",
+    localField: "questionChoiceRecordIds",
+    foreignField: "_id",
+    justOne: true,
 });
 //# sourceMappingURL=submitQuestionRecord.entity.js.map

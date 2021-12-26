@@ -6,6 +6,7 @@ import { SubmitQuestionScoreRecord, SubmitQuestionScoreRecordDocument } from './
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SubmitQuestionScoreRecordFilterOption } from 'src/core/filter/filter';
+import systemMatchHelper from 'src/systemMatch/helper/helper';
 
 @Injectable()
 export class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, SubmitQuestionScoreRecordFilterOption> {
@@ -16,4 +17,20 @@ export class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQu
     this.populates = ["questionScoreRecords"];
   }
 
+  async populateExecList(results: any) {
+    const field = systemMatchHelper.getMatchUserPersonalInfoField();
+    for (let i = 0 ; i < results.length ; i++) {
+      results[i] = await results[i].populate("user", field).execPopulate();
+    }
+    return results;
+  }
+
+  async populateExec(result: any) {
+    const field = systemMatchHelper.getMatchUserPersonalInfoField();
+    for (let i = 0 ; i < this.populates.length ; i++) {
+      result = await result.populate(this.populates[i]).execPopulate();
+    }
+    result = await result.populate("user", field).execPopulate();
+    return result;
+  }
 }

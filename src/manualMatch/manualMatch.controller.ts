@@ -53,23 +53,22 @@ export class ManualMatchController extends BaseController<CreateManualMatchDto, 
     return manualMatch;
   }
 
-  @Post("like-user/:toUserId")
-  async likeUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+  @Post("create-match/:toUserId")
+  async createMatch(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Query() query: any, @Lang() lang: LANGUAGE) {
     const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
     const {matchUserIds} = manualMatch;
     const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
     const result = await this.service.update(manualMatch.id, {matchUserIds: useMatchUserIds});
-    await this.matchService.likeUser(user.id, toUserId, MATCH_METHOD_NUM.MANUAL, this.userService);
+    await this.matchService.create({userIds: [user.id, toUserId], method: MATCH_METHOD_NUM.MANUAL});
     return result;
   }
 
-  @Post("cross-user/:toUserId")
-  async crossUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
-    const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
-    const {matchUserIds} = manualMatch;
-    const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
-    const result = await this.service.update(manualMatch.id, {matchUserIds: useMatchUserIds});
-    await this.matchService.crossUser(user.id, toUserId, MATCH_METHOD_NUM.MANUAL, this.userService);
-    return result;
-  }
+  // @Post("cross-user/:toUserId")
+  // async crossUser(@ReqUser() user: User, @Param("toUserId") toUserId: string, @Lang() lang: LANGUAGE) {
+  //   const manualMatch: ManualMatch = await this.service.findOneWithFilter({userId: user.id}, null, true);
+  //   const {matchUserIds} = manualMatch;
+  //   const useMatchUserIds = utilsFunction.getRemovedItemArray(matchUserIds, toUserId);
+  //   const result = await this.service.update(manualMatch.id, {matchUserIds: useMatchUserIds});
+  //   return result;
+  // }
 }

@@ -52,20 +52,12 @@ let ManualMatchController = class ManualMatchController extends base_controller_
         const manualMatch = await this.service.findOneWithFilter({ userId: user.id });
         return manualMatch;
     }
-    async likeUser(user, toUserId, lang) {
+    async createMatch(user, toUserId, query, lang) {
         const manualMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
         const { matchUserIds } = manualMatch;
         const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
         const result = await this.service.update(manualMatch.id, { matchUserIds: useMatchUserIds });
-        await this.matchService.likeUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.MANUAL, this.userService);
-        return result;
-    }
-    async crossUser(user, toUserId, lang) {
-        const manualMatch = await this.service.findOneWithFilter({ userId: user.id }, null, true);
-        const { matchUserIds } = manualMatch;
-        const useMatchUserIds = utilsFunction_1.default.getRemovedItemArray(matchUserIds, toUserId);
-        const result = await this.service.update(manualMatch.id, { matchUserIds: useMatchUserIds });
-        await this.matchService.crossUser(user.id, toUserId, constant_1.MATCH_METHOD_NUM.MANUAL, this.userService);
+        await this.matchService.create({ userIds: [user.id, toUserId], method: constant_1.MATCH_METHOD_NUM.MANUAL });
         return result;
     }
 };
@@ -85,23 +77,15 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ManualMatchController.prototype, "getSelfManualMatch", null);
 __decorate([
-    (0, common_1.Post)("like-user/:toUserId"),
+    (0, common_1.Post)("create-match/:toUserId"),
     __param(0, (0, user_decorator_1.ReqUser)()),
     __param(1, (0, common_1.Param)("toUserId")),
-    __param(2, (0, lang_decorator_1.Lang)()),
+    __param(2, (0, common_1.Query)()),
+    __param(3, (0, lang_decorator_1.Lang)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:paramtypes", [user_entity_1.User, String, Object, String]),
     __metadata("design:returntype", Promise)
-], ManualMatchController.prototype, "likeUser", null);
-__decorate([
-    (0, common_1.Post)("cross-user/:toUserId"),
-    __param(0, (0, user_decorator_1.ReqUser)()),
-    __param(1, (0, common_1.Param)("toUserId")),
-    __param(2, (0, lang_decorator_1.Lang)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
-    __metadata("design:returntype", Promise)
-], ManualMatchController.prototype, "crossUser", null);
+], ManualMatchController.prototype, "createMatch", null);
 ManualMatchController = __decorate([
     (0, common_1.Controller)('manual-match'),
     __metadata("design:paramtypes", [manualMatch_service_1.ManualMatchService,

@@ -22,7 +22,8 @@ const systemMatchHelper = {
                 profilePicTwoUrl: {
                     blurMore: 1,
                 },
-            }
+            },
+            personalityScore: 1,
         };
     },
 };

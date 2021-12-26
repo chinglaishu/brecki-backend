@@ -9,6 +9,7 @@ import { SubmitQuestionRecordFilterOption } from 'src/core/filter/filter';
 import { User } from 'src/user/entities/user.entity';
 import { Question, QuestionDocument } from 'src/question/entities/question.entity';
 import { QuestionService } from 'src/question/question.service';
+import systemMatchHelper from 'src/systemMatch/helper/helper';
 
 @Injectable()
 export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestionRecordDto, UpdateSubmitQuestionRecordDto, SubmitQuestionRecordFilterOption> {
@@ -37,16 +38,20 @@ export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestio
     return await results[0];
   }
 
-  async populateExecList(results: SubmitQuestionRecordDocument[]) {
+  async populateExecList(results: any[]) {
+    const field = systemMatchHelper.getMatchUserPersonalInfoField();
     for (let i = 0 ; i < results.length ; i++) {
-      results[i] = await results[i].populate("questionChoiceRecords").execPopulate();
+      // results[i] = await results[i].populate("questionChoiceRecords").execPopulate();
       // await this.getQuestionDetail(results[i]);
+      results[i] = await results[i].populate("user", field).execPopulate();
     }
     return results;
   }
 
-  async populateExec(result: SubmitQuestionRecordDocument) {
+  async populateExec(result: any) {
+    const field = systemMatchHelper.getMatchUserPersonalInfoField();
     for (let i = 0 ; i < this.populates.length ; i++) {
+      result = await result.populate("user", field).execPopulate();
       result = await result.populate("questionChoiceRecords").execPopulate();
       await this.getQuestionDetail(result);
     }

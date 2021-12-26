@@ -11,8 +11,6 @@ export declare class MatchController extends BaseController<CreateMatchDto, Upda
     service: MatchService;
     userService: UserService;
     constructor(service: MatchService, userService: UserService);
-    acceptMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
-    rejectMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
     blockMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
     unblockMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
     quitMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;

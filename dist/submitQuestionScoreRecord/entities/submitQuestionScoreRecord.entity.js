@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubmitQuestionScoreRecordSchema = exports.SubmitQuestionScoreRecord = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const questionScoreRecord_entity_1 = require("../../questionScoreRecord/entities/questionScoreRecord.entity");
+const user_entity_1 = require("../../user/entities/user.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
 let SubmitQuestionScoreRecord = class SubmitQuestionScoreRecord extends base_entity_1.BaseEntity {
 };
@@ -35,6 +36,7 @@ SubmitQuestionScoreRecord = __decorate([
     (0, mongoose_1.Schema)()
 ], SubmitQuestionScoreRecord);
 exports.SubmitQuestionScoreRecord = SubmitQuestionScoreRecord;
+;
 exports.SubmitQuestionScoreRecordSchema = mongoose_1.SchemaFactory.createForClass(SubmitQuestionScoreRecord);
 exports.SubmitQuestionScoreRecordSchema.virtual('id').get(function () {
     return this._id.toHexString();
@@ -51,5 +53,11 @@ exports.SubmitQuestionScoreRecordSchema.virtual("questionScoreRecords", {
     ref: "QuestionScoreRecord",
     localField: "questionScoreRecordIds",
     foreignField: "_id",
+});
+exports.SubmitQuestionScoreRecordSchema.virtual("user", {
+    ref: "User",
+    localField: "userId",
+    foreignField: "_id",
+    justOne: true,
 });
 //# sourceMappingURL=submitQuestionScoreRecord.entity.js.map

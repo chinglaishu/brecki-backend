@@ -10,9 +10,9 @@ export declare class SubmitQuestionRecordService extends BaseService<CreateSubmi
     model: Model<SubmitQuestionRecordDocument>;
     questionService: QuestionService;
     constructor(model: Model<SubmitQuestionRecordDocument>, questionService: QuestionService);
-    findOne(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<SubmitQuestionRecordDocument>;
+    findOne(id: string, throwErrorIfNotFound?: boolean, checkBelongToUser?: User | null): Promise<any>;
     getLastByUserId(userId: string): Promise<SubmitQuestionRecordDocument>;
-    populateExecList(results: SubmitQuestionRecordDocument[]): Promise<SubmitQuestionRecordDocument[]>;
-    populateExec(result: SubmitQuestionRecordDocument): Promise<SubmitQuestionRecordDocument>;
+    populateExecList(results: any[]): Promise<any[]>;
+    populateExec(result: any): Promise<any>;
     getQuestionDetail(submitQuestionRecord: SubmitQuestionRecordDocument): Promise<void>;
 }

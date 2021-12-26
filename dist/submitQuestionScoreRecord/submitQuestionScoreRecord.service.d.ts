@@ -7,4 +7,6 @@ import { SubmitQuestionScoreRecordFilterOption } from 'src/core/filter/filter';
 export declare class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, SubmitQuestionScoreRecordFilterOption> {
     model: Model<SubmitQuestionScoreRecordDocument>;
     constructor(model: Model<SubmitQuestionScoreRecordDocument>);
+    populateExecList(results: any): Promise<any>;
+    populateExec(result: any): Promise<any>;
 }

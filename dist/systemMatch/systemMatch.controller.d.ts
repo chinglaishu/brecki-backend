@@ -15,6 +15,5 @@ export declare class SystemMatchController extends BaseController<CreateSystemMa
     constructor(service: SystemMatchService, userService: UserService, matchService: MatchService);
     requestSystemMatch(user: User, query: any): Promise<any>;
     getSelfSystemMatch(user: User): Promise<SystemMatch>;
-    likeUser(user: User, toUserId: string, query: any, lang: LANGUAGE): Promise<any>;
-    crossUser(user: User, toUserId: string, lang: LANGUAGE): Promise<any>;
+    createMatch(user: User, toUserId: string, query: any, lang: LANGUAGE): Promise<any>;
 }

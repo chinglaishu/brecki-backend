@@ -1,13 +1,9 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 import { MATCH_METHOD_NUM, MATCH_STATUS_NUM } from 'src/constant/constant';
 
 export class CreateMatchDto {
-  @IsOptional()
-  @IsString()
-  userId?: string;
-
-  @IsString()
-  toUserId: string;
+  @IsArray()
+  userIds?: string[];
 
   @IsNumber()
   method: MATCH_METHOD_NUM;
@@ -16,7 +12,4 @@ export class CreateMatchDto {
   @IsNumber()
   status?: MATCH_STATUS_NUM;
 
-  @IsOptional()
-  @IsString()
-  submitQuestionScoreRecordId?: string;
 }

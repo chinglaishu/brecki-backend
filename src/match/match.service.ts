@@ -21,32 +21,4 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
     this.createAddUserId = true;
   }
 
-  async getAllOthersLike(toUserId: string) {
-    const field = systemMatchHelper.getMatchUserPersonalInfoField();
-    const results = await this.findAllWithoutPagination({toUserId, status: MATCH_STATUS_NUM.WAITING}, null);
-    if (!results) {return results; }
-    for (let i = 0 ; i < results.length ; i++) {
-      results[i] = await results[i].populate("user", field).populate("submitQuestionScoreRecord").execPopulate();
-    }
-  }
-
-  async getAllSelfLike(userId: string) {
-    const field = systemMatchHelper.getMatchUserPersonalInfoField();
-    const results = await this.findAllWithoutPagination({userId, status: MATCH_STATUS_NUM.WAITING}, null);
-    if (!results) {return results; }
-    for (let i = 0 ; i < results.length ; i++) {
-      results[i] = await results[i].populate("toUser", field).populate("submitQuestionScoreRecord").execPopulate();
-    }
-  }
-
-  async likeUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService, submitQuestionScoreRecordId?: string) {
-    const result = await this.create({userId, toUserId, method, submitQuestionScoreRecordId});
-    await sendPushNotificationByUserId(toUserId, userService, "SOME_ONE_LIKE_YOU");
-    return result;
-  }
-
-  async crossUser(userId: string, toUserId: string, method: MATCH_METHOD_NUM, userService: UserService) {
-    const result = await this.create({userId, toUserId, method, status: MATCH_STATUS_NUM.CROSS});
-    return result;
-  }
 }
