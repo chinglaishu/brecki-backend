@@ -23,7 +23,6 @@ exports.Filter = (0, common_1.createParamDecorator)((data, ctx) => {
         delete useFilter["id"];
     }
     handleArray(useFilter);
-    console.log(useFilter);
     return useFilter;
 });
 //# sourceMappingURL=filter.decorator.js.map

@@ -28,6 +28,7 @@ let MatchService = class MatchService extends base_service_1.BaseService {
     constructor(model) {
         super(model);
         this.model = model;
+        this.populates = ["users"];
     }
 };
 MatchService = __decorate([

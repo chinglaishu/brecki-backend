@@ -24,7 +24,6 @@ export const Filter = createParamDecorator(
       delete useFilter["id"];
     }
     handleArray(useFilter);
-    console.log(useFilter);
     return useFilter;
   },
 );
