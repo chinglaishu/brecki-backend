@@ -21,8 +21,8 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
     public userService: UserService,
   ) {
     super(service);
-    this.findOneCheckUser = true;
-    this.findAllCheckUser = true;
+    this.findOneCheckUser = false;
+    this.findAllCheckUser = false;
     this.updateCheckUser = false;
   }
 

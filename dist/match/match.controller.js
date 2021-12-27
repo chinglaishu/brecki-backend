@@ -29,8 +29,8 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
         super(service);
         this.service = service;
         this.userService = userService;
-        this.findOneCheckUser = true;
-        this.findAllCheckUser = true;
+        this.findOneCheckUser = false;
+        this.findAllCheckUser = false;
         this.updateCheckUser = false;
     }
     async blockMatch(user, id, lang) {
