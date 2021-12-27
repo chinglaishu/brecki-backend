@@ -18,6 +18,6 @@ export declare class User extends BaseEntity {
     firebaseEmail: string;
     firebasePassword: string;
     notificationTokens: string[];
-    lastSubmitQuestionRecord: Date;
+    lastSubmitQuestionRecordDate: Date;
 }
 export declare const UserSchema: mongoose.Schema<mongoose.Document<User, any, any>, mongoose.Model<mongoose.Document<User, any, any>, any, any>, undefined, {}>;

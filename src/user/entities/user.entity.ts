@@ -38,7 +38,7 @@ export class User extends BaseEntity {
   @Prop({default: []})
   notificationTokens: string[];
   @Prop({default: null})
-  lastSubmitQuestionRecord: Date;
+  lastSubmitQuestionRecordDate: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

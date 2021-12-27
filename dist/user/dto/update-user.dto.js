@@ -78,9 +78,9 @@ __decorate([
 ], UpdateUserDto.prototype, "accountTypeNum", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], UpdateUserDto.prototype, "lastSubmitQuestionRecord", void 0);
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", Date)
+], UpdateUserDto.prototype, "lastSubmitQuestionRecordDate", void 0);
 exports.UpdateUserDto = UpdateUserDto;
 class UploadProfilePicDTO {
 }

@@ -78,7 +78,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ default: null }),
     __metadata("design:type", Date)
-], User.prototype, "lastSubmitQuestionRecord", void 0);
+], User.prototype, "lastSubmitQuestionRecordDate", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

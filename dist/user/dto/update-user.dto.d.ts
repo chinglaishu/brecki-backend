@@ -13,7 +13,7 @@ export declare class UpdateUserDto {
     lang?: LANGUAGE;
     notificationTokens?: string[];
     accountTypeNum?: ACCOUNT_TYPE_NUM;
-    lastSubmitQuestionRecord?: string;
+    lastSubmitQuestionRecordDate?: Date;
 }
 export declare class UploadProfilePicDTO {
     base64: string;
