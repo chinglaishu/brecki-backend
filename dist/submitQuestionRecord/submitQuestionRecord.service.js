@@ -40,7 +40,7 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
         return await this.populateExec(result);
     }
     async getLastByUserId(userId) {
-        const results = await this.model.find({ userId }).sort({ createdAt: 1 }).limit(1);
+        const results = await this.model.find({ userId }).sort({ createdAt: -1 }).limit(1);
         if (results.length === 0) {
             return null;
         }
@@ -54,12 +54,15 @@ let SubmitQuestionRecordService = class SubmitQuestionRecordService extends base
         return results;
     }
     async populateExec(result) {
+        if (!result) {
+            return null;
+        }
         const field = helper_1.default.getMatchUserPersonalInfoField();
         for (let i = 0; i < this.populates.length; i++) {
-            result = await result.populate("user", field).execPopulate();
             result = await result.populate("questionChoiceRecords").execPopulate();
             await this.getQuestionDetail(result);
         }
+        result = await result.populate("user", field).execPopulate();
         return result;
     }
     async getQuestionDetail(submitQuestionRecord) {

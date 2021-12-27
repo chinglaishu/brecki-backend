@@ -163,6 +163,7 @@ export class BaseService<CreateDto, UpdateDto, FilterOption extends BaseFilterOp
   }
 
   async populateExec(result: any) {
+    if (!result) {return null; }
     for (let i = 0 ; i < this.populates.length ; i++) {
 
       result = await result.populate(this.populates[i]).execPopulate();

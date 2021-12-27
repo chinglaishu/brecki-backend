@@ -136,6 +136,9 @@ class BaseService {
         return results;
     }
     async populateExec(result) {
+        if (!result) {
+            return null;
+        }
         for (let i = 0; i < this.populates.length; i++) {
             result = await result.populate(this.populates[i]).execPopulate();
         }

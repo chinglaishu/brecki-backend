@@ -15,6 +15,7 @@ export class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQu
   ) {
     super(model);
     this.populates = ["questionScoreRecords"];
+    this.createAddUserId = true;
   }
 
   async populateExecList(results: any) {
@@ -26,6 +27,7 @@ export class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQu
   }
 
   async populateExec(result: any) {
+    if (!result) {return null; }
     const field = systemMatchHelper.getMatchUserPersonalInfoField();
     for (let i = 0 ; i < this.populates.length ; i++) {
       result = await result.populate(this.populates[i]).execPopulate();

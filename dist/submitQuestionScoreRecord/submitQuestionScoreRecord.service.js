@@ -25,6 +25,7 @@ let SubmitQuestionScoreRecordService = class SubmitQuestionScoreRecordService ex
         super(model);
         this.model = model;
         this.populates = ["questionScoreRecords"];
+        this.createAddUserId = true;
     }
     async populateExecList(results) {
         const field = helper_1.default.getMatchUserPersonalInfoField();
@@ -34,6 +35,9 @@ let SubmitQuestionScoreRecordService = class SubmitQuestionScoreRecordService ex
         return results;
     }
     async populateExec(result) {
+        if (!result) {
+            return null;
+        }
         const field = helper_1.default.getMatchUserPersonalInfoField();
         for (let i = 0; i < this.populates.length; i++) {
             result = await result.populate(this.populates[i]).execPopulate();

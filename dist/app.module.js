@@ -29,6 +29,7 @@ const questionNum_module_1 = require("./questionNum/questionNum.module");
 const manualMatch_module_1 = require("./manualMatch/manualMatch.module");
 const systemMatch_module_1 = require("./systemMatch/systemMatch.module");
 const socket_module_1 = require("./socket/socket.module");
+const submitQuestionScoreRecord_module_1 = require("./submitQuestionScoreRecord/submitQuestionScoreRecord.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -51,6 +52,7 @@ AppModule = __decorate([
             questionChoiceRecord_module_1.QuestionChoiceRecordModule,
             questionScoreRecord_module_1.QuestionScoreRecordModule,
             submitQuestionRecord_module_1.SubmitQuestionRecordModule,
+            submitQuestionScoreRecord_module_1.SubmitQuestionScoreRecordModule,
             questionNum_module_1.QuestionNumModule,
             manualMatch_module_1.ManualMatchModule,
             systemMatch_module_1.SystemMatchModule,

@@ -10,7 +10,7 @@ export type MatchDocument = Match & mongoose.Document;
 @Schema()
 export class Match extends BaseEntity {
   @Prop({required: true})
-  userIds: string;
+  userIds: string[];
   users: User[];
   @Prop({default: []})
   blockedIds: string[];

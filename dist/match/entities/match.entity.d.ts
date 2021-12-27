@@ -4,7 +4,7 @@ import { User } from 'src/user/entities/user.entity';
 import { BaseEntity } from '../../utils/base/base.entity';
 export declare type MatchDocument = Match & mongoose.Document;
 export declare class Match extends BaseEntity {
-    userIds: string;
+    userIds: string[];
     users: User[];
     blockedIds: string[];
     quitedIds: string[];

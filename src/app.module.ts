@@ -20,6 +20,7 @@ import { QuestionNumModule } from './questionNum/questionNum.module';
 import { ManualMatchModule } from './manualMatch/manualMatch.module';
 import { SystemMatchModule } from './systemMatch/systemMatch.module';
 import { SocketModule } from './socket/socket.module';
+import { SubmitQuestionScoreRecordModule } from './submitQuestionScoreRecord/submitQuestionScoreRecord.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { SocketModule } from './socket/socket.module';
     QuestionChoiceRecordModule,
     QuestionScoreRecordModule,
     SubmitQuestionRecordModule,
+    SubmitQuestionScoreRecordModule,
     QuestionNumModule,
     ManualMatchModule,
     SystemMatchModule,

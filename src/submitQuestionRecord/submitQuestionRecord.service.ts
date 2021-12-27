@@ -33,7 +33,7 @@ export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestio
   }
 
   async getLastByUserId(userId: string) {
-    const results = await this.model.find({userId}).sort({createdAt: 1}).limit(1);
+    const results = await this.model.find({userId}).sort({createdAt: -1}).limit(1);
     if (results.length === 0) {return null; }
     return await results[0];
   }
@@ -49,12 +49,13 @@ export class SubmitQuestionRecordService extends BaseService<CreateSubmitQuestio
   }
 
   async populateExec(result: any) {
+    if (!result) {return null; }
     const field = systemMatchHelper.getMatchUserPersonalInfoField();
     for (let i = 0 ; i < this.populates.length ; i++) {
-      result = await result.populate("user", field).execPopulate();
       result = await result.populate("questionChoiceRecords").execPopulate();
       await this.getQuestionDetail(result);
     }
+    result = await result.populate("user", field).execPopulate();
     return result;
   }
 

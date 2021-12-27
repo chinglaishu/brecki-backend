@@ -18,7 +18,6 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
     @InjectModel(Match.name) public model: Model<MatchDocument>,
   ) {
     super(model);
-    this.createAddUserId = true;
   }
 
 }
