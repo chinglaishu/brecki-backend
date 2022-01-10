@@ -10,6 +10,6 @@ export declare class Match extends BaseEntity {
     quitedIds: string[];
     method: MATCH_METHOD_NUM;
     status: MATCH_STATUS_NUM;
-    intimacyLevel: number;
+    intimacy: number;
 }
 export declare const MatchSchema: mongoose.Schema<mongoose.Document<Match, any, any>, mongoose.Model<mongoose.Document<Match, any, any>, any, any>, undefined, {}>;

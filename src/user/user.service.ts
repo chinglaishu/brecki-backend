@@ -55,7 +55,7 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     const friend: Friend = {
       friendId: friendUserId,
       status: FRIEND_STATUS_NUM.normal,
-      intimacyLevel: 0,
+      intimacy: 0,
       startFriendDate: moment().toDate(),
     };
     friends.push(friend);

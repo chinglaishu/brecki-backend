@@ -40,7 +40,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)
-], Match.prototype, "intimacyLevel", void 0);
+], Match.prototype, "intimacy", void 0);
 Match = __decorate([
     (0, mongoose_1.Schema)()
 ], Match);

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put, HttpException } from '@nestjs/common';
 import { MatchService } from './match.service';
-import { CreateMatchDto } from './dto/create-match.dto';
+import { AddChatDataRecordDto, CreateMatchDto } from './dto/create-match.dto';
 import { UpdateMatchDto } from './dto/update-match.dto';
 import { BaseController } from 'src/utils/base/base.controller';
 import { MatchFilterOption } from 'src/core/filter/filter';
@@ -86,6 +86,14 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
       throw new HttpException("Already Quited", 500);
     }
     const result: Match = await this.service.update(id, {status: MATCH_STATUS_NUM.SOMEONE_QUIT, quitedIds: [...match.quitedIds, user.id]}, true);
+    return result;
+  }
+
+  @Post("add-chat-data-record/:id")
+  async addChatDataRecord(@ReqUser() user: User, @Param("id") id: string, @Body() body: AddChatDataRecordDto, @Lang() lang: LANGUAGE) {
+    const match: Match = await this.service.findOne(id);
+    if (!(match.userIds.includes(user.id)) && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
+    const result: Match = await this.service.addChatDataRecord(user, match, body);
     return result;
   }
 }

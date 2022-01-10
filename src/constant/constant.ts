@@ -11,7 +11,11 @@ export const DTO_TYPE_NUM_KEY = "dto_typeNum";
 export const DTO_CHECK_ADMIN_FIELD_KEY = "dto-check-admin";
 export const DEFAULT_PAGE_SIZE = 20;
 export const DEFAULT_TTL = 3600;
-export const MAX_INTIMACY_LEVEL = 10;
+export const MAX_INTIMACY_LEVEL = 1000;
+export const TEXT_WEIGHT = 1;
+export const VOICE_WEIGHT = 2;
+export const IMAGE_WEIGHT = 10;
+export const PAINT_WEIGHT = 20;
 
 export const USER_ID_FIELD = "userId";
 

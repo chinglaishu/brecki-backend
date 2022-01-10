@@ -51,7 +51,7 @@ export type PersonalInfoLocation = {
 export class Friend {
   friendId: string;
   status: FRIEND_STATUS_NUM;
-  intimacyLevel: number;
+  intimacy: number;
   startFriendDate: Date;
   endFriendDate?: Date;
 }

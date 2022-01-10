@@ -60,7 +60,7 @@ let UserService = class UserService extends base_service_1.BaseService {
         const friend = {
             friendId: friendUserId,
             status: constant_1.FRIEND_STATUS_NUM.normal,
-            intimacyLevel: 0,
+            intimacy: 0,
             startFriendDate: moment().toDate(),
         };
         friends.push(friend);
