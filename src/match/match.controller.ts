@@ -12,6 +12,7 @@ import { UserService } from 'src/user/user.service';
 import { Match } from './entities/match.entity';
 import { sendPushNotification, sendPushNotificationByUserId } from 'src/core/notification/notification';
 import { NM } from 'src/constant/notificationMessage';
+import matchHelper from './helper/helper';
 
 @Controller('match')
 export class MatchController extends BaseController<CreateMatchDto, UpdateMatchDto, MatchFilterOption> {
@@ -95,5 +96,12 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
     if (!(match.userIds.includes(user.id)) && user.roleNum !== ROLE_NUM.ADMIN) {throw new HttpException("User do not have permission", 500); }
     const result: Match = await this.service.addChatDataRecord(user, match, body);
     return result;
+  }
+
+  @Get("statistic")
+  async getStatistic(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
+    const matchs: Match[] = await this.service.findAllWithoutPagination({userIds: {$in: [user.id]} });
+    const score = matchHelper.getMatchStatistic(matchs, user.id);
+    return score;
   }
 }
