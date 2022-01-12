@@ -79,6 +79,7 @@ const matchHelper = {
     return null;
   },
   addStatisticData(statisticData: StatisticData, personalityScore: PersonalityScore, intimacy: number) {
+    if (!personalityScore) {return; }
     const keyList = Object.keys(personalityScore);
     let ratio = intimacy / MAX_INTIMACY_LEVEL;
     if (ratio > 1) {ratio = 1; }

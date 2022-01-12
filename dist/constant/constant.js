@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NOTIFICATION_TYPE = exports.MANUAL_MATCH_VALID_AFTER_MINS = exports.SYSTEM_MATCH_VALID_AFTER_MINS = exports.MANUAL_MATCH_NUM = exports.SYSTEM_MATCH_NUM = exports.QUESTION_TYPE_NUM = exports.MATCH_METHOD_NUM = exports.MATCH_STATUS_NUM = exports.FRIEND_STATUS_NUM = exports.AGE_RANGE_NUM = exports.MESSAGE_METHOD_NUM = exports.CONFIG_TYPE_NUM = exports.ROLE_NUM = exports.WEEK_DAY_NUM = exports.SEX_NUM_REF = exports.SEX_NUM = exports.ACCOUNT_TYPE_NUM = exports.DEFAULT_MULTILANG = exports.S3_PROFILE_PIC_TWO_BLUR_MORE_PATH = exports.S3_PROFILE_PIC_TWO_BLUR_LESS_PATH = exports.S3_PROFILE_PIC_TWO_CLEAR_PATH = exports.S3_PROFILE_PIC_ONE_PATH = exports.USER_ID_FIELD = exports.MAX_INTIMACY_LEVEL = exports.DEFAULT_TTL = exports.DEFAULT_PAGE_SIZE = exports.DTO_CHECK_ADMIN_FIELD_KEY = exports.DTO_TYPE_NUM_KEY = exports.GET_ALL_KEY = exports.LANG_HEADER = exports.DEFAULT_LANGUAGE = exports.TIMEZONE = exports.AUTH_HEADER = exports.GLOBALPREFIX = void 0;
+exports.NOTIFICATION_TYPE = exports.MANUAL_MATCH_VALID_AFTER_MINS = exports.SYSTEM_MATCH_VALID_AFTER_MINS = exports.MANUAL_MATCH_NUM = exports.SYSTEM_MATCH_NUM = exports.QUESTION_TYPE_NUM = exports.MATCH_METHOD_NUM = exports.MATCH_STATUS_NUM = exports.FRIEND_STATUS_NUM = exports.AGE_RANGE_NUM = exports.MESSAGE_METHOD_NUM = exports.CONFIG_TYPE_NUM = exports.ROLE_NUM = exports.WEEK_DAY_NUM = exports.SEX_NUM_REF = exports.SEX_NUM = exports.ACCOUNT_TYPE_NUM = exports.DEFAULT_MULTILANG = exports.S3_PROFILE_PIC_TWO_BLUR_MORE_PATH = exports.S3_PROFILE_PIC_TWO_BLUR_LESS_PATH = exports.S3_PROFILE_PIC_TWO_CLEAR_PATH = exports.S3_PROFILE_PIC_ONE_PATH = exports.USER_ID_FIELD = exports.PAINT_WEIGHT = exports.IMAGE_WEIGHT = exports.VOICE_WEIGHT = exports.TEXT_WEIGHT = exports.MAX_INTIMACY_LEVEL = exports.DEFAULT_TTL = exports.DEFAULT_PAGE_SIZE = exports.DTO_CHECK_ADMIN_FIELD_KEY = exports.DTO_TYPE_NUM_KEY = exports.GET_ALL_KEY = exports.LANG_HEADER = exports.DEFAULT_LANGUAGE = exports.TIMEZONE = exports.AUTH_HEADER = exports.GLOBALPREFIX = void 0;
 const base_entity_1 = require("../utils/base/base.entity");
 exports.GLOBALPREFIX = 'api';
 exports.AUTH_HEADER = "authorization";
@@ -12,7 +12,11 @@ exports.DTO_TYPE_NUM_KEY = "dto_typeNum";
 exports.DTO_CHECK_ADMIN_FIELD_KEY = "dto-check-admin";
 exports.DEFAULT_PAGE_SIZE = 20;
 exports.DEFAULT_TTL = 3600;
-exports.MAX_INTIMACY_LEVEL = 10;
+exports.MAX_INTIMACY_LEVEL = 1000;
+exports.TEXT_WEIGHT = 1;
+exports.VOICE_WEIGHT = 2;
+exports.IMAGE_WEIGHT = 10;
+exports.PAINT_WEIGHT = 20;
 exports.USER_ID_FIELD = "userId";
 exports.S3_PROFILE_PIC_ONE_PATH = "profile-pic-one";
 exports.S3_PROFILE_PIC_TWO_CLEAR_PATH = "profile-pic-two-clear";
@@ -90,7 +94,7 @@ exports.QUESTION_TYPE_NUM = {
 };
 exports.SYSTEM_MATCH_NUM = 8;
 exports.MANUAL_MATCH_NUM = 1;
-exports.SYSTEM_MATCH_VALID_AFTER_MINS = 24 * 60;
+exports.SYSTEM_MATCH_VALID_AFTER_MINS = 2;
 exports.MANUAL_MATCH_VALID_AFTER_MINS = 1;
 exports.NOTIFICATION_TYPE = {
     QUESTION_SCORE: "question-score",

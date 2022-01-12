@@ -48,6 +48,9 @@ export declare class QuestionChoice {
 export declare class PersonalityScore {
     [key: string]: number;
 }
+export declare class StatisticData {
+    [key: string]: any;
+}
 export declare class PaginationEntity {
     constructor(totalPage?: number, data?: Array<any>, page?: number, pageSize?: number);
     totalPage: number;

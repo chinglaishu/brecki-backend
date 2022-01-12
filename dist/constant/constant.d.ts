@@ -9,7 +9,11 @@ export declare const DTO_TYPE_NUM_KEY = "dto_typeNum";
 export declare const DTO_CHECK_ADMIN_FIELD_KEY = "dto-check-admin";
 export declare const DEFAULT_PAGE_SIZE = 20;
 export declare const DEFAULT_TTL = 3600;
-export declare const MAX_INTIMACY_LEVEL = 10;
+export declare const MAX_INTIMACY_LEVEL = 1000;
+export declare const TEXT_WEIGHT = 1;
+export declare const VOICE_WEIGHT = 2;
+export declare const IMAGE_WEIGHT = 10;
+export declare const PAINT_WEIGHT = 20;
 export declare const USER_ID_FIELD = "userId";
 export declare const S3_PROFILE_PIC_ONE_PATH = "profile-pic-one";
 export declare const S3_PROFILE_PIC_TWO_CLEAR_PATH = "profile-pic-two-clear";
@@ -97,7 +101,7 @@ export declare const QUESTION_TYPE_NUM: {
 export declare type PERSONALITY_SCORE_KEY = "Openness" | "Conscientiousness" | "Extraversion" | "Agreeableness" | "Neuroticism";
 export declare const SYSTEM_MATCH_NUM = 8;
 export declare const MANUAL_MATCH_NUM = 1;
-export declare const SYSTEM_MATCH_VALID_AFTER_MINS: number;
+export declare const SYSTEM_MATCH_VALID_AFTER_MINS = 2;
 export declare const MANUAL_MATCH_VALID_AFTER_MINS = 1;
 export declare type NOTIFICATION_TYPE = "question-score" | "match-invitation" | "match-accept";
 export declare const NOTIFICATION_TYPE: {

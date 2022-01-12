@@ -30,6 +30,10 @@ __decorate([
     __metadata("design:type", Array)
 ], Match.prototype, "quitedIds", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], Match.prototype, "chatDataRecords", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
 ], Match.prototype, "method", void 0);

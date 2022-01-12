@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MatchController = void 0;
 const common_1 = require("@nestjs/common");
 const match_service_1 = require("./match.service");
+const create_match_dto_1 = require("./dto/create-match.dto");
 const base_controller_1 = require("../utils/base/base.controller");
 const filter_1 = require("../core/filter/filter");
 const user_decorator_1 = require("../core/decorator/user.decorator");
@@ -24,6 +25,7 @@ const constant_1 = require("../constant/constant");
 const user_service_1 = require("../user/user.service");
 const notification_1 = require("../core/notification/notification");
 const notificationMessage_1 = require("../constant/notificationMessage");
+const helper_1 = require("./helper/helper");
 let MatchController = class MatchController extends base_controller_1.BaseController {
     constructor(service, userService) {
         super(service);
@@ -72,6 +74,22 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
         const result = await this.service.update(id, { status: constant_1.MATCH_STATUS_NUM.SOMEONE_QUIT, quitedIds: [...match.quitedIds, user.id] }, true);
         return result;
     }
+    async addChatDataRecord(user, id, body, lang) {
+        const match = await this.service.findOne(id);
+        if (!(match.userIds.includes(user.id)) && user.roleNum !== constant_1.ROLE_NUM.ADMIN) {
+            throw new common_1.HttpException("User do not have permission", 500);
+        }
+        const result = await this.service.addChatDataRecord(user, match, body);
+        return result;
+    }
+    async getStatistic(user, id, lang) {
+        const matchs = await this.service.findAllWithoutPagination({ userIds: { $in: [user.id] } });
+        const statisticData = helper_1.default.getMatchStatistic(matchs, user.id);
+        console.log("stat");
+        console.log(statisticData);
+        const max = helper_1.default.getLargestInStatisticData(statisticData);
+        return { statisticData, max };
+    }
 };
 __decorate([
     (0, common_1.Post)("block-match/:id"),
@@ -100,6 +118,25 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User, String, String]),
     __metadata("design:returntype", Promise)
 ], MatchController.prototype, "quitMatch", null);
+__decorate([
+    (0, common_1.Post)("add-chat-data-record/:id"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("id")),
+    __param(2, (0, common_1.Body)()),
+    __param(3, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, create_match_dto_1.AddChatDataRecordDto, String]),
+    __metadata("design:returntype", Promise)
+], MatchController.prototype, "addChatDataRecord", null);
+__decorate([
+    (0, common_1.Get)("get/statistic"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("id")),
+    __param(2, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, String]),
+    __metadata("design:returntype", Promise)
+], MatchController.prototype, "getStatistic", null);
 MatchController = __decorate([
     (0, common_1.Controller)('match'),
     __metadata("design:paramtypes", [match_service_1.MatchService,

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateMatchDto = void 0;
+exports.AddChatDataRecordDto = exports.CreateMatchDto = void 0;
 const class_validator_1 = require("class-validator");
 const constant_1 = require("../../constant/constant");
 class CreateMatchDto {
@@ -27,5 +27,23 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateMatchDto.prototype, "status", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateMatchDto.prototype, "chatDataRecords", void 0);
 exports.CreateMatchDto = CreateMatchDto;
+class AddChatDataRecordDto {
+}
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AddChatDataRecordDto.prototype, "type", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], AddChatDataRecordDto.prototype, "length", void 0);
+exports.AddChatDataRecordDto = AddChatDataRecordDto;
+;
 //# sourceMappingURL=create-match.dto.js.map

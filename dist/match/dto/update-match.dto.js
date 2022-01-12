@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateMatchDto = void 0;
 const class_validator_1 = require("class-validator");
 const constant_1 = require("../../constant/constant");
-class UpdateMatchDto {
+const create_match_dto_1 = require("./create-match.dto");
+class UpdateMatchDto extends create_match_dto_1.CreateMatchDto {
 }
 __decorate([
     (0, class_validator_1.IsNumber)(),
@@ -28,5 +29,10 @@ __decorate([
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], UpdateMatchDto.prototype, "quitedIds", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateMatchDto.prototype, "intimacy", void 0);
 exports.UpdateMatchDto = UpdateMatchDto;
 //# sourceMappingURL=update-match.dto.js.map

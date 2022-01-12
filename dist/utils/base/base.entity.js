@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaginationEntity = exports.PersonalityScore = exports.QuestionChoice = exports.Friend = exports.PersonalInfo = exports.EmailOrSMSData = exports.MultiLang = exports.BaseEntity = void 0;
+exports.PaginationEntity = exports.StatisticData = exports.PersonalityScore = exports.QuestionChoice = exports.Friend = exports.PersonalInfo = exports.EmailOrSMSData = exports.MultiLang = exports.BaseEntity = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 let BaseEntity = class BaseEntity {
 };
@@ -55,6 +55,10 @@ exports.QuestionChoice = QuestionChoice;
 class PersonalityScore {
 }
 exports.PersonalityScore = PersonalityScore;
+;
+class StatisticData {
+}
+exports.StatisticData = StatisticData;
 ;
 class PaginationEntity {
     constructor(totalPage, data, page, pageSize) {

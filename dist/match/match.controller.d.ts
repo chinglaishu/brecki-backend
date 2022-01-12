@@ -1,5 +1,5 @@
 import { MatchService } from './match.service';
-import { CreateMatchDto } from './dto/create-match.dto';
+import { AddChatDataRecordDto, CreateMatchDto } from './dto/create-match.dto';
 import { UpdateMatchDto } from './dto/update-match.dto';
 import { BaseController } from 'src/utils/base/base.controller';
 import { MatchFilterOption } from 'src/core/filter/filter';
@@ -14,4 +14,9 @@ export declare class MatchController extends BaseController<CreateMatchDto, Upda
     blockMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
     unblockMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
     quitMatch(user: User, id: string, lang: LANGUAGE): Promise<Match>;
+    addChatDataRecord(user: User, id: string, body: AddChatDataRecordDto, lang: LANGUAGE): Promise<Match>;
+    getStatistic(user: User, id: string, lang: LANGUAGE): Promise<{
+        statisticData: import("../utils/base/base.entity").StatisticData;
+        max: number;
+    }>;
 }

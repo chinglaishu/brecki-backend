@@ -19,8 +19,8 @@ export class Match extends BaseEntity {
   quitedIds: string[];
   @Prop({default: []})
   chatDataRecords: ChatDataRecord[];
-  @Prop({default: {callNum: 0, callDuration: 0}})
-  callDataRecord: CallDataRecord;
+  // @Prop({default: {callNum: 0, callDuration: 0}})
+  // callDataRecord: CallDataRecord;
   @Prop({required: true})
   method: MATCH_METHOD_NUM;
   @Prop({default: MATCH_STATUS_NUM.NORMAL})
