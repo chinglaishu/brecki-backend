@@ -101,7 +101,8 @@ export class MatchController extends BaseController<CreateMatchDto, UpdateMatchD
   @Get("statistic")
   async getStatistic(@ReqUser() user: User, @Param("id") id: string, @Lang() lang: LANGUAGE) {
     const matchs: Match[] = await this.service.findAllWithoutPagination({userIds: {$in: [user.id]} });
-    const score = matchHelper.getMatchStatistic(matchs, user.id);
-    return score;
+    const statisticData = matchHelper.getMatchStatistic(matchs, user.id);
+    const max = matchHelper.getLargestInStatisticData(statisticData);
+    return {statisticData, max};
   }
 }

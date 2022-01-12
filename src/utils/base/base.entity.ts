@@ -69,6 +69,10 @@ export class PersonalityScore {
   [key: string]: number
 };
 
+export class StatisticData {
+  [key: string]: any;
+};
+
 export class PaginationEntity {
   constructor(totalPage?: number, data?: Array<any>, page?: number, pageSize?: number) {
       this.totalPage = totalPage;

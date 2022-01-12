@@ -1,7 +1,7 @@
 import { HttpException } from "@nestjs/common";
 import { IMAGE_WEIGHT, MAX_INTIMACY_LEVEL, PAINT_WEIGHT, TEXT_WEIGHT, VOICE_WEIGHT } from "src/constant/constant";
 import { User } from "src/user/entities/user.entity";
-import { PersonalityScore } from "src/utils/base/base.entity";
+import { PersonalityScore, StatisticData } from "src/utils/base/base.entity";
 import { AddChatDataRecordDto } from "../dto/create-match.dto";
 import { Match } from "../entities/match.entity";
 import { ChatDataRecord } from "../type";
@@ -62,13 +62,13 @@ const matchHelper = {
     return value;
   },
   getMatchStatistic(matchs: Match[], currentUserId: string) {
-    let score: PersonalityScore = {};
+    const statisticData: StatisticData = {};
     for (let i = 0 ; i < matchs.length ; i++) {
       const useUser = matchHelper.getUseUser(matchs[i], currentUserId);
       if (!useUser) {continue; }
-      matchHelper.addMatchScore(useUser.personalityScore, score, matchs[i].intimacy);
+      matchHelper.addStatisticData(statisticData, useUser.personalityScore, matchs[i].intimacy);
     }
-    return score;
+    return statisticData;
   },
   getUseUser(match: Match, currentUserId: string) {
     for (let i = 0 ; i < match.users.length ; i++) {
@@ -77,6 +77,26 @@ const matchHelper = {
       }
     }
     return null;
+  },
+  addStatisticData(statisticData: StatisticData, personalityScore: PersonalityScore, intimacy: number) {
+    const keyList = Object.keys(personalityScore);
+    let ratio = intimacy / MAX_INTIMACY_LEVEL;
+    if (ratio > 1) {ratio = 1; }
+    if (ratio < 0) {ratio = 0; }
+
+    for (let i = 0 ; i < keyList.length ; i++) {
+
+      let scoreArea = Math.round(personalityScore[keyList[i]]);
+      if (scoreArea < 0) {scoreArea = 0; }
+      if (scoreArea > 10) {scoreArea = 10; }
+
+      if (!statisticData[keyList[i]]) {
+        statisticData[keyList[i]] = {};
+      }
+
+      const currentScore = statisticData[keyList[i]][scoreArea] || 0
+      statisticData[keyList[i]][scoreArea] = currentScore + (personalityScore[keyList[i]] * ratio);
+    }
   },
   addMatchScore(personalityScore: PersonalityScore, score: PersonalityScore, intimacy: number) {
     const keyList = Object.keys(personalityScore);
@@ -87,6 +107,18 @@ const matchHelper = {
       const currentScore = score[keyList[i]] || 0;
       score[keyList[i]] = currentScore + (personalityScore[keyList[i]] * ratio);
     }
+  },
+  getLargestInStatisticData(statisticData: StatisticData) {
+    let max = 0;
+    const keyList = Object.keys(statisticData);
+    for (let i = 0 ; i < keyList.length ; i++) {
+      const useKeyList = Object.keys(statisticData[keyList[i]]);
+      for (let a = 0 ; a < useKeyList.length ; a++) {
+        const num = statisticData[keyList[i]][useKeyList[a]];
+        if (num > max) {max = num; }
+      }
+    }
+    return max;
   },
   // getAverage(score: PersonalityScore, num: number) {
   //   const keyList = Object.keys(score);
