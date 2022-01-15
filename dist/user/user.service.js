@@ -74,7 +74,7 @@ let UserService = class UserService extends base_service_1.BaseService {
     }
     async getRandomWithPerference(user, withPreference, size) {
         let filter = (withPreference) ? helper_1.default.getFilterByPerference(user) : {};
-        filter = Object.assign(Object.assign({}, filter), { personalInfo: { $ne: null } });
+        filter = Object.assign(Object.assign({}, filter), { personalInfo: { $ne: null }, _id: { $ne: user.id } });
         const result = await this.getRandom(size, filter);
         return result;
     }

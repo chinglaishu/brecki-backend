@@ -30,7 +30,6 @@ const manualMatch_module_1 = require("./manualMatch/manualMatch.module");
 const systemMatch_module_1 = require("./systemMatch/systemMatch.module");
 const socket_module_1 = require("./socket/socket.module");
 const submitQuestionScoreRecord_module_1 = require("./submitQuestionScoreRecord/submitQuestionScoreRecord.module");
-console.log(`mongodb+srv://${config_1.DB_USERNAME}:${config_1.DB_PASSWORD}@${config_1.DB_HOST}/${config_1.DB_NAME}?retryWrites=true&w=majority`);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([

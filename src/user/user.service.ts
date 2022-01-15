@@ -70,7 +70,7 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
 
   async getRandomWithPerference(user: User, withPreference: boolean, size: number) {
     let filter = (withPreference) ? userHelper.getFilterByPerference(user) : {};
-    filter = {...filter, personalInfo: {$ne: null}};
+    filter = {...filter, personalInfo: {$ne: null}, _id: {$ne: user.id}};
     const result = await this.getRandom(size, filter);
     return result;
   }
