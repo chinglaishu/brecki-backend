@@ -12,6 +12,7 @@ import { QuestionScoreRecordService } from 'src/questionScoreRecord/questionScor
 import { SubmitQuestionScoreRecord } from './entities/submitQuestionScoreRecord.entity';
 import { PersonalityService } from 'src/personality/personality.service';
 import { UserService } from 'src/user/user.service';
+import { QuestionScoreRecord } from 'src/questionScoreRecord/entities/questionScoreRecord.entity';
 
 @Controller('submit-question-score-record')
 export class SubmitQuestionScoreRecordController extends BaseController<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, SubmitQuestionScoreRecordFilterOption> {
@@ -36,7 +37,8 @@ export class SubmitQuestionScoreRecordController extends BaseController<CreateSu
     }
     const toUser = await this.userService.findOne(toUserId, true);
     const questionScoreRecordIds: string[] = await Promise.all(questionScoreRecords.map(async (questionChoiceRecord) => {
-      return await this.questionScoreRecordService.create({...questionChoiceRecord}, user);
+      const record: QuestionScoreRecord = await this.questionScoreRecordService.create({...questionChoiceRecord}, user);
+      return record.id;
     }));
     const result: SubmitQuestionScoreRecord = await this.service.create({questionScoreRecordIds, toUserId, submitQuestionRecordId}, user);
     await this.userService.updatePersonalityScore(toUser, questionScoreRecords);

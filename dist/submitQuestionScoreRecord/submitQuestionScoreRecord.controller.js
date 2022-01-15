@@ -25,6 +25,7 @@ const constant_1 = require("../constant/constant");
 const questionScoreRecord_service_1 = require("../questionScoreRecord/questionScoreRecord.service");
 const personality_service_1 = require("../personality/personality.service");
 const user_service_1 = require("../user/user.service");
+const questionScoreRecord_entity_1 = require("../questionScoreRecord/entities/questionScoreRecord.entity");
 let SubmitQuestionScoreRecordController = class SubmitQuestionScoreRecordController extends base_controller_1.BaseController {
     constructor(service, questionScoreRecordService, personalityService, userService) {
         super(service);
@@ -43,7 +44,8 @@ let SubmitQuestionScoreRecordController = class SubmitQuestionScoreRecordControl
         }
         const toUser = await this.userService.findOne(toUserId, true);
         const questionScoreRecordIds = await Promise.all(questionScoreRecords.map(async (questionChoiceRecord) => {
-            return await this.questionScoreRecordService.create(Object.assign({}, questionChoiceRecord), user);
+            const record = await this.questionScoreRecordService.create(Object.assign({}, questionChoiceRecord), user);
+            return record.id;
         }));
         const result = await this.service.create({ questionScoreRecordIds, toUserId, submitQuestionRecordId }, user);
         await this.userService.updatePersonalityScore(toUser, questionScoreRecords);

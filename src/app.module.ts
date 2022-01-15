@@ -22,6 +22,8 @@ import { SystemMatchModule } from './systemMatch/systemMatch.module';
 import { SocketModule } from './socket/socket.module';
 import { SubmitQuestionScoreRecordModule } from './submitQuestionScoreRecord/submitQuestionScoreRecord.module';
 
+console.log(`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`);
+
 @Module({
   imports: [
     MongooseModule.forRootAsync({

@@ -22,7 +22,7 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
     public userService: UserService,
   ) {
     super(service);
-    this.findOneCheckUser = true;
+    this.findOneCheckUser = false;
     this.findAllCheckUser = true;
   }
 

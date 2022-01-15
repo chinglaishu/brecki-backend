@@ -31,7 +31,7 @@ let SubmitQuestionRecordController = class SubmitQuestionRecordController extend
         this.service = service;
         this.questionChoiceRecordService = questionChoiceRecordService;
         this.userService = userService;
-        this.findOneCheckUser = true;
+        this.findOneCheckUser = false;
         this.findAllCheckUser = true;
     }
     async createWithChoiceRecord(user, createDto, lang) {
