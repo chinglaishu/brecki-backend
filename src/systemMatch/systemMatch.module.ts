@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { SystemMatchService } from './systemMatch.service';
 import { SystemMatchController } from './systemMatch.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,8 +11,8 @@ import { MatchModule } from 'src/match/match.module';
     MongooseModule.forFeature([
       { name: SystemMatch.name, schema: SystemMatchSchema },
     ]),
-    UserModule,
-    MatchModule,
+    forwardRef(() => UserModule),
+    forwardRef(() => MatchModule),
   ],
   controllers: [SystemMatchController],
   providers: [SystemMatchService],

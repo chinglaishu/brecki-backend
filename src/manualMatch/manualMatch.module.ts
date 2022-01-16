@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ManualMatchService } from './manualMatch.service';
 import { ManualMatchController } from './manualMatch.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,8 +11,8 @@ import { MatchModule } from 'src/match/match.module';
     MongooseModule.forFeature([
       { name: ManualMatch.name, schema: ManualMatchSchema },
     ]),
-    UserModule,
-    MatchModule,
+    forwardRef(() => UserModule),
+    forwardRef(() => MatchModule),
   ],
   controllers: [ManualMatchController],
   providers: [ManualMatchService],

@@ -21,7 +21,7 @@ MatchModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: match_entity_1.Match.name, schema: match_entity_1.MatchSchema },
             ]),
-            user_module_1.UserModule,
+            (0, common_1.forwardRef)(() => user_module_1.UserModule),
         ],
         controllers: [match_controller_1.MatchController],
         providers: [match_service_1.MatchService],

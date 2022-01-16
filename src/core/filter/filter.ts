@@ -28,6 +28,7 @@ export class SubmitQuestionRecordFilterOption extends BaseFilterOption {};
 export class QuestionScoreRecordFilterOption extends BaseFilterOption {
   userId?: string;
   toUserId?: string;
+  submitQuestionRecordId?: string;
 };
 export class QuestionChoiceFilterOption extends BaseFilterOption {};
 export class QuestionNumFilterOption extends BaseFilterOption {};
@@ -38,4 +39,5 @@ export class ManualMatchFilterOption extends BaseFilterOption {
   userId?: string;
 };
 
-export class SubmitQuestionScoreRecordFilterOption {};
+export class SubmitQuestionScoreRecordFilterOption {
+};

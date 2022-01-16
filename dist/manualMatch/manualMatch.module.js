@@ -22,8 +22,8 @@ ManualMatchModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: manualMatch_entity_1.ManualMatch.name, schema: manualMatch_entity_1.ManualMatchSchema },
             ]),
-            user_module_1.UserModule,
-            match_module_1.MatchModule,
+            (0, common_1.forwardRef)(() => user_module_1.UserModule),
+            (0, common_1.forwardRef)(() => match_module_1.MatchModule),
         ],
         controllers: [manualMatch_controller_1.ManualMatchController],
         providers: [manualMatch_service_1.ManualMatchService],

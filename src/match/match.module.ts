@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MatchService } from './match.service';
 import { MatchController } from './match.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -10,7 +10,7 @@ import { UserModule } from 'src/user/user.module';
     MongooseModule.forFeature([
       { name: Match.name, schema: MatchSchema },
     ]),
-    UserModule,
+    forwardRef(() => UserModule),
   ],
   controllers: [MatchController],
   providers: [MatchService],

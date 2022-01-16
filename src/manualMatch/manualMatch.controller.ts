@@ -38,7 +38,7 @@ export class ManualMatchController extends BaseController<CreateManualMatchDto, 
       systemMatchHelper.checkTime(manualMatch.updatedAt, MANUAL_MATCH_VALID_AFTER_MINS);
     }
 
-    const users: User[] = await this.userService.getRandomWithPerference(user, withPreference, MANUAL_MATCH_NUM);
+    const users: User[] = await this.userService.getRandomWithPerference(user, withPreference, MANUAL_MATCH_NUM, true);
     const matchUserIds = users.map((user) => user.id);
 
     if (!manualMatch) {

@@ -22,8 +22,8 @@ SystemMatchModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: systemMatch_entity_1.SystemMatch.name, schema: systemMatch_entity_1.SystemMatchSchema },
             ]),
-            user_module_1.UserModule,
-            match_module_1.MatchModule,
+            (0, common_1.forwardRef)(() => user_module_1.UserModule),
+            (0, common_1.forwardRef)(() => match_module_1.MatchModule),
         ],
         controllers: [systemMatch_controller_1.SystemMatchController],
         providers: [systemMatch_service_1.SystemMatchService],

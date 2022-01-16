@@ -12,6 +12,12 @@ import { QuestionChoiceRecordService } from 'src/questionChoiceRecord/questionCh
 import { QuestionChoiceRecord } from 'src/questionChoiceRecord/entities/questionChoiceRecord.entity';
 import { UserService } from 'src/user/user.service';
 import { SubmitQuestionRecord } from './entities/submitQuestionRecord.entity';
+import { Filter } from 'src/core/decorator/filter.decorator';
+import { Sort } from 'src/core/decorator/sort.decorator';
+import { Search, SearchOption } from 'src/core/decorator/search.decorator';
+import utilsFunction from 'src/utils/utilsFunction/utilsFunction';
+import { SubmitQuestionScoreRecord } from 'src/submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity';
+import { SubmitQuestionScoreRecordService } from 'src/submitQuestionScoreRecord/submitQuestionScoreRecord.service';
 
 @Controller('submit-question-record')
 export class SubmitQuestionRecordController extends BaseController<CreateSubmitQuestionRecordDto, UpdateSubmitQuestionRecordDto, SubmitQuestionRecordFilterOption> {
@@ -20,10 +26,36 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
     public service: SubmitQuestionRecordService,
     public questionChoiceRecordService: QuestionChoiceRecordService,
     public userService: UserService,
+    public submitQuestionScoreRecordService: SubmitQuestionScoreRecordService,
   ) {
     super(service);
     this.findOneCheckUser = false;
-    this.findAllCheckUser = true;
+    this.findAllCheckUser = false;
+  }
+
+  @Get('get/all')
+  async findAllWithoutPagination(@ReqUser() user: User, @Filter() filter: SubmitQuestionRecordFilterOption, @Sort() sort: any = {}, @Search() search: SearchOption = {searchFilter: {}}) {
+    const {searchFilter} = search;
+    filter = {...filter, ...searchFilter};
+    const isSelf = utilsFunction.compareId(filter["userId"], user.id);
+    const submitQuestionRecords: SubmitQuestionRecord[] = await this.service.findAllWithoutPagination(filter, utilsFunction.getCheckUser(this.findAllCheckUser, user), sort);
+    if (isSelf) {return submitQuestionRecords; }
+
+    const data = await Promise.all(submitQuestionRecords.map(async (submitQuestionRecord) => {
+      const submitQuestionScoreRecord: SubmitQuestionScoreRecord = await this.submitQuestionScoreRecordService.findOneWithFilter({submitQuestionRecordId: submitQuestionRecord.id, userId: user.id});
+      if (!submitQuestionScoreRecord) {return submitQuestionRecord; }
+
+
+      const useData: any = JSON.parse(JSON.stringify(submitQuestionRecord));
+      useData.submitQuestionScoreRecord = {
+        id: submitQuestionScoreRecord.id,
+        createdAt: submitQuestionScoreRecord.createdAt,
+      };
+      return useData;
+    }));
+
+    return data;
+
   }
 
   @Post("create-with-choice-record")

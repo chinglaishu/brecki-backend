@@ -31,10 +31,17 @@ const helper_2 = require("../auth/helper/helper");
 const questionScoreRecord_entity_1 = require("../questionScoreRecord/entities/questionScoreRecord.entity");
 const personality_entity_1 = require("../personality/entities/personality.entity");
 const helper_3 = require("../personality/helper/helper");
+const match_entity_1 = require("../match/entities/match.entity");
+const systemMatch_entity_1 = require("../systemMatch/entities/systemMatch.entity");
+const manualMatch_entity_1 = require("../manualMatch/entities/manualMatch.entity");
+const utilsFunction_1 = require("../utils/utilsFunction/utilsFunction");
 let UserService = class UserService extends base_service_1.BaseService {
-    constructor(model) {
+    constructor(model, matchModel, systemMatchModel, manualMatchModel) {
         super(model);
         this.model = model;
+        this.matchModel = matchModel;
+        this.systemMatchModel = systemMatchModel;
+        this.manualMatchModel = manualMatchModel;
     }
     async create(createUserDto) {
         if (createUserDto.password) {
@@ -72,9 +79,11 @@ let UserService = class UserService extends base_service_1.BaseService {
             return user;
         }
     }
-    async getRandomWithPerference(user, withPreference, size) {
+    async getRandomWithPerference(user, withPreference, size, isManual) {
         let filter = (withPreference) ? helper_1.default.getFilterByPerference(user) : {};
-        filter = Object.assign(Object.assign({}, filter), { personalInfo: { $ne: null }, _id: { $ne: user.id } });
+        const userIds = await this.getUserIdsFromMatch(user, isManual);
+        console.log(userIds);
+        filter = Object.assign(Object.assign({}, filter), { personalInfo: { $ne: null }, _id: { $nin: userIds } });
         const result = await this.getRandom(size, filter);
         return result;
     }
@@ -88,11 +97,33 @@ let UserService = class UserService extends base_service_1.BaseService {
         const result = await this.update(user.id, { personalityScore: newPersonalityScore, personalityScoreNum: useNum + 1 });
         return result;
     }
+    async getUserIdsFromMatch(user, isManual) {
+        const matchs = await this.matchModel.find({ userIds: { $eq: user.id } });
+        const manualMatch = await this.manualMatchModel.findOne({ userId: user.id });
+        const systemMatch = await this.systemMatchModel.findOne({ userId: user.id });
+        const matchUserIds = matchs.map((match) => {
+            const { userIds } = match;
+            for (let i = 0; i < userIds.length; i++) {
+                if (!utilsFunction_1.default.compareId(userIds[i], user.id)) {
+                    return userIds[i];
+                }
+            }
+            return null;
+        });
+        const userIds = [...manualMatch.matchUserIds, ...systemMatch.matchUserIds, ...matchUserIds, user.id];
+        return [...new Set(userIds)];
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(match_entity_1.Match.name)),
+    __param(2, (0, mongoose_1.InjectModel)(systemMatch_entity_1.SystemMatch.name)),
+    __param(3, (0, mongoose_1.InjectModel)(manualMatch_entity_1.ManualMatch.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

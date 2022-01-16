@@ -33,8 +33,8 @@ let SubmitQuestionScoreRecordController = class SubmitQuestionScoreRecordControl
         this.questionScoreRecordService = questionScoreRecordService;
         this.personalityService = personalityService;
         this.userService = userService;
-        this.findOneCheckUser = true;
-        this.findAllCheckUser = true;
+        this.findOneCheckUser = false;
+        this.findAllCheckUser = false;
         this.updateCheckUser = true;
     }
     async createWithScoreRecord(user, createDto, lang) {

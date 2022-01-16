@@ -39,7 +39,7 @@ export class SystemMatchController extends BaseController<CreateSystemMatchDto, 
       systemMatchHelper.checkTime(systemMatch.updatedAt, SYSTEM_MATCH_VALID_AFTER_MINS);
     }
 
-    const users: User[] = await this.userService.getRandomWithPerference(user, withPreference, SYSTEM_MATCH_NUM);
+    const users: User[] = await this.userService.getRandomWithPerference(user, withPreference, SYSTEM_MATCH_NUM, false);
     const matchUserIds = users.map((user) => user.id);
 
     if (!systemMatch) {

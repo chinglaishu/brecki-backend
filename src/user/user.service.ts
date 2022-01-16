@@ -18,11 +18,18 @@ import {generateDigitNumber} from "../auth/helper/helper";
 import { QuestionScoreRecord } from 'src/questionScoreRecord/entities/questionScoreRecord.entity';
 import { Personality } from 'src/personality/entities/personality.entity';
 import personalityHelper from 'src/personality/helper/helper';
+import { Match, MatchDocument } from 'src/match/entities/match.entity';
+import { SystemMatch, SystemMatchDocument } from 'src/systemMatch/entities/systemMatch.entity';
+import { ManualMatch, ManualMatchDocument } from 'src/manualMatch/entities/manualMatch.entity';
+import utilsFunction from 'src/utils/utilsFunction/utilsFunction';
 
 @Injectable()
 export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserFilterOption> {
   constructor(
     @InjectModel(User.name) public model: Model<UserDocument>,
+    @InjectModel(Match.name) public matchModel: Model<MatchDocument>,
+    @InjectModel(SystemMatch.name) public systemMatchModel: Model<SystemMatchDocument>,
+    @InjectModel(ManualMatch.name) public manualMatchModel: Model<ManualMatchDocument>,
   ) {
     super(model);
   }
@@ -68,9 +75,11 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     if (!userHelper.checkUserIdInFriendList(friends, friendUserId)) {return user; }
   }
 
-  async getRandomWithPerference(user: User, withPreference: boolean, size: number) {
+  async getRandomWithPerference(user: User, withPreference: boolean, size: number, isManual: boolean) {
     let filter = (withPreference) ? userHelper.getFilterByPerference(user) : {};
-    filter = {...filter, personalInfo: {$ne: null}, _id: {$ne: user.id}};
+    const userIds = await this.getUserIdsFromMatch(user, isManual);
+    console.log(userIds);
+    filter = {...filter, personalInfo: {$ne: null}, _id: {$nin: userIds}};
     const result = await this.getRandom(size, filter);
     return result;
   }
@@ -85,4 +94,22 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
     const result = await this.update(user.id, {personalityScore: newPersonalityScore, personalityScoreNum: useNum + 1});
     return result;
   }
+
+  async getUserIdsFromMatch(user: User, isManual: boolean) {
+    const matchs: Match[] = await this.matchModel.find({userIds: {$eq: user.id}});
+    const manualMatch: ManualMatch = await this.manualMatchModel.findOne({userId: user.id});
+    const systemMatch: SystemMatch = await this.systemMatchModel.findOne({userId: user.id});
+    const matchUserIds = matchs.map((match) => {
+      const {userIds} = match;
+      for (let i = 0 ; i < userIds.length ; i++) {
+        if (!utilsFunction.compareId(userIds[i], user.id)) {
+          return userIds[i];
+        }
+      }
+      return null;
+    });
+    const userIds = [...manualMatch.matchUserIds, ...systemMatch.matchUserIds, ...matchUserIds, user.id];
+    return [...new Set(userIds)];
+  }
+
 }

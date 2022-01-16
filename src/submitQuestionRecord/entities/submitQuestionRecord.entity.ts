@@ -14,6 +14,7 @@ export class SubmitQuestionRecord extends BaseEntity {
   @Prop()
   questionChoiceRecordIds: string[];
   questionChoiceRecords: QuestionChoiceRecord[];
+  submitQuestionScoreRecord?: any;
 }
 
 export const SubmitQuestionRecordSchema = SchemaFactory.createForClass(SubmitQuestionRecord);

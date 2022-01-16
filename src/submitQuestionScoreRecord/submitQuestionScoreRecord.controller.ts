@@ -3,7 +3,7 @@ import { SubmitQuestionScoreRecordService } from './submitQuestionScoreRecord.se
 import { CreateSubmitQuestionScoreRecordDto, CreateWithScoreRecordDto } from './dto/create-submitQuestionScoreRecord.dto';
 import { UpdateSubmitQuestionScoreRecordDto } from './dto/update-submitQuestionScoreRecord.dto';
 import { BaseController } from 'src/utils/base/base.controller';
-import { SubmitQuestionScoreRecordFilterOption } from 'src/core/filter/filter';
+import { QuestionScoreRecordFilterOption, SubmitQuestionScoreRecordFilterOption } from 'src/core/filter/filter';
 import { ReqUser } from 'src/core/decorator/user.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { Lang } from 'src/core/decorator/lang.decorator';
@@ -15,7 +15,7 @@ import { UserService } from 'src/user/user.service';
 import { QuestionScoreRecord } from 'src/questionScoreRecord/entities/questionScoreRecord.entity';
 
 @Controller('submit-question-score-record')
-export class SubmitQuestionScoreRecordController extends BaseController<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, SubmitQuestionScoreRecordFilterOption> {
+export class SubmitQuestionScoreRecordController extends BaseController<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, QuestionScoreRecordFilterOption> {
 
   constructor(
     public service: SubmitQuestionScoreRecordService,
@@ -24,8 +24,8 @@ export class SubmitQuestionScoreRecordController extends BaseController<CreateSu
     public userService: UserService,
   ) {
     super(service);
-    this.findOneCheckUser = true;
-    this.findAllCheckUser = true;
+    this.findOneCheckUser = false;
+    this.findAllCheckUser = false;
     this.updateCheckUser = true;
   }
 

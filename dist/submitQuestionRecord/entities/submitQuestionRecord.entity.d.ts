@@ -8,5 +8,6 @@ export declare class SubmitQuestionRecord extends BaseEntity {
     user: User;
     questionChoiceRecordIds: string[];
     questionChoiceRecords: QuestionChoiceRecord[];
+    submitQuestionScoreRecord?: any;
 }
 export declare const SubmitQuestionRecordSchema: mongoose.Schema<mongoose.Document<SubmitQuestionRecord, any, any>, mongoose.Model<mongoose.Document<SubmitQuestionRecord, any, any>, any, any>, undefined, {}>;

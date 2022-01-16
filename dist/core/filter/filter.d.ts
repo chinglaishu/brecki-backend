@@ -29,6 +29,7 @@ export declare class SubmitQuestionRecordFilterOption extends BaseFilterOption {
 export declare class QuestionScoreRecordFilterOption extends BaseFilterOption {
     userId?: string;
     toUserId?: string;
+    submitQuestionRecordId?: string;
 }
 export declare class QuestionChoiceFilterOption extends BaseFilterOption {
 }
