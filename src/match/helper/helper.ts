@@ -17,7 +17,7 @@ const matchHelper = {
       chatDataRecord.paintNum += 1;
     } else if (type === "text") {
       chatDataRecord.textNum += 1;
-      chatDataRecord.totalMessageNum += useLength;
+      chatDataRecord.textCharacter += useLength;
     } else if (type === "voice") {
       chatDataRecord.voiceNum += 1;
       chatDataRecord.voiceLength += useLength;
@@ -42,11 +42,14 @@ const matchHelper = {
       voiceLength: 0,
     };
 
+    chatDataRecords.push(defaultChatDataRecord);
+
     return defaultChatDataRecord;
   },
   calculateIntimacy(chatDataRecords: ChatDataRecord[]) {
     if (chatDataRecords.length !== 2) {
-      throw new HttpException("error, chat data records length should be 2", 500);
+      return 0;
+      // throw new HttpException("error, chat data records length should be 2", 500);
     }
     const a = matchHelper.calculateOneIntimacy(chatDataRecords[0]);
     const b = matchHelper.calculateOneIntimacy(chatDataRecords[1]);

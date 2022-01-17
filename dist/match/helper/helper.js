@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const common_1 = require("@nestjs/common");
 const constant_1 = require("../../constant/constant");
 const user_entity_1 = require("../../user/entities/user.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
@@ -17,7 +16,7 @@ const matchHelper = {
         }
         else if (type === "text") {
             chatDataRecord.textNum += 1;
-            chatDataRecord.totalMessageNum += useLength;
+            chatDataRecord.textCharacter += useLength;
         }
         else if (type === "voice") {
             chatDataRecord.voiceNum += 1;
@@ -41,11 +40,12 @@ const matchHelper = {
             voiceNum: 0,
             voiceLength: 0,
         };
+        chatDataRecords.push(defaultChatDataRecord);
         return defaultChatDataRecord;
     },
     calculateIntimacy(chatDataRecords) {
         if (chatDataRecords.length !== 2) {
-            throw new common_1.HttpException("error, chat data records length should be 2", 500);
+            return 0;
         }
         const a = matchHelper.calculateOneIntimacy(chatDataRecords[0]);
         const b = matchHelper.calculateOneIntimacy(chatDataRecords[1]);

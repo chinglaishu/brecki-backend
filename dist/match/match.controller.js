@@ -85,8 +85,6 @@ let MatchController = class MatchController extends base_controller_1.BaseContro
     async getStatistic(user, id, lang) {
         const matchs = await this.service.findAllWithoutPagination({ userIds: { $in: [user.id] } });
         const statisticData = helper_1.default.getMatchStatistic(matchs, user.id);
-        console.log("stat");
-        console.log(statisticData);
         const max = helper_1.default.getLargestInStatisticData(statisticData);
         return { statisticData, max };
     }
