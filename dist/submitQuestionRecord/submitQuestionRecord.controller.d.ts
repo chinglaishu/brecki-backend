@@ -19,4 +19,8 @@ export declare class SubmitQuestionRecordController extends BaseController<Creat
     findAllWithoutPagination(user: User, filter: SubmitQuestionRecordFilterOption, sort?: any, search?: SearchOption): Promise<any[]>;
     createWithChoiceRecord(user: User, createDto: CreateWithChoiceRecord, lang: LANGUAGE): Promise<SubmitQuestionRecord>;
     getUserLast(user: User, userId: string, lang: LANGUAGE): Promise<import("./entities/submitQuestionRecord.entity").SubmitQuestionRecordDocument>;
+    getStatistic(user: User, id: string, query: any, lang: LANGUAGE): Promise<{
+        statisticData: import("../utils/base/base.entity").StatisticData;
+        max: number;
+    }>;
 }

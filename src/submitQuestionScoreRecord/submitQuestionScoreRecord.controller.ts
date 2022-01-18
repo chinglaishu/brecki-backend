@@ -13,6 +13,7 @@ import { SubmitQuestionScoreRecord } from './entities/submitQuestionScoreRecord.
 import { PersonalityService } from 'src/personality/personality.service';
 import { UserService } from 'src/user/user.service';
 import { QuestionScoreRecord } from 'src/questionScoreRecord/entities/questionScoreRecord.entity';
+import matchHelper from 'src/match/helper/helper';
 
 @Controller('submit-question-score-record')
 export class SubmitQuestionScoreRecordController extends BaseController<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, QuestionScoreRecordFilterOption> {
@@ -40,7 +41,8 @@ export class SubmitQuestionScoreRecordController extends BaseController<CreateSu
       const record: QuestionScoreRecord = await this.questionScoreRecordService.create({...questionChoiceRecord}, user);
       return record.id;
     }));
-    const result: SubmitQuestionScoreRecord = await this.service.create({questionScoreRecordIds, toUserId, submitQuestionRecordId}, user);
+    const usePersonalityScore = matchHelper.getPersonalityScoreFromQuestionScoreRecords(questionScoreRecords)
+    const result: SubmitQuestionScoreRecord = await this.service.create({questionScoreRecordIds, toUserId, submitQuestionRecordId, usePersonalityScore}, user);
     await this.userService.updatePersonalityScore(toUser, questionScoreRecords);
     return result;
   }

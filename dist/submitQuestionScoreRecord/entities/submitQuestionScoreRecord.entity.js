@@ -32,6 +32,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Array)
 ], SubmitQuestionScoreRecord.prototype, "questionScoreRecordIds", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", base_entity_1.PersonalityScore)
+], SubmitQuestionScoreRecord.prototype, "usePersonalityScore", void 0);
 SubmitQuestionScoreRecord = __decorate([
     (0, mongoose_1.Schema)()
 ], SubmitQuestionScoreRecord);

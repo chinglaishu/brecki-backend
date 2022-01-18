@@ -18,6 +18,7 @@ import { Search, SearchOption } from 'src/core/decorator/search.decorator';
 import utilsFunction from 'src/utils/utilsFunction/utilsFunction';
 import { SubmitQuestionScoreRecord } from 'src/submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity';
 import { SubmitQuestionScoreRecordService } from 'src/submitQuestionScoreRecord/submitQuestionScoreRecord.service';
+import matchHelper from 'src/match/helper/helper';
 
 @Controller('submit-question-record')
 export class SubmitQuestionRecordController extends BaseController<CreateSubmitQuestionRecordDto, UpdateSubmitQuestionRecordDto, SubmitQuestionRecordFilterOption> {
@@ -74,5 +75,13 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
   async getUserLast(@ReqUser() user: User, @Param("userId") userId: string, @Lang() lang: LANGUAGE) {
     const submitQuestionRecord = await this.service.getLastByUserId(userId);
     return submitQuestionRecord;
+  }
+
+  @Get("get/statistic/:id")
+  async getStatistic(@ReqUser() user: User, @Param("id") id: string, @Query() query: any, @Lang() lang: LANGUAGE) {
+    const submitQuestionScoreRecords: SubmitQuestionScoreRecord[] = await this.submitQuestionScoreRecordService.findAllWithoutPagination({submitQuestionRecordId: id});
+    const statisticData = matchHelper.getSubmitQuestionScoreRecordStatistic(submitQuestionScoreRecords);
+    const max = matchHelper.getLargestInStatisticData(statisticData);
+    return {statisticData, max};
   }
 }

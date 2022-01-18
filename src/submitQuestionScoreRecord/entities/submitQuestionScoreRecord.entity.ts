@@ -19,6 +19,8 @@ export class SubmitQuestionScoreRecord extends BaseEntity {
   @Prop({required: true})
   questionScoreRecordIds: string[];
   questionScoreRecords: QuestionScoreRecord[];
+  @Prop()
+  usePersonalityScore: PersonalityScore;
 };
 
 export const SubmitQuestionScoreRecordSchema = SchemaFactory.createForClass(SubmitQuestionScoreRecord);

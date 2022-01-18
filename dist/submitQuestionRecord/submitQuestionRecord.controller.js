@@ -31,6 +31,7 @@ const search_decorator_1 = require("../core/decorator/search.decorator");
 const utilsFunction_1 = require("../utils/utilsFunction/utilsFunction");
 const submitQuestionScoreRecord_entity_1 = require("../submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity");
 const submitQuestionScoreRecord_service_1 = require("../submitQuestionScoreRecord/submitQuestionScoreRecord.service");
+const helper_1 = require("../match/helper/helper");
 let SubmitQuestionRecordController = class SubmitQuestionRecordController extends base_controller_1.BaseController {
     constructor(service, questionChoiceRecordService, userService, submitQuestionScoreRecordService) {
         super(service);
@@ -77,6 +78,12 @@ let SubmitQuestionRecordController = class SubmitQuestionRecordController extend
         const submitQuestionRecord = await this.service.getLastByUserId(userId);
         return submitQuestionRecord;
     }
+    async getStatistic(user, id, query, lang) {
+        const submitQuestionScoreRecords = await this.submitQuestionScoreRecordService.findAllWithoutPagination({ submitQuestionRecordId: id });
+        const statisticData = helper_1.default.getSubmitQuestionScoreRecordStatistic(submitQuestionScoreRecords);
+        const max = helper_1.default.getLargestInStatisticData(statisticData);
+        return { statisticData, max };
+    }
 };
 __decorate([
     (0, common_1.Get)('get/all'),
@@ -106,6 +113,16 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User, String, String]),
     __metadata("design:returntype", Promise)
 ], SubmitQuestionRecordController.prototype, "getUserLast", null);
+__decorate([
+    (0, common_1.Get)("get/statistic/:id"),
+    __param(0, (0, user_decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Param)("id")),
+    __param(2, (0, common_1.Query)()),
+    __param(3, (0, lang_decorator_1.Lang)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_entity_1.User, String, Object, String]),
+    __metadata("design:returntype", Promise)
+], SubmitQuestionRecordController.prototype, "getStatistic", null);
 SubmitQuestionRecordController = __decorate([
     (0, common_1.Controller)('submit-question-record'),
     __metadata("design:paramtypes", [submitQuestionRecord_service_1.SubmitQuestionRecordService,

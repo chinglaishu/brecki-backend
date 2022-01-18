@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const constant_1 = require("../../constant/constant");
+const questionScoreRecord_entity_1 = require("../../questionScoreRecord/entities/questionScoreRecord.entity");
+const submitQuestionScoreRecord_entity_1 = require("../../submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity");
 const user_entity_1 = require("../../user/entities/user.entity");
 const base_entity_1 = require("../../utils/base/base.entity");
 const matchHelper = {
@@ -60,6 +62,22 @@ const matchHelper = {
         const value = (textCharacter * constant_1.TEXT_WEIGHT + voiceLength * constant_1.VOICE_WEIGHT + imageNum * constant_1.IMAGE_WEIGHT + paintNum * constant_1.PAINT_WEIGHT);
         return value;
     },
+    getPersonalityScoreFromQuestionScoreRecords(questionScoreRecords) {
+        if (questionScoreRecords.length === 0) {
+            return {};
+        }
+        const personalityScore = questionScoreRecords[questionScoreRecords.length - 1].personalityScore;
+        return personalityScore;
+    },
+    getSubmitQuestionScoreRecordStatistic(submitQuestionScoreRecords) {
+        const statisticData = {};
+        for (let i = 0; i < submitQuestionScoreRecords.length; i++) {
+            const { usePersonalityScore } = submitQuestionScoreRecords[i];
+            const applyPersonalityScore = usePersonalityScore || this.getRandomPersonalityScore();
+            matchHelper.addStatisticData(statisticData, applyPersonalityScore);
+        }
+        return statisticData;
+    },
     getMatchStatistic(matchs, currentUserId) {
         const statisticData = {};
         for (let i = 0; i < matchs.length; i++) {
@@ -79,7 +97,7 @@ const matchHelper = {
         }
         return null;
     },
-    addStatisticData(statisticData, personalityScore, intimacy) {
+    addStatisticData(statisticData, personalityScore, intimacy = constant_1.MAX_INTIMACY_LEVEL) {
         if (!personalityScore) {
             return;
         }
@@ -119,6 +137,16 @@ const matchHelper = {
             const currentScore = score[keyList[i]] || 0;
             score[keyList[i]] = currentScore + (personalityScore[keyList[i]] * ratio);
         }
+    },
+    getRandomPersonalityScore() {
+        const personalityScore = {
+            "Openness": Math.random() * 10,
+            "Conscientiousness": Math.random() * 10,
+            "Extraversion": Math.random() * 10,
+            "Agreeableness": Math.random() * 10,
+            "Neuroticism": Math.random() * 10,
+        };
+        return personalityScore;
     },
     getLargestInStatisticData(statisticData) {
         let max = 0;

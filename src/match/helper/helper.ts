@@ -1,5 +1,7 @@
 import { HttpException } from "@nestjs/common";
 import { IMAGE_WEIGHT, MAX_INTIMACY_LEVEL, PAINT_WEIGHT, TEXT_WEIGHT, VOICE_WEIGHT } from "src/constant/constant";
+import { QuestionScoreRecord } from "src/questionScoreRecord/entities/questionScoreRecord.entity";
+import { SubmitQuestionScoreRecord } from "src/submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity";
 import { User } from "src/user/entities/user.entity";
 import { PersonalityScore, StatisticData } from "src/utils/base/base.entity";
 import { AddChatDataRecordDto } from "../dto/create-match.dto";
@@ -64,6 +66,20 @@ const matchHelper = {
     const value = (textCharacter * TEXT_WEIGHT + voiceLength * VOICE_WEIGHT + imageNum * IMAGE_WEIGHT + paintNum * PAINT_WEIGHT);
     return value;
   },
+  getPersonalityScoreFromQuestionScoreRecords(questionScoreRecords: QuestionScoreRecord[]) {
+    if (questionScoreRecords.length === 0) {return {}; }
+    const personalityScore = questionScoreRecords[questionScoreRecords.length - 1].personalityScore;
+    return personalityScore;
+  },
+  getSubmitQuestionScoreRecordStatistic(submitQuestionScoreRecords: SubmitQuestionScoreRecord[]) {
+    const statisticData: StatisticData = {};
+    for (let i = 0 ; i < submitQuestionScoreRecords.length ; i++) {
+      const {usePersonalityScore} = submitQuestionScoreRecords[i];
+      const applyPersonalityScore = usePersonalityScore || this.getRandomPersonalityScore();
+      matchHelper.addStatisticData(statisticData, applyPersonalityScore);
+    }
+    return statisticData;
+  },
   getMatchStatistic(matchs: Match[], currentUserId: string) {
     const statisticData: StatisticData = {};
     for (let i = 0 ; i < matchs.length ; i++) {
@@ -81,7 +97,7 @@ const matchHelper = {
     }
     return null;
   },
-  addStatisticData(statisticData: StatisticData, personalityScore: PersonalityScore, intimacy: number) {
+  addStatisticData(statisticData: StatisticData, personalityScore: PersonalityScore, intimacy: number = MAX_INTIMACY_LEVEL) {
     if (!personalityScore) {return; }
     const keyList = Object.keys(personalityScore);
     let ratio = intimacy / MAX_INTIMACY_LEVEL;
@@ -111,6 +127,16 @@ const matchHelper = {
       const currentScore = score[keyList[i]] || 0;
       score[keyList[i]] = currentScore + (personalityScore[keyList[i]] * ratio);
     }
+  },
+  getRandomPersonalityScore() {
+    const personalityScore: PersonalityScore = {
+      "Openness": Math.random() * 10,
+      "Conscientiousness": Math.random() * 10,
+      "Extraversion": Math.random() * 10,
+      "Agreeableness": Math.random() * 10,
+      "Neuroticism": Math.random() * 10,
+    };
+    return personalityScore;
   },
   getLargestInStatisticData(statisticData: StatisticData) {
     let max = 0;

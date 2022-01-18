@@ -13,6 +13,8 @@ export class CreateSubmitQuestionScoreRecordDto {
   @IsOptional()
   @IsArray()
   questionScoreRecordIds?: string[];
+  @IsObject()
+  usePersonalityScore: PersonalityScore;
 }
 
 export class CreateWithScoreRecordDto {

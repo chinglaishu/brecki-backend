@@ -40,4 +40,7 @@ export class ManualMatchFilterOption extends BaseFilterOption {
 };
 
 export class SubmitQuestionScoreRecordFilterOption {
+  userId?: string;
+  toUserId?: string;
+  submitQuestionRecordId?: string;
 };

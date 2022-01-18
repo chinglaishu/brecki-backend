@@ -1,3 +1,5 @@
+import { QuestionScoreRecord } from "src/questionScoreRecord/entities/questionScoreRecord.entity";
+import { SubmitQuestionScoreRecord } from "src/submitQuestionScoreRecord/entities/submitQuestionScoreRecord.entity";
 import { User } from "src/user/entities/user.entity";
 import { PersonalityScore, StatisticData } from "src/utils/base/base.entity";
 import { AddChatDataRecordDto } from "../dto/create-match.dto";
@@ -8,10 +10,13 @@ declare const matchHelper: {
     getUseChatData(chatDataRecords: ChatDataRecord[], user: User): ChatDataRecord;
     calculateIntimacy(chatDataRecords: ChatDataRecord[]): number;
     calculateOneIntimacy(chatDataRecord: ChatDataRecord): number;
+    getPersonalityScoreFromQuestionScoreRecords(questionScoreRecords: QuestionScoreRecord[]): PersonalityScore;
+    getSubmitQuestionScoreRecordStatistic(submitQuestionScoreRecords: SubmitQuestionScoreRecord[]): StatisticData;
     getMatchStatistic(matchs: Match[], currentUserId: string): StatisticData;
     getUseUser(match: Match, currentUserId: string): User;
-    addStatisticData(statisticData: StatisticData, personalityScore: PersonalityScore, intimacy: number): void;
+    addStatisticData(statisticData: StatisticData, personalityScore: PersonalityScore, intimacy?: number): void;
     addMatchScore(personalityScore: PersonalityScore, score: PersonalityScore, intimacy: number): void;
+    getRandomPersonalityScore(): PersonalityScore;
     getLargestInStatisticData(statisticData: StatisticData): number;
 };
 export default matchHelper;

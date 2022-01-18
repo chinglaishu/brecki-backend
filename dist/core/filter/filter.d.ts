@@ -42,4 +42,7 @@ export declare class ManualMatchFilterOption extends BaseFilterOption {
     userId?: string;
 }
 export declare class SubmitQuestionScoreRecordFilterOption {
+    userId?: string;
+    toUserId?: string;
+    submitQuestionRecordId?: string;
 }

@@ -33,6 +33,10 @@ __decorate([
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], CreateSubmitQuestionScoreRecordDto.prototype, "questionScoreRecordIds", void 0);
+__decorate([
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", base_entity_1.PersonalityScore)
+], CreateSubmitQuestionScoreRecordDto.prototype, "usePersonalityScore", void 0);
 exports.CreateSubmitQuestionScoreRecordDto = CreateSubmitQuestionScoreRecordDto;
 class CreateWithScoreRecordDto {
 }

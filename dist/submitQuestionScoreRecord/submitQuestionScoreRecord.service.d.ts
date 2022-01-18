@@ -3,8 +3,8 @@ import { UpdateSubmitQuestionScoreRecordDto } from './dto/update-submitQuestionS
 import { BaseService } from "../utils/base/base.service";
 import { SubmitQuestionScoreRecordDocument } from './entities/submitQuestionScoreRecord.entity';
 import { Model } from 'mongoose';
-import { SubmitQuestionScoreRecordFilterOption } from 'src/core/filter/filter';
-export declare class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, SubmitQuestionScoreRecordFilterOption> {
+import { QuestionScoreRecordFilterOption } from 'src/core/filter/filter';
+export declare class SubmitQuestionScoreRecordService extends BaseService<CreateSubmitQuestionScoreRecordDto, UpdateSubmitQuestionScoreRecordDto, QuestionScoreRecordFilterOption> {
     model: Model<SubmitQuestionScoreRecordDocument>;
     constructor(model: Model<SubmitQuestionScoreRecordDocument>);
     populateExecList(results: any): Promise<any>;
