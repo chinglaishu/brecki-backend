@@ -9,4 +9,6 @@ export declare class MatchService extends BaseService<CreateMatchDto, UpdateMatc
     model: Model<MatchDocument>;
     constructor(model: Model<MatchDocument>);
     addChatDataRecord(user: User, match: Match, body: AddChatDataRecordDto): Promise<any>;
+    populateExecList(results: any): Promise<any>;
+    populateExec(result: any): Promise<any>;
 }

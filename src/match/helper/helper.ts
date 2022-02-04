@@ -85,6 +85,7 @@ const matchHelper = {
     for (let i = 0 ; i < matchs.length ; i++) {
       const useUser = matchHelper.getUseUser(matchs[i], currentUserId);
       if (!useUser) {continue; }
+      console.log(useUser);
       matchHelper.addStatisticData(statisticData, useUser.personalityScore, matchs[i].intimacy);
     }
     return statisticData;

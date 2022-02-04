@@ -32,4 +32,22 @@ export class MatchService extends BaseService<CreateMatchDto, UpdateMatchDto, Ma
     return await this.update(match.id, {chatDataRecords: useChatDataRecords, intimacy});
   }
 
+  async populateExecList(results: any) {
+    if (!results) {return results; }
+    for (let i = 0 ; i < results.length ; i++) {
+      const {intimacy} = results[i];
+      const field = systemMatchHelper.getMatchUserPersonalInfoFieldByIntimacy(intimacy);
+      results[i] = await results[i].populate("users", field).execPopulate();
+    }
+    return results;
+  }
+
+  async populateExec(result: any) {
+    if (!result) {return result; }
+    const {intimacy} = result;
+    const field = systemMatchHelper.getMatchUserPersonalInfoFieldByIntimacy(intimacy);
+    result = await result.populate("users", field).execPopulate();
+    return result;
+  }
+
 }

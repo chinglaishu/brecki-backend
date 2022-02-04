@@ -39,8 +39,7 @@ export class ManualMatchController extends BaseController<CreateManualMatchDto, 
     }
 
     const users: User[] = await this.userService.getRandomWithPerference(user, withPreference, MANUAL_MATCH_NUM, true);
-    
-    console.log(users);
+
     const matchUserIds = users.map((user) => user.id);
 
     if (!manualMatch) {

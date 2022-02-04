@@ -85,6 +85,7 @@ const matchHelper = {
             if (!useUser) {
                 continue;
             }
+            console.log(useUser);
             matchHelper.addStatisticData(statisticData, useUser.personalityScore, matchs[i].intimacy);
         }
         return statisticData;

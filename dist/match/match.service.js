@@ -40,6 +40,26 @@ let MatchService = class MatchService extends base_service_1.BaseService {
         const intimacy = helper_2.default.calculateIntimacy(useChatDataRecords);
         return await this.update(match.id, { chatDataRecords: useChatDataRecords, intimacy });
     }
+    async populateExecList(results) {
+        if (!results) {
+            return results;
+        }
+        for (let i = 0; i < results.length; i++) {
+            const { intimacy } = results[i];
+            const field = helper_1.default.getMatchUserPersonalInfoFieldByIntimacy(intimacy);
+            results[i] = await results[i].populate("users", field).execPopulate();
+        }
+        return results;
+    }
+    async populateExec(result) {
+        if (!result) {
+            return result;
+        }
+        const { intimacy } = result;
+        const field = helper_1.default.getMatchUserPersonalInfoFieldByIntimacy(intimacy);
+        result = await result.populate("users", field).execPopulate();
+        return result;
+    }
 };
 MatchService = __decorate([
     (0, common_1.Injectable)(),
