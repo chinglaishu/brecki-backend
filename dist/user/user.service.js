@@ -110,7 +110,9 @@ let UserService = class UserService extends base_service_1.BaseService {
             }
             return null;
         });
-        const userIds = [...manualMatch.matchUserIds, ...systemMatch.matchUserIds, ...matchUserIds, user.id];
+        const manualMatchUserIds = (manualMatch === null || manualMatch === void 0 ? void 0 : manualMatch.matchUserIds) || [];
+        const systemMatchUserIds = (systemMatch === null || systemMatch === void 0 ? void 0 : systemMatch.matchUserIds) || [];
+        const userIds = [...manualMatchUserIds, ...systemMatchUserIds, ...matchUserIds, user.id];
         return [...new Set(userIds)];
     }
 };

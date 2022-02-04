@@ -46,7 +46,6 @@ export class SubmitQuestionRecordController extends BaseController<CreateSubmitQ
       const submitQuestionScoreRecord: SubmitQuestionScoreRecord = await this.submitQuestionScoreRecordService.findOneWithFilter({submitQuestionRecordId: submitQuestionRecord.id, userId: user.id});
       if (!submitQuestionScoreRecord) {return submitQuestionRecord; }
 
-
       const useData: any = JSON.parse(JSON.stringify(submitQuestionRecord));
       useData.submitQuestionScoreRecord = {
         id: submitQuestionScoreRecord.id,

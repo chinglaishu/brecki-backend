@@ -108,7 +108,10 @@ export class UserService extends BaseService<CreateUserDto, UpdateUserDto, UserF
       }
       return null;
     });
-    const userIds = [...manualMatch.matchUserIds, ...systemMatch.matchUserIds, ...matchUserIds, user.id];
+    const manualMatchUserIds = manualMatch?.matchUserIds || [];
+    const systemMatchUserIds = systemMatch?.matchUserIds || [];
+
+    const userIds = [...manualMatchUserIds, ...systemMatchUserIds, ...matchUserIds, user.id];
     return [...new Set(userIds)];
   }
 

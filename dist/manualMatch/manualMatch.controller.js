@@ -42,6 +42,7 @@ let ManualMatchController = class ManualMatchController extends base_controller_
             helper_1.default.checkTime(manualMatch.updatedAt, constant_1.MANUAL_MATCH_VALID_AFTER_MINS);
         }
         const users = await this.userService.getRandomWithPerference(user, withPreference, constant_1.MANUAL_MATCH_NUM, true);
+        console.log(users);
         const matchUserIds = users.map((user) => user.id);
         if (!manualMatch) {
             return await this.service.create({ matchUserIds }, user);

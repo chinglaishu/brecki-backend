@@ -53,7 +53,6 @@ export class BaseController<CreateDto, UpdateDto, FilterOption> {
     return this.service.findOneWithFilter(filter, utilsFunction.getCheckUser(this.findOneCheckUser, user));
   }
 
-
   @Put(':id')
   async update(@ReqUser() user: User, @Param('id') id: string, @Body() updateDto: UpdateDto, @Lang() lang: LANGUAGE) {
     utilsFunction.checkReadOnly(this.readOnly, user);
