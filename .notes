@@ -7,4 +7,34 @@ password store in env var in AWS EB configuration.
 
 ---------------------------------------------------------------------
 
-1. 
+Authorization
+
+1. User Item Authorization 
+
+Check if the item requesting is belong to correct user by adding user id 
+to the filter.
+
+For example, request a user item by id, the filter will become 
+
+{
+  _id: id, 
+  userId: request user id 
+}
+
+Therefore, if user do not own this item can not get this user item,
+admin user can bypass this, user id will not add to the filter. 
+
+2. Field Access (not implement here)
+
+Should limit able to access field, by adding limit to the DTO part,
+to avoid user directly update password.
+
+Type
+
+Should not be any type, especially in base controller and base service,
+fixed in the new template
+
+Error Message
+
+Error Message should be in code, and match in Frontend by Language instead
+of detect language in Backend. Fixed in new template 

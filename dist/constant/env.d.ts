@@ -6,10 +6,9 @@ declare type Env = {
     REFERSH_TOKEN_EXPIRE_TIME: string;
     REDIS_HOST: string;
     REDIS_PORT: string;
-    REDIS_PASSWORD: string;
+    REDIS_PASSWORD?: string;
     TWILIO_PHONE_NUM: string;
     TWILIO_ACCOUNT_SID: string;
-    TWILIO_AUTH_TOKEN: string;
     PORT: number;
 };
 export declare const env: {

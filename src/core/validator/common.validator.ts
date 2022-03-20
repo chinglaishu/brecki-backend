@@ -31,26 +31,3 @@ export class UserIdConfirmConstraint implements ValidatorConstraintInterface {
     return true;
   }
 }
-
-/*
-@ValidatorConstraint({name: "isValidBookingStatusNumField", async: false})
-export class BookingStatusNumConfirmConstraint implements ValidatorConstraintInterface {
-  validate(value: any, args: BookingArguments) {
-    if (!checkAdminConstraint(args)) {
-      delete args.object.status;
-    }
-    return BOOKING_STATUS_NUM_LIST.includes(value);
-  }
-  
-  defaultMessage() {
-    return "only admin can update booking status";
-  }
-}
-
-@ValidatorConstraint({name: "isValidBookingServiceNumField", async: false})
-export class BookingServiceNumConfirmConstraint implements ValidatorConstraintInterface {
-  validate(value: any, args: BookingArguments) {
-    return SERVICE_NUM_LIST.includes(value);
-  } 
-}
-*/

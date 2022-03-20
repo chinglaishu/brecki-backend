@@ -74,7 +74,6 @@ export class AuthController {
     return {user, token, refreshToken};
   }
 
-  // for forget password
   @Post("token/verify-only")
   async SMSVerifyOnly(@Body() smsVerifyDto: SMSVerifyDto, @Lang() lang: LANGUAGE) {
     const {phone, code} = smsVerifyDto;

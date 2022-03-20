@@ -8,11 +8,10 @@ type Env = {
   
   REDIS_HOST: string,
   REDIS_PORT: string,
-  REDIS_PASSWORD: string,
+  REDIS_PASSWORD?: string,
   
   TWILIO_PHONE_NUM: string,
   TWILIO_ACCOUNT_SID: string,
-  TWILIO_AUTH_TOKEN: string,
   
   PORT: number,
 };
@@ -25,13 +24,11 @@ export const env: {[key: string]: Env} = {
     ACCESS_TOKEN_EXPIRE_TIME: "30d",
     REFERSH_TOKEN_EXPIRE_TIME: "180d",
     
-    REDIS_HOST: "phasesci-cache-uat.redis.cache.windows.net",
+    REDIS_HOST: "localhost",
     REDIS_PORT: "6379",
-    REDIS_PASSWORD: "fGOf8ZjkK6gdecEEZEmtpWF080tNCEhh6pjtZkcVldA",
     
     TWILIO_PHONE_NUM: "(847) 582-4236",
     TWILIO_ACCOUNT_SID: "AC295832dde25faaf4f56d7c99d309ff4a",
-    TWILIO_AUTH_TOKEN: "588fc61f043bc6823743fc03eeecd909",
     
     PORT: 3000,
   },
@@ -42,13 +39,11 @@ export const env: {[key: string]: Env} = {
     ACCESS_TOKEN_EXPIRE_TIME: "30d",
     REFERSH_TOKEN_EXPIRE_TIME: "180d",
     
-    REDIS_HOST: "phasesci-cache-uat.redis.cache.windows.net",
+    REDIS_HOST: "localhost",
     REDIS_PORT: "6379",
-    REDIS_PASSWORD: "fGOf8ZjkK6gdecEEZEmtpWF080tNCEhh6pjtZkcVldA",
     
     TWILIO_PHONE_NUM: "(847) 582-4236",
     TWILIO_ACCOUNT_SID: "AC295832dde25faaf4f56d7c99d309ff4a",
-    TWILIO_AUTH_TOKEN: "588fc61f043bc6823743fc03eeecd909",
     
     PORT: 3000,
   },
@@ -59,13 +54,11 @@ export const env: {[key: string]: Env} = {
     ACCESS_TOKEN_EXPIRE_TIME: "30d",
     REFERSH_TOKEN_EXPIRE_TIME: "180d",
     
-    REDIS_HOST: "phasesci-cache-uat.redis.cache.windows.net",
+    REDIS_HOST: "localhost",
     REDIS_PORT: "6379",
-    REDIS_PASSWORD: "fGOf8ZjkK6gdecEEZEmtpWF080tNCEhh6pjtZkcVldA",
     
     TWILIO_PHONE_NUM: "(847) 582-4236",
     TWILIO_ACCOUNT_SID: "AC295832dde25faaf4f56d7c99d309ff4a",
-    TWILIO_AUTH_TOKEN: "588fc61f043bc6823743fc03eeecd909",
     
     PORT: 3000,
   },
